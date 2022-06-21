@@ -1,0 +1,332 @@
+
+\include{header}
+
+\title{ノイズキャンセリング}
+\author{TA~~~遠藤 亘}
+\date{2014-11-18}
+
+\begin{document}
+
+\maketitle
+
+\section{問題}
+
+ある直方体の空間中に騒音源があり，
+これによって発生する騒音を空間内部のある領域
+において除去したい．
+騒音源は周波数，位相，振幅が全て既知の正弦波を発生させるとし，
+消音スピーカーを適宜配置することで，
+特定の領域に発生する音波のエネルギーを最小化せよ．
+
+\section{小問題}
+
+\subsection{基本方程式の導出}
+
+波動は，流体以外にも電磁波のような異なる物理現象においても，
+波動方程式と呼ばれる一意な式によって表せる．
+
+空気の``運動方程式''と，``連続の式''から，適切な線形近似を行い，
+波動方程式を導出せよ．
+
+\subsection{FDTD法の適用}
+
+偏微分方程式を数値的に解く方法として，
+基本的な手法として差分法が知られている．
+特に，時間微分と空間微分の両方を差分近似する手法はFDTD法と呼ばれ，
+波動方程式の最も基本的な数値解析手法である．
+
+上で求めた波動方程式から，
+FDTD法による数値計算に必要な時間ステップ毎の更新式を導出せよ．
+
+数値シミュレーションをする上では，
+更新式だけでなく，初期条件と境界条件も重要な要素である．
+特に音波が壁で反射するような状況を考慮すると，
+境界条件はどのように指定すればいいだろうか．
+
+\subsection{FDTD法のプログラム}
+
+FDTD法によって実際に数値計算を行うプログラムを記述し，
+音波伝搬の様子をグラフ化せよ．
+
+まずは，最も単純に，ある点の周りの6点の値を基に
+差を計算するプログラムを記述して，
+きちんと波が伝搬することを確認するとよい．
+しかし，これでは実行性能に問題があるので，
+改善手法について検討せよ．
+
+\subsection{エネルギー最小化}
+
+FDTD法による音波伝搬シミュレータを用いて，
+スピーカーのパラメータを複数試し，
+音を最小化出来るパラメータを
+求めるプログラムを作成せよ．
+
+\section{発展課題}
+
+\subsection{格子モデルの改良}
+
+同じFDTD法によるシミュレーションであっても，
+格子点をずらしたスタッガード格子によって、
+シミュレーションの誤差を低減できることがあること
+が知られている．
+
+先ほどまでの通常格子に加えて，
+スタッガード格子を利用したプログラムも作成し，
+両者の結果を比較せよ．
+
+\subsection{PyAudioを試す}
+
+Pythonには，波形を実際に音声として再生するPyAudioというモジュールがある．
+これまでシミュレーションした結果について，
+空間のどこか1点について実際の音として再生してみよ．
+
+余裕があれば，ドップラー効果のような
+波動現象について，実際にシミュレーションで再現できているかどうか確認できるとよい．
+
+
+\subsection{任意波形への拡張 (やや難しい)}
+
+これまでは騒音を正弦波であると仮定してきたが，
+任意波形に拡張することを考えてみよ．
+簡単のため，消音すべき場所は1点のみでよく，
+消音スピーカーも1つだけとする．
+
+
+\subsection{適応的なノイズキャンセリング (難しい)}
+
+マイクロフォンで集音して，その波形を基に
+スピーカーから音を出力すれば，
+入力波形が未知であったとしても
+ノイズキャンセリングを行えると期待される．
+未知波形のノイズキャンセリングについて検討せよ．
+
+
+\subsection{非線形音響現象 (おそらくとても難しい)}
+
+空気は実際には完全に線形な振る舞いをするわけではなく，
+僅かではあるが非線形な成分が含まれている．
+このような非線形現象を応用した例として，
+パラメトリックアレイスピーカー等が知られている．
+
+非線形な音波伝搬を解析するには，
+通常は線形近似してしまう式をより厳密に計算する必要がある．
+非線形現象の解析には，
+音響分野にも最近応用され始めたCIP法等，
+いくつかの数値計算手法が存在する(らしい)．
+
+
+\section{解説}
+
+
+\subsection{波動方程式の導出}
+
+\subsubsection{体積と圧力の関係}
+
+ある体積要素について，微小時間における体積$V$と圧力$P$の変化の関係
+について見ていく．
+
+まず，微小時間の変化が``断熱過程''であるという仮定をおく．
+すなわち，微小時間における体積要素内外の熱のやり取りは無いと仮定する．
+この時，
+\begin{align}
+PV^{\gamma}={\rm const.}
+\end{align}
+が成り立つ．ただし$\gamma$は比熱比である．
+ここで，圧力が$P_0\rightarrow P_0+\Delta p$，体積が$V_0\rightarrow V_0+\Delta v$と変化するなら，
+\begin{align}
+P_0V_0^\gamma=(P_0+\Delta p)(V_0+\Delta v)^\gamma
+\end{align}
+である．2次の微小項を取り除くことで，
+\begin{align}
+\frac{\Delta p}{P_0}=-\gamma \frac{\Delta v}{V_0}
+\end{align}
+が導かれる．これは，力 (圧力)と 幾何的距離 (体積)の比例関係を示しており，
+フックの法則の一種である．
+つまり，気体が弾性体として振る舞うことを示している．
+
+\subsubsection{連続の式}
+
+流体における質量保存の法則は，連続の式と呼ばれる．
+
+ここから，ある点$(x, y, z)$の速度を${\bm u}(x, y, z)=(u_1, u_2, u_3)$，
+密度を$\rho(x, y, z)$とおく．
+
+微小な直方体(体積$V_0=\Delta x\Delta y\Delta z$)を考えて，
+この体積要素が微小時間で増加する体積$\Delta v$を調べると，
+\begin{align}
+\Delta v
+&=\rho(x+\Delta x, y, z)\{u_1(x+\Delta x, y, z)\Delta t\} \Delta y \Delta z -\rho(x, y, z)\{u_1(x, y, z)\Delta t\}\Delta y \Delta z \nonumber \\
+&+\rho(x, y+\Delta y, z)\{u_2(x, y+\Delta y, z)\Delta t\} \Delta x \Delta z -\rho(x, y, z)\{u_2(x, y, z)\Delta t\}\Delta x \Delta z \nonumber \\
+&+\rho(x, y, z+\Delta z)\{u_3(x, y, z+\Delta z)\Delta t\} \Delta x \Delta y -\rho(x, y, z)\{u_3(x, y, z)\Delta t\}\Delta x \Delta y
+\end{align}
+である．これを整理して，$\Delta x, \Delta y, \Delta z, \Delta t\rightarrow 0$
+の極限を取ると，
+\begin{align}
+\frac{\partial\rho}{\partial t}=-~\divergence(\rho~{\bm u})
+\end{align}
+と分かる．(ここで$\divergence$はベクトル解析の発散である．)
+これが一般的な連続の式である．
+
+ここで，密度が急激に変化しないという仮定をおくと，
+右辺の$\rho$を係数として外に出すことが出来る．
+質量が保存することから密度と体積の関係も線形近似でき，
+\begin{align}
+\frac{\partial \Delta v}{\partial t}=V_0~\divergence {\bm u}
+\end{align}
+となる．
+
+さらに，先ほど求めた体積と圧力の関係を用いると，
+\begin{align}
+\frac{\partial p}{\partial t}=-\gamma~\divergence {\bm u}
+\end{align}
+と変形できる．
+
+\subsubsection{運動方程式}
+
+流体の運動方程式は``ナビエ・ストークス方程式''であるが，
+非常に単純化されたモデルであればニュートンの運動方程式でも同じ式が導ける．
+
+$x$方向の運動について考えると，
+\begin{align}
+\rho\Delta x\Delta y\Delta z \frac{\partial u_x}{\partial t}
+=-p(x+\Delta x, y, z)\Delta y\Delta z+p(x, y, z)\Delta y\Delta z
+\end{align}
+であり，極限を取ると
+\begin{align}
+\rho\frac{\partial u_x}{\partial t}=-\frac{\partial p}{\partial x}
+\end{align}
+である．$y, z$方向についても同様なので，
+\begin{align}
+\rho \frac{\partial u}{\partial t}=-\grad p
+\end{align}
+がいえる．
+
+より一般的な``ナビエ・ストークス方程式''と比較すると，
+対流項と拡散項が無視されていることが分かる．
+
+\subsubsection{波動方程式}
+
+ここまで求めてきた運動方程式と連続の式を連立させることで，
+波動方程式を導出することが出来る．
+\begin{align}
+\begin{cases}
+\displaystyle
+\frac{\partial {\bm u}}{\partial t}=-\frac{1}{p}\grad p & (運動方程式) \\
+\displaystyle
+\frac{\partial p}{\partial t}=-\gamma~\divergence {\bm u} & (連続の式)
+\end{cases}
+\end{align}
+
+上式の両辺に発散を，下式の両辺に時間微分を適用し，連立させることで，
+波動方程式が導出できる．
+\begin{align}
+\frac{\partial^2 p}{\partial t^2}=\frac{1}{c^2} \nabla^2 p \\
+ただし c=\sqrt{\frac{\gamma}{\rho}} は音速.
+\end{align}
+ここで$\nabla^2 p=\nabla\cdot \nabla p=\divergence \grad p$はラプラシアンと呼ばれる演算である．
+
+\subsection{FDTD法による近似計算}
+
+波動方程式に差分法を適用する場合，
+2階微分が含まれることに注意する必要がある．
+
+以下の波動方程式
+\begin{align}
+\frac{\partial^2 p}{\partial t^2} =c^2 \nabla^2 p
+\end{align}
+について，時間ステップ幅$\Delta t$，空間格子間隔$\Delta h$とおいて，
+差分法を適用する．
+\begin{align}
+\begin{aligned}
+&\frac{1}{c^2} \frac{p(x, y, z; t)-2p(x, y, z; t-\Delta t)+p(x, y, z; t-2\Delta t)}{(\Delta t)^2} \\
+&=c^2\left\{\frac{p(x+\Delta x, y, z; t-\Delta t)-2p(x, y, z; t-\Delta t)+p(x-\Delta x, y, z; t-\Delta t)}{(\Delta h)^2} \right.\\
+&+\frac{p(x, y+\Delta y, z; t-\Delta t)-2p(x, y, z; t-\Delta t)+p(x, y-\Delta y, z; t-\Delta t)}{(\Delta h)^2} \\
+&\left.+\frac{p(x, y, z+\Delta z; t-\Delta t)-2p(x, y, z; t-\Delta t)+p(x, y, z-\Delta z; t-\Delta t)}{(\Delta h)^2}\right\}
+\end{aligned}
+\end{align}
+整理すると，
+\begin{align}
+p(x, y, z; t)=\frac{(c\Delta t)^2}{(\delta h)^2}\{p(x+\Delta x, y, z; t-\Delta t)+\cdots\}+2p(x, y, z; t-\Delta t)-p(x, y, z; t-2\Delta t)
+\end{align}
+となり，時間ステップの更新式が得られた．
+
+\begin{comment}
+
+\section{テンプレート Template}
+
+これはテストです。
+
+This is a typeset template on \LaTeX.
+
+\begin{quotation}
+This is a quotation. 
+
+これは引用文です。
+\end{quotation}
+
+Use \verb|\[\]| to show an expression:
+\[a^2+b^2=c^2\]
+
+The alternative is \verb|align*|:
+\begin{align*}
+a^2+b^2=c^2
+\end{align*}
+
+If expression numbers are needed, then use \verb|align|:
+\begin{align}
+a^2+b^2=c^2
+\end{align}
+
+\section{フォント Font}
+Available font styles are:
+\begin{itemize}
+\item \textbf{Bold 太字}
+\item \textit{Italic イタリック体}
+\item \textrm{Roman ロマーン体}
+\item \textsf{Sanserif サンセリフ体}
+\item \textsc{Small Capital スモールキャピタル体}
+\item \texttt{Typewriter タイプライタ体}
+\item \textsl{Slant スラント体}
+\item \emph{Emphasized 強調}
+\end{itemize}
+
+\section{ソースコード Source Code}
+Source code is below:
+\begin{lstlisting}[language=c]
+int main()
+{
+    return 0;
+}
+\end{lstlisting}
+
+\include{markdown/report}
+
+\nocite{*} % 全ての参考文献を表示
+
+%\bibliography{report}
+
+\end{comment}
+
+\begin{comment}
+
+%%% gnuplot %%%
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{plot/graph.pdf}
+    \caption{グラフタイトル}
+    \label{fig:graph}
+\end{figure}
+
+%%% Inkscape %%%
+\begin{figure}[htbp]
+    \centering
+    \def\svgwidth{200pt}
+    \import{svg/}{draw.pdf_tex}
+    \caption{図タイトル}
+    \label{fig:draw}
+\end{figure}
+
+\end{comment}
+
+\end{document}
+

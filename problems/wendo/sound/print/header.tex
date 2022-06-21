@@ -1,0 +1,145 @@
+%%%%% header.tex %%%%%
+
+% 古いパッケージを警告
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass[10pt,a4j]{jsarticle}
+
+% パッケージの読み込み %{{{
+
+% graphicx, color : 画像に必要
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+
+% amsmath : 数式に必要
+\usepackage{amsmath}
+
+% fontenc: アンダーバーを検索可能にする
+\usepackage[T1]{fontenc}
+% Computer Modernを使用
+\usepackage{lmodern}
+% Times系フォントを使用
+\IfFileExists{newtxtext.sty}{
+\usepackage{newtxtext,newtxmath}
+}{
+\usepackage{txfonts}
+}
+
+% SI単位系を表示
+\usepackage{siunitx}
+
+% 用紙余白を指定
+\usepackage[top=20truemm,bottom=25truemm,left=20truemm,right=20truemm]{geometry}
+% 段組み
+\usepackage{multicol}
+% 複数行コメント
+\usepackage{comment}
+% モジュール読み込み
+\usepackage{import}
+% arrayとtabular環境を改善
+\usepackage{array}
+% 枠線をつける
+\usepackage{ascmac}
+\usepackage{fancybox}
+%% 数式環境で太字を使う (\bmmax, \hmmaxの設定に注意)
+\usepackage{bm}
+% 図表位置を[H]で強制指定
+\usepackage{here}
+% float外で図表番号を表示する (captionof)
+\usepackage{capt-of}
+% ソースコードを整形して表示
+\usepackage{listings, jlisting}
+% ページをまたいだ要素でも左右に余白を付けられる (adjustwidth)
+\usepackage{changepage}
+% URLを表示
+\usepackage{url}
+% 複数の図表をまとめて表示
+\usepackage{subfigure}
+
+%% 表の行に色をつける (rowcolor)
+%\usepackage{colortbl}
+%% 参考文献番号を上に表示する
+%\usepackage{overcite}
+
+%}}}
+
+% 各種数学記号 %{{{
+% \diff : 微分 d
+\newcommand{\diff}{\mathrm{d}}
+% \divergence, \grad, \rot
+\newcommand{\divergence}{\mathrm{div}\,}
+\newcommand{\grad}{\mathrm{grad}\,}
+\newcommand{\rot}{\mathrm{rot}\,}
+
+% \laplace, \fourier
+\newcommand{\laplace}{\mathcal{L}}
+\newcommand{\fourier}{\mathcal{F}}
+
+% \Celsius
+\newcommand{\Celsius}{{}^\circ\mathrm{C}}
+
+
+%}}}
+
+% 相互参照コマンド %{{{
+\newcommand{\figref}[1]{図~\ref{fig:#1}}
+\newcommand{\eqnref}[1]{式 (\ref{eqn:#1})}
+\newcommand{\tabref}[1]{表~\ref{tab:#1}}
+\newcommand{\secref}[1]{\S\,\ref{sec:#1}}
+%}}}
+
+% 表番号の形式変更 %{{{
+\makeatletter
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\@addtoreset{table}{section}
+\makeatother
+%}}}
+
+% 図番号の形式変更 %{{{
+\makeatletter
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\@addtoreset{figure}{section}
+\makeatother
+%}}}
+
+% 数式番号の形式変更 %{{{
+\makeatletter
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+%}}}
+
+% 参考文献の形式 %{{{
+\bibliographystyle{tipsj}
+%}}}
+
+% citeの設定 %{{{
+\makeatletter
+\def\@cite#1{[#1]}
+\makeatother
+%}}}
+
+% footnoteをダガーで表示 %{{{
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%}}}
+
+% listingの設定(lstlisting) %{{{
+\lstset{
+    breaklines=true, % 行が長くなったら改行する
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle={\itshape \color[cmyk]{1,0.4,1,0}},
+    classoffset=1,
+    keywordstyle={\bfseries \color[cmyk]{0,1,0,0}},
+    stringstyle={\ttfamily \color[rgb]{0,0,1}},
+    frame=tRBl,
+    framesep=5pt,
+    showstringspaces=false,
+    numbers=left,
+    stepnumber=1,
+    numberstyle=\tiny,
+    tabsize=2,
+    xrightmargin=0zw,
+    xleftmargin=3zw
+}
+%}}}
+

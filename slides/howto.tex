@@ -1,0 +1,218 @@
+\documentclass[12pt,dvipdfmx]{beamer}
+\usepackage{pgfpages}
+\usepackage{graphicx}
+\usepackage{listings,jlisting}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\graphicspath{{out/tex/svg/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% themes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{Rochester}
+%% no navigation bar
+% default boxes Bergen Boadilla Madrid Pittsburgh Rochester
+%% tree-like navigation bar
+% Antibes JuanLesPins Montpellier
+%% toc sidebar
+% Berkeley PaloAlto Goettingen Marburg Hannover Berlin Ilmenau Dresden Darmstadt Frankfurt Singapore Szeged
+%% Section and Subsection Tables
+% Copenhagen Luebeck Malmoe Warsaw
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% innerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \useinnertheme{circles}	% default circles rectangles rounded inmargin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% outerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% outertheme
+% \useoutertheme{default}	% default infolines miniframes smoothbars sidebar sprit shadow tree smoothtree
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% colorthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usecolortheme{seahorse}
+%% special purpose
+% default structure sidebartab 
+%% complete 
+% albatross beetle crane dove fly seagull 
+%% inner
+% lily orchid rose
+%% outer
+% whale seahorse dolphin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% fontthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usefonttheme{serif}  
+% default professionalfonts serif structurebold structureitalicserif structuresmallcapsserif
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% generally useful beamer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
+% do not show navigation
+\setbeamertemplate{navigation symbols}{}
+% show page numbers
+\setbeamertemplate{footline}[frame number]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% define some colors for convenience
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mido}[1]{{\color{green}#1}}
+\newcommand{\mura}[1]{{\color{purple}#1}}
+\newcommand{\ore}[1]{{\color{orange}#1}}
+\newcommand{\ao}[1]{{\color{blue}#1}}
+\newcommand{\aka}[1]{{\color{red}#1}}
+
+\setbeamercolor{syntax}{bg=cyan!20!white}
+\setbeamercolor{example}{bg=yellow!20!white}
+\setbeamercolor{output}{bg=white}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% how to typset code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{language = python,
+numbers = left,
+numberstyle = {\tiny \emph},
+numbersep = 10pt,
+breaklines = true,
+breakindent = 40pt,
+frame = tlRB,
+frameround = ffft,
+framesep = 3pt,
+rulesep = 1pt,
+rulecolor = {\color{blue}},
+rulesepcolor = {\color{blue}},
+flexiblecolumns = true,
+keepspaces = true,
+basicstyle = \ttfamily\small,
+identifierstyle = ,
+commentstyle = ,
+stringstyle = ,
+showstringspaces = false,
+tabsize = 4,
+escapechar=\@,
+xrightmargin=3zw,
+}
+
+
+\title{問題選び・作り}
+\institute{東京大学}
+\author{田浦健次朗 \\ 電子情報工学科}
+\date{}
+
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{さあ「問題作ってみよ〜」なんて言われても\ldots}
+
+\begin{itemize}
+\item 無理もないことなので気にせずに
+\item 発想方法は一通りではないので自分に合う方法で見つけて下さい
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{やり方集}
+\begin{enumerate}
+\item まじめに, 物理で習うようなことを計算機にやらせてみる
+\item Youtubeで検索 「物理シミュレーション」「物理実験」
+\item ゲームに出てくる運動を再現できれるか考えてみる. スーパーマリオとか
+\item 道を歩きながら身近な現象を見ては, シミュレーションできるか考えてみる
+\item やれることを増やす, 理解する
+\item 過去の例を見てみる
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{物理で習うようなことを計算機にやらせてみる}
+  \begin{itemize}
+  \item 力学の教科書 $\Rightarrow$ 剛体の運動方程式,
+    ラグランジュの方程式, $\cdots$
+  \item 熱力学の教科書 $\Rightarrow$ 気体分子運動論
+  \item 電磁気学の教科書 $\Rightarrow$ マックスウェルの方程式
+  \item 量子力学の教科書 $\Rightarrow$ シュレディンガー方程式
+  \end{itemize}
+  手計算で苦労して計算することを計算機にやらせるだけで役に立つ実感はあるし,
+  方程式に対する理解が深まります
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Youtubeで検索}
+  \begin{itemize}
+  \item 物理シミュレーション
+  \item 物理実験 \url{https://www.youtube.com/watch?v=-pSfFgLcTH8}
+  \item 物理玩具
+  \item 物理??
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{ゲーム作れるか考えてみる}
+  \begin{itemize}
+  \item スーパーマリオ
+  \item Wiiスポーツ
+  \item シンプルなスマホゲーム Brain It On!
+    \url{https://play.google.com/store/apps/details?id=com.orbital.brainiton}
+  \item ゲームをしていれば,
+    中で物理シミュレーションがたくさん出てくると気づく
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{身近な現象を見て考える}
+  \begin{itemize}
+  \item 野球・サッカーを見ながら
+  \item 流れる水を見ながら
+  \item \ldots
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{やれることを増やす, 理解する}
+  \begin{itemize}
+  \item 「何ができるのか」を知らないと発想が湧きにくいのも事実
+  \item とりあえず超簡単なシミュレーションで,
+    アニメーションまで完成させれば,
+    何かできそうなもののイメージがわきます(問題5)
+  \item 場の方程式まで行ければなおさら(問題7)
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{過去問を見る・例題を見る}
+  \begin{itemize}
+  \item 授業HP
+  \item これからTAが紹介します
+  \end{itemize}
+\end{frame}
+
+\end{document}

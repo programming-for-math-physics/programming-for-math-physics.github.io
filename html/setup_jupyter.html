@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jupyterを使ってみる</title>
+
+<style>
+body {counter-reset: h2}
+  h2 {counter-reset: h3}
+  h3 {counter-reset: h4}
+  h4 {counter-reset: h5}
+  h5 {counter-reset: h6}
+
+  h2:before {counter-increment: h2; content: counter(h2) ". "}
+  h3:before {counter-increment: h3; content: counter(h2) "." counter(h3) ". "}
+  h4:before {counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ". "}
+  h5:before {counter-increment: h5; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "}
+  h6:before {counter-increment: h6; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "}
+
+  h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.nocount:before { content: ""; counter-increment: none } 
+
+h1 {
+  font-size   : 24pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #DDDDEE;
+}
+
+h2 {
+  font-size   : 20pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+h3 {
+  font-size   : 18pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 1pt;
+  border-color     : #99A1AA;
+  background-color : #F8F8FF;
+}
+
+div {
+  font-size   : 16pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-color     : #99A1AA;
+}
+
+p {
+  font-size   : 16pt;
+  xfont-family : serif;
+  border-color     : #99A1AA;
+}
+
+pre {
+  background-color:#efe;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>環境設定</h1>
+<div>
+<font size=-1>(the page is encoded in UTF-8)</font>
+<br>
+<a href=../>ホーム</a>
+</div>
+
+<div>
+<p>
+  ページの最後に<a href=#questionnaire>アンケート</a>があるので, 
+この時間終了までに答えてください．
+</p>
+</div>
+
+<a name=python></a>
+<h2>Python (Jupyter Notebook環境)を使ってみる</h2>
+<div>
+このゼミではプログラミング言語Pythonを使う．
+そして，Pythonを使う環境としてJupyter notebookという環境を使う．
+これは，ブラウザ経由で入力が出来る，
+班のメンバー間やTA/教員と作業結果を容易に共有できる，
+メモや説明とプログラムをきれいに整形して結果を残すことができる，
+など色々な利点がある．
+</div>
+
+<h3>起動</h3>
+<div>
+画面左のランチャの中から「端末」
+(<img width=30 src=img/terminal.png />アイコン)を開き, 
+コマンドプロンプトに<t>jupyter notebook</t>と入力
+<pre>
+$ <u>jupyter notebook</u>
+...
+</pre>
+するとブラウザが勝手に立上がり以下のような画面が現れる．
+<br />
+
+<blockquote>
+<img width=700 src=img/jupyter.png />
+</blockquote>
+
+画面右上の， New -&gt; Python 3 (またはvpython. どちらでもいいとおもう...)を選ぶと ...
+
+<blockquote>
+<img width=300 src=img/new_python.png />
+</blockquote>
+
+Python が起動して以下のようなページが現れる．
+
+<blockquote>
+<img width=700 src=img/python.png />
+</blockquote>
+</div>
+
+<h3>基本操作:</h3>
+<div>
+
+<blockquote>
+In [ ]: と表示された横の箱（<font color=blue>セル</font>と呼ぶ）
+にPythonプログラムの断片を記入し，
+Shift + Enter -&gt; その断片を実行．
+</blockquote>
+
+<blockquote>
+<img width=300 src=img/1_plus_2.png />
+</blockquote>
+
+<ul>
+  <li>1+1, 1+2*3, 3**100 など, 色々な式を打ち込んで，結果を見てみよ．</li>
+</ul>
+</div>
+
+<a name=vpython></a>
+<h2>Visual Pythonを使って見る</h2>
+<h3>球を表示してみる</h3>
+<div>
+  セルに以下を入力する (<font color=red>ウソ!</font>
+  <tt>from <font color=red>vpython</font> import *</tt> としてください)
+<blockquote>
+<img src=img/run_visual.png />
+</blockquote>
+2つ目を入力した際に以下が表示されれば成功.
+<br />
+<blockquote>
+<img width=200 src=img/sphere.png />
+</blockquote>
+
+なおここで球が表示されている窓を閉じる(<img src=img/close_button.png />
+ボタンを押す)と，以下のように 
+"The kernel appears to have died. It will restart automatically."
+などというメッセージが表示される．今は気にせずに OK で先へ進む．
+<blockquote>
+<img width=700 src=img/kernel_died.png />
+</blockquote>
+
+</div>
+
+<h3>Visual Python情報源</h3>
+<div>
+<ul>
+<li>Visual Pythonの
+<a href=http://www.vpython.org/contents/doc.html target=_blank>
+  ドキュメント</a></li>
+
+<li>まずはこの
+<a href=http://www.youtube.com/watch?v=KbOyKOlWBrs target=_blank>
+  Youtubeのビデオ</a>で雰囲気を味わえる</li>
+
+<li>どのような物体を作ることができるかの
+<a href=http://www.vpython.org/contents/docs/primitives.html target=_blank>
+一覧
+</a>を見てみると良い. </li>
+</ul>
+</div>
+
+<h2>作業の保存</h2>
+<div>
+  <font color=blue>ctrl-s</font> (Ctrlキーを押しながら's')
+  を押すか，画面上部ツールバーの，
+  <font color=blue>保存ボタン<img src=img/save-and-checkpoint.png /></font>を押す．このようにすると，入力したもの全てが
+  <font color=blue>「ノートブック」</font>という
+  形式のファイル (名前は<font color=blue>「なんとか.ipynb」</font>) (<font color=blue>ip</font>ython <font color=blue>n</font>ote<font color=blue>b</font>ook) として保存される．
+
+  保存しておけば次回続きができるし，
+  こまめに保存すれば運悪くブラウザがクラッシュしても，
+  続きが実行できる．なお，保存をしなくてもある頻度で自動的に保存されるが，
+  それに頼らず，<font color=red>こまめに作業を保存すべし!</font>
+</div>
+
+<h2>ノートブックに名前をつける</h2>
+<div>
+  放っておくと，ノートブックには，<font color=blue>Untitled.ipynb</font>
+とか<font color=blue>Untitled2.ipynb</font>などのかっこわるい名前がつく．
+  やっているテーマに応じた名前をつけるようにする．
+  ノートブックの名前を指定するには，画面上部にファイル名が表示されている
+  領域
+<blockquote>
+<img src=img/untitled.png />
+</blockquote>
+のファイル名の所(上記の Untitled)をクリックして名前を入力する．
+なお，ファイル名の右に ... (unsaved changes) とある場合は，
+未保存の作業があるということなので，これを見たらこまめに保存すること．
+</div>
+
+<a name=matplotlib></a>
+<h2>Matplotlibを使って見る</h2>
+<h3>プログラムの準備</h3>
+<div>
+Matplotlibはデータの可視化(グラフ化)を得意とする.
+<ul>
+<li>以下をセルに入力(コピペ)してShift + Enter.
+<pre>
+%matplotlib inline
+import matplotlib.pyplot as plt
+import math
+
+X = range(0,100)
+Y = [ math.sin(0.2 * x) for x in X ]
+
+plt.plot(X, Y)
+plt.show()
+</pre>
+</li>
+<li>こんなグラフ(y = sin(x))があらわれれば成功</li>
+<blockquote>
+<img width=700 src=img/sinx_inline.png />
+</blockquote>
+</ul>
+
+<!--
+なお，セルの先頭に，
+<pre>
+%matplotlib inline
+</pre>
+というおまじないを挿入すると，結果がブラウザ内に表示(inline表示)される．
+
+<blockquote>
+<img width=300 src=img/sinx.png />
+</blockquote>
+
+ただしこれをすると，表示されたグラフをマウスで拡大したり，
+対話的に操作することができなくなるので，一長一短．適宜使い分けるべし．
+結果を後で見られるように記録したり，
+他の人と共有するには，inline表示が良い．
+-->
+
+</div>
+
+
+<h3>Matplotlib情報源</h3>
+<div>
+<ul>
+<li>Matplotlibの
+<a href=http://matplotlib.org/1.3.1/contents.html>
+  ドキュメント</a>
+</li>
+<li>
+<a href=http://matplotlib.org/1.3.1/gallery.html>
+  ギャラリー</a>
+は，matplotlibの基本を学んだあと，
+どんなグラフを書くにはどうすればいいのかを見つけるための最高の情報源．
+</li>
+</ul>
+</div>
+
+
+<h2>numpyを使って見る</h2>
+<div>
+numpyは数値計算全般を得意とする. 
+最もわかりやすいご利益は以下のように, 
+行列やベクトルの演算が簡単に行えること.
+<ul>
+<li>以下のプログラムをセルに入力(コピペ)してShift + Enter.
+<pre>
+import numpy as np
+A = np.matrix([[1,2],[3,4]])
+x = np.matrix([[5],[6]])
+y = A * x
+# Ax = y を解く
+np.linalg.solve(A, y)
+</pre>
+</li>
+<li>
+以下のように表示されれば成功
+<pre>
+[[ 5.]
+ [ 6.]]
+</pre>
+</li>
+</ul>
+</div>
+
+
+<h2>scipyを使って見る</h2>
+<div>
+scipyも数値計算全般を得意とし, 
+numpyよりも機能が拡張されている.
+例えば以下は関数の最小を求める(最適化)
+機能を用いて, 円に内接する三角形の面積の最大値
+(正確にはそれを<i>S</i>として-2<i>S</i>の最小値)を求めている.
+<ul>
+<li>以下をセルに入力(コピペ)してShift + Enter.
+<pre>
+import scipy.optimize
+from math import pi,sin
+
+def f(x):
+    return - sin(x[0]) - sin(x[1]) - sin(2.0 * pi - x[0] - x[1])
+
+print(scipy.optimize.minimize(f, (0.5, 0.5)))
+</pre>
+</li>
+<li>以下のような結果が表示されれば成功.
+<pre>
+   status: 0
+  success: True
+     njev: 7
+     nfev: 28
+ hess_inv: array([[ 0.69217057, -0.30782943],
+       [-0.30782943,  0.69217057]])
+      fun: <font color=blue>-2.598076211353253</font>
+        x: array([ 2.09439526,  2.09439526])
+  message: 'Optimization terminated successfully.'
+      jac: array([  4.17232513e-07,   4.17232513e-07])
+</pre>
+</li>
+
+</ul>
+</div>
+
+
+<!--
+<a name=practice></a>
+<h2>練習</h2>
+<div>
+<a href=http://www.vpython.org/contents/docs/primitives.html>
+この一覧
+</a>を見ながら, 色々な「オブジェ」を作ってみよう. 
+座標系や色などの指定の仕方に慣れるという意味もある.
+そのオブジェを作るプログラムをファイルに保存すること. 例えば,
+objects.py というファイルに保存して,
+<pre>
+$ <u>python objects.py</u>
+</pre>
+として起動するだけで, そのオブジェが表示されるようにせよ.
+objects.py の編集 -> pythonコマンドで表示, 
+というサイクルを繰り返して, 編集 -> 実行のサイクルに慣れてみよう.
+
+<img src=img/yukidaruma.png>
+</div>
+-->
+<a name=questionnaire></a>
+<h2>アンケート</h2>
+<div>
+初回終了までに以下のアンケートに答えてください．
+また UTask-Webから「振り返りシート」の記入も，
+授業最後もしくは直後に記入してください．
+
+<blockquote>
+<iframe src="https://docs.google.com/forms/d/1aYFG6cOAC2invVcPCjTvJLqWwe4CRaIRIxQOLxzzUfY/viewform?embedded=true" width="760" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+</blockquote>
+
+</div>
+
+
+<h2>共同作業の方法</h2>
+<div>
+このゼミでは2-3人一組のチームを作り，
+相談しながらやってもらう．単に分担するのではなく，
+実際に一つのコードを見ながら相談したり，
+コーディングをやめて解き方を議論したりして欲しい．
+ここでは一つのコードを見ながら共同作業をしやすくするツールを紹介する．
+使用は強制ではない．
+もし物理的に一つの画面を覗きこんだほうが良いと思えばそれでもよいが，
+実際にはなかなかやりにくいものである．それぞれのPC画面で，
+一つの作業を共有できるようにする仕組みを紹介する．
+</div>
+<h3>前提</h3>
+<div>
+<ul>
+  <li>共同作業する人は全員， wpa.cという無線LANに接続していることを確認．</li>
+  <li>どの人のノートブックを対象に作業するのかを決める
+    (その人を「マスター」と呼ぶことにする)．</li>
+  <li>マスターのPC画面に表示されている，
+    IP address (10.xx.xx.xx のような数字)を，
+    他のメンバーに教える</li>
+</ul>
+</div>
+
+<h3>方法1: ノートブックを共有する</h3>
+<div>
+<ul>
+  <li>マスター以外の人が，ブラウザのアドレスバーに
+<blockquote>
+http://マスターのIPアドレス:8888/
+</blockquote>
+と入力する．</li>
+  <li>パスワードを聞かれたら授業で教えられたものを入力．
+    うまく行くと，マスターの人が作業しているノートブックを，
+    直接見られる状態になる．</li>
+  <li>注意: ある人が入力した一字一句が刻々と他の人に反映されるわけではない．
+    誰かが作業をしたら保存(ctrl-s)し，
+    他の人は再読み込み(F5)することで，作業が反映される．
+  </li>
+  <li>うっかり同時に二人の人が作業をしないように．一時に作業をするのは一人
+    と決め，残りの人は見て，口を出すモードにする．
+  </li>
+  <li>これが守られていれば作業をするのは誰でも良い
+    (マスターしか作業していけないわけではない)</li>
+</ul>
+</div>
+
+<h3>方法2: 作業中の画面を共有する</h3>
+<div>
+  <ul>
+    <li>マスターはUbuntuメニューから，「デスクトップの共有」を選んで，
+      「他のユーザが自分のデスクトップを表示できる」
+      「他のユーザがデスクトップを操作できる」をチェックする
+    </li>
+    <li>「セキュリティ」を適宜設定する(パスワードを設定してメンバーに教える)
+    </li>
+    <li>他のメンバーは左のランチャ（なければUbuntuメニュー）から，
+      「Reminnaリモートデスクトップクライアント」を起動し，
+      <ul>
+	<li>プロトコル: VNC - 仮想ネットワークコンピューティング</li>
+	<li>サーバー: マスターのIP address</li>
+	<li>ユーザ名，パスワード: 空</li>
+	<li>色数，品質: 適宜．色数は増やしたほうが良い，品質は高いほうが良いが，
+	  ネットワークの性能との兼ね合い</li>
+      </ul>
+      で「接続」．パスワードを聞かれたら，マスターから教わったパスワードを入力
+    </li>
+    <li>うまくするとマスターの画面がまるごと表示される．
+      時々刻々の作業をすべて共有できる．
+      ただし，ネットワークの帯域を消費するので，
+      常時安定して動くかは未知数．
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+</body>
+</html>

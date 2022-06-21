@@ -1,0 +1,935 @@
+\documentclass[12pt,dvipdfmx]{beamer}
+\usepackage{pgfpages}
+\usepackage{graphicx}
+\usepackage{listings,jlisting}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\graphicspath{{out/tex/svg/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% themes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{Rochester}
+%% no navigation bar
+% default boxes Bergen Boadilla Madrid Pittsburgh Rochester
+%% tree-like navigation bar
+% Antibes JuanLesPins Montpellier
+%% toc sidebar
+% Berkeley PaloAlto Goettingen Marburg Hannover Berlin Ilmenau Dresden Darmstadt Frankfurt Singapore Szeged
+%% Section and Subsection Tables
+% Copenhagen Luebeck Malmoe Warsaw
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% innerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \useinnertheme{circles}	% default circles rectangles rounded inmargin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% outerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% outertheme
+% \useoutertheme{default}	% default infolines miniframes smoothbars sidebar sprit shadow tree smoothtree
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% colorthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usecolortheme{seahorse}
+%% special purpose
+% default structure sidebartab 
+%% complete 
+% albatross beetle crane dove fly seagull 
+%% inner
+% lily orchid rose
+%% outer
+% whale seahorse dolphin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% fontthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usefonttheme{serif}  
+% default professionalfonts serif structurebold structureitalicserif structuresmallcapsserif
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% generally useful beamer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
+% do not show navigation
+\setbeamertemplate{navigation symbols}{}
+% show page numbers
+\setbeamertemplate{footline}[frame number]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% define some colors for convenience
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mido}[1]{{\color{green}#1}}
+\newcommand{\mura}[1]{{\color{purple}#1}}
+\newcommand{\ore}[1]{{\color{orange}#1}}
+\newcommand{\ao}[1]{{\color{blue}#1}}
+\newcommand{\aka}[1]{{\color{red}#1}}
+
+\setbeamercolor{syntax}{bg=cyan!20!white}
+\setbeamercolor{example}{bg=yellow!20!white}
+\setbeamercolor{output}{bg=white}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% how to typset code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{language = python,
+numbers = left,
+numberstyle = {\tiny \emph},
+numbersep = 10pt,
+breaklines = true,
+breakindent = 40pt,
+frame = tlRB,
+frameround = ffft,
+framesep = 3pt,
+rulesep = 1pt,
+rulecolor = {\color{blue}},
+rulesepcolor = {\color{blue}},
+flexiblecolumns = true,
+keepspaces = true,
+basicstyle = \ttfamily\small,
+identifierstyle = ,
+commentstyle = ,
+stringstyle = ,
+showstringspaces = false,
+tabsize = 4,
+escapechar=\@,
+xrightmargin=3zw,
+}
+
+
+\title{微分方程式・偏微分方程式}
+\institute{東京大学}
+\author{田浦健次朗 \\ 電子情報工学科}
+\date{}
+
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+
+\iffalse
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{表記上の慣習}
+
+\begin{itemize}
+\item \ao{$t$} : 時刻 (実数)
+\item \ao{$x$} : 場所 (シミュレートしたい次元に応じて実数または2,3次元のベクトル)
+\item \ao{$u$} : 未知の関数
+\item \ao{$f, g, \ldots$} : 与えられた関数
+\end{itemize}
+\end{frame}
+\fi
+
+
+\section{微分方程式}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{微分方程式とは}
+\begin{itemize}
+\item 未知の関数(例えば$x$に関する未知の関数$y(x)$)に関する方程式で,
+  $x$, $y(x)$, $y'(x)$, $y''(x)$, \ldots などを含んだ式
+  \begin{itemize}
+  \item しばしば$y(x)$の$(x)$を省略して単に$y$と書く
+  \item $y$が1変数のとき, \ao{「常」}微分方程式
+  \item 方程式の\ao{「階数」}は$y$の最大の微分の回数($'$の個数)
+  \item 例 (1階の常微分方程式)
+    \[ y' - x y = 0 \]
+  \end{itemize}
+\item 微分方程式を「解く」とは?
+  \begin{itemize}
+  \item $y$を$x$の関数として求めること
+  \item 例 (上記の解は実は)
+    \[ y = Ce^{\frac{1}{2}x^2} \;\; \mbox{($C$は定数)} \]
+  \item どう求めたかは重要でないのでスキップ
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{初期値}
+\begin{itemize}
+\item 通常, 
+  \[ y' - x y = 0 \]
+  のような式だけでは$y$は一意に決まらない
+\item この解は以下($C$は任意の定数)だった
+  \[ y = Ce^{\frac{1}{2}x^2} \;\; \mbox{($C$は定数)} \]
+\item そこで通常,
+  ある$x=a$での$y$の値$y(a)=c$ \ao{(初期値)}を一緒に与えて解く
+\item 例
+  \[ y(0) = 1 \]
+  という初期値を与えると,
+  \[ y = e^{\frac{1}{2}x^2} \]
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{記号的な「解く」と数値計算での「解く」}
+\begin{itemize}
+\item 記号的な求解 $=$
+  $y(x)$を$x$の「式」として表す
+  \begin{itemize}
+  \item 通常, 数学の問題で解くといえばこちら
+  \end{itemize}
+  
+\item 数値的な求解 $=$
+  \ao{$y(x)$の近似値を任意の$x$に対して求める}
+  \begin{itemize}
+  \item 通常, コンピュータで解くといえばこちら
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{常微分方程式の数値的な求解}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{常微分方程式の数値的な求解}
+\begin{itemize}
+\item 以下の形($y' = \ldots$)の1階の常微分方程式
+\begin{eqnarray*}
+\frac{dy}{dx} & = & f(x, y), \\
+y(a) & = & c
+\end{eqnarray*}
+\begin{itemize}
+\item $y$ : 未知の, $x$の関数 ($y(x)$)
+\item $a, c$ : 与えられた定数 (初期値)
+\item $f$ : 与えられた関数
+\end{itemize}
+
+\item<2-> 基本アイデア:
+  \begin{itemize}
+  \item ある$x$における$y$の値がわかれば右辺が計算できる
+  \item $\rightarrow$ その時点での$\frac{dy}{dx}$がわかる
+  \item $\rightarrow$ 少し異なる$x$に対する$y$ (つまり$y(x + h)$)がわかる
+  \end{itemize}
+
+\item<3-> 上記を形式的に実行する方法 $\rightarrow$ \ao{離散化}
+  
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{離散化}
+\begin{itemize}
+\item 数式で書けば: $h$を十分小さく取れば，
+\begin{equation}
+\frac{y(x + h) - y(x)}{h} \approx f(x, y(x)) \label{eq:ode}
+\end{equation}
+\[ \therefore y(x+h) \approx y(x) + f(x, y(x)) h \]
+
+\item []
+\[ y(a) \rightarrow y(a+h) \rightarrow y(a+2h) \rightarrow \cdots \]
+
+\item キーは式(\ref{eq:ode})で，元の微分方程式の\ao{「離散化」}という
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{プログラム化}
+\begin{itemize}
+\item []
+  \begin{eqnarray*}
+    y(a+h) & \approx & y(a) + f(a, y(a)) h \\
+    y(a+2h) & \approx & y(a+h) + f(a+h, y(a+h)) h \\
+    y(a+3h) & \approx & y(a+2h) + f(a+2h, y(a+2h)) h \\
+    & \ldots & 
+  \end{eqnarray*}
+\item 大雑把には,
+\begin{lstlisting}
+繰り返す:
+    y = y + f(x, y) * h
+    x = x + h
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{ちゃんとプログラム化}
+\begin{itemize}
+\item []
+
+\begin{lstlisting}
+# 初期値    
+x = a
+y = c
+h = (b - a) / n_steps   # 刻み幅
+for i in range(n_steps):
+    y = y + f(x, y) * h
+    x = x + h
+# この時点で y @$\approx y(b)$@
+\end{lstlisting}
+
+\item 誤差の積もりにくい計算の仕方(離散化の方法)とかありますが，
+  基本はこれだけ!
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+  \frametitle{シミュレーションでよくある状況: $x$が時刻で$y$が位置}
+\begin{itemize}
+\item 時刻は$t$, 位置は$u$で表すことにする
+
+\item 微分方程式 : 時刻と位置 $\rightarrow$ 速度
+  \[ \frac{du}{dt} = f(t, u) \]
+\end{itemize}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+\begin{itemize}
+\item 離散化 : ある時刻における位置 $\rightarrow$ 一瞬後の位置
+  \[ u(t + \Delta t) \approx u(t) + f(t, u) \Delta t \]
+\end{itemize}
+\end{column}
+\begin{column}{0.1\textwidth}
+\end{column}
+\hspace{5mm}
+    \begin{column}{0.6\textwidth}
+\begin{lstlisting}
+t = a
+u = c
+dt = (b - a) / n_steps
+for i in range(n_steps):
+    # 位置+速度@$\times$@微小時間
+    u = u + f(t, u) * dt
+    t = t + dt
+# u @$\approx$@ 時刻bにおける位置    
+\end{lstlisting}
+\end{column}
+
+  \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{2階だったら?}
+\begin{itemize}
+\item 力学の多くの微分方程式($ma = F$)は,
+\begin{eqnarray*}
+\mbox{加速度} & = & f(\mbox{時刻}, \mbox{位置}, \mbox{速度}) \\
+\ddot{x} & = & f(t, x, \dot{x})
+\end{eqnarray*}
+
+\item これのプログラムは
+\begin{lstlisting}
+t = a
+u = .. # 初期位置
+v = .. # 初速度
+dt = (b - a) / n_steps
+for i in range(n_steps):
+    u = u + v * dt
+    v = v + f(t, u, v) * dt
+    t = t + dt
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\iffalse
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{復習: (常)微分方程式をプログラムで解くとは}
+\begin{itemize}
+\item [] 
+\begin{eqnarray*}
+\frac{du}{dt} & = & f(u, t), \\
+u(a) & = & c
+\end{eqnarray*}
+\item 解釈:
+  \begin{itemize}
+  \item ある時点$t$における$u$がわかれば右辺が計算できる
+  \item $\rightarrow$ その時点での$\frac{du}{dt}$がわかる
+  \item $\rightarrow$ 一瞬あとの$u$ (つまり$u(t+\Delta t)$)がわかる
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{離散化}
+\begin{itemize}
+\item 数式で書けば: $\Delta t$を十分小さく取れば，
+\begin{equation}
+\frac{u(t+\Delta t) - u(t)}{\Delta t} \approx f(u(t), t) \label{eq:ode}
+\end{equation}
+\[ \therefore u(t+\Delta t) \approx u(t) + f(u(t), t) \Delta t \]
+
+\item []
+\[ u(a) \rightarrow u(a+\Delta t) \rightarrow u(a+2\Delta t) \rightarrow \cdots \]
+
+\item キーは式(\ref{eq:ode})で，元の微分方程式の\ao{「離散化」}という
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{プログラム化}
+\begin{itemize}
+\item [] 
+\[ u(t+\Delta t) \approx u(t) + f(u(t), t) \Delta t \]
+\item プログラムにすると,
+
+\begin{lstlisting}
+t = a
+u = c
+dt = (b - a) / n_steps
+for i in range(n_steps):
+    u = u + f(u, t) * dt
+    t = t + dt
+\end{lstlisting}
+
+\item 誤差の積もりにくい計算の仕方(離散化の方法)とかありますが，
+  基本はこれだけです!
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{一応, 2階の場合も}
+\begin{itemize}
+\item [] 
+  \begin{eqnarray*}
+\frac{d^2u}{dt^2} & = & f(u, u', t) \\
+u(a) & = & c, \\
+u'(a) & = & d
+  \end{eqnarray*}
+
+\item []
+
+\begin{lstlisting}
+t = a
+u = c   # u(t)
+u_ = d  # u'(t)
+dt = (b - a) / n_steps
+for i in range(n_steps):
+    u  = u  + u_ * dt
+    u_ = u_ + f(u,u_,t) * dt
+    t = t + dt
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+\fi
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{感染拡大の数理モデル}
+\begin{itemize}
+\item 人口を以下に分類 ($t$ : 時刻)
+  \begin{itemize}
+  \item $S(t)$(useptible) : これから感染するかもしれない人(まだ陰性)
+  \item $I(t)$(nfected) : 感染中
+  \item $R(t)$(ecovered) : 治った
+  \end{itemize}
+\item 方程式
+\[\begin{array}{rcll}
+    S'(t) & = & -\beta S I & \mbox{$S$と$I$が出会うと一定確率で感染} \\
+    I'(t) & = & \beta S I - \gamma I \\
+    R'(t) & = & \gamma I & \mbox{感染者は一定時間に一定確率で治る} \\
+  \end{array}\]
+\item 注: $S' + I' + R' = 0$, すなわち$S + I + R =$一定
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{感染拡大の数理モデル}
+\begin{itemize}
+\item プログラムも簡単
+\item ちなみに,
+  \[ I'(t) = (\beta S - \gamma) I \]
+  なので,
+  \[ \beta S - \gamma > 0 \]
+  つまり
+  \[ \frac{\beta S}{\gamma} > 1 \]
+  だと感染拡大 (左辺 $=$ 基本再生産数)
+\end{itemize}
+\end{frame}
+
+\iffalse
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{(常)微分方程式を解くもう一つのパターン}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \frametitle{(常)微分方程式を解くもう一つのパターン}
+
+  \begin{itemize}
+  \item 微分方程式を解くのに一番簡単なパターンは,
+    \begin{itemize}
+    \item 初期状態(位置と速度)が与えられ,
+    \item その状態から少し後の状態がすべて計算できる
+    \end{itemize}
+    のでそれを繰り返せば先の状態がわかる, というパターン
+    
+  \item 別のパターンは,
+    \begin{itemize}
+    \item 初期値の一部(例えば位置だけ)と,
+    \item 目標(たとえばある時刻 $T$ における位置)
+    \end{itemize}
+    が与えられ, 初期値の残り(例えば初速度)を求めるというパターン
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \frametitle{例題}
+  \begin{itemize}
+  \item $(0,0)$から玉を発射して, 時刻1で$(1,0)$にいる的に命中させたい
+  \item 玉は重力と, 速度に比例する抵抗を受けて進む
+    \[ ma = mg - kv \]
+  \item そのためには初速をいくらにしたらよいか?
+  \item 数学的に言うと, わかっているのは, 内部の点における微分方程式と,
+    「端の点」における値($x(0), x(1)$)であるということで,
+    境界値問題と言われる
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \frametitle{他の例題}
+  \begin{itemize}
+  \item このような問題は, 「微分」が時間方向の微分ではなく,
+    空間方向の微分であるという場合に, もっとよく現れる
+  \item 例:
+    \begin{itemize}
+    \item 鉄の棒があって, 左端の温度が$T_0$,
+      右端の温度が$T_1$に保たれている. さてその途中はどんな温度になるか?
+    \item 重さのある柔らかい紐の端点を適当に固定する.
+      紐はどんな曲線を描くか (懸垂線)?
+    \end{itemize}
+
+  \item 2次元以上では更に良く現れ, 重要
+    \begin{itemize}
+    \item 鉄の板があって, 縁の温度が与えられている.
+      内部はどんな温度になるか?
+      (内部では, 「熱伝導の方程式」が満たされている)
+    \item 平行平板コンデンサが周りに作る電位はどんな電場か?
+      (一方の電極の電位$=0$, もう一方の電極の電位が$=1$という
+      条件で, それ以外の場所の電位を求めるという問題.
+      電位が満たす方程式は「マックスウェルの方程式」から導かれる)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \frametitle{基本アイデア}
+
+  軌跡上に多数の点をとり,
+  それらの間に(運動方程式に従って)成り立つはずの,
+  連立方程式を作り, それを解く
+  
+  \begin{itemize}
+  \item 時間$[0,1]$を$n$等分し, $t_0, t_1, ..., t_n$ とする ($t_i = i/n$)
+  \item $t_i$における位置を$(x_i, y_i)$と書き$x_0, y_0, x_n, y_n$はgiven.
+    $x_1, \ldots , x_{n-1}, y_1, \ldots , y_{n-1}$が未知数),
+    運動方程式を元にこれらの間に成り立つ方程式を立てる
+    
+  \item つまり, 運動方程式を離散化する
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \frametitle{運動方程式の離散化}
+
+    \[ ma = mg - kv \]
+    \[ \ddot{x}(t) = g - \frac{k}{m} \dot{x}(t) \]
+
+    \begin{itemize}
+    \item
+      \[ \dot{{x}}(t) \approx \frac{{x(t+h) - x(t)}}{{h}} \]
+    \item
+      \[ \ddot{{x}}(t) \approx \frac{{\dot{{x}}(t+h) - \dot{{x}}(t)}}{{h}} = \frac{{x(t+2h) - 2x(t+h) + x(t)}}{{h^2}}  \]
+      
+    \item
+      \[ \frac{{x_{{i+2}} - 2 x_{{i+1}} + x_i}}{{h^2}} =     - \frac{{k}}{{m}} \frac{{x_{{i+1}} - x_i}}{{h}} \]
+      
+    \item 
+      \[ \frac{{y_{{i+2}} - 2 y_{{i+1}} + y_i}}{{h^2}} = - g - \frac{{k}}{{m}} \frac{{y_{{i+1}} - y_i}}{{h}} \]
+    \item \[ (i = 0, \ldots, n - 2) \]
+    \end{itemize}
+\end{frame}
+\fi
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{偏微分方程式}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{まだできないこと}
+\begin{itemize}
+\item これでシミュレートできるのはせいぜい数個の質点
+(または数個のパラメータ(e.g., 角度)だけで決まる系)の動き
+
+\item 物理の多くの問題で求めたいものは，「時刻」と「場所」の関数\ao{(「場」)}
+  \begin{itemize}
+  \item 電場，磁場，重力場，鉄板表面の温度，速度の分布，圧力の分布，力の分布，
+    電子の波動関数(存在確率), \ldots
+  \item 記号で書けば（$u(t)$ではなく），\ao{$u(x, y, z, t)$}
+  \end{itemize}
+\item 別の言い方をすると，\ao{時間の関数が無数に($x, y, z$ごとに)ある}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{場を記述する方程式}
+\begin{itemize}
+\item 「時間($t$)」と「場所($x, y, z$)」の関数$u(x, y, z, t)$の方程式
+\item または定常状態を求める問題では場所だけの関数$u(x, y, z)$のこともある
+\item 式としては$\frac{\partial u}{\partial t}$,
+$\frac{\partial u}{\partial x}$,
+$\frac{\partial u}{\partial y}$, などが入り乱れた式
+(\ao{偏微分方程式})になる
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{物理で目にする例}
+\begin{itemize}
+\item 熱伝導: $u(x, y, z, t) =$ 場所$(x,y,z)$, 時刻$t$における温度
+
+\[ c\frac{\partial \ao{u}}{\partial t}
+= \lambda \left(\frac{\partial^2 \ao{u}}{\partial x^2}
++ \frac{\partial^2 \ao{u}}{\partial y^2}
++ \frac{\partial^2 \ao{u}}{\partial z^2}\right)
+\]
+\item 右辺の$(\cdots)$の部分は他の方程式でも何故か非常によく現れるので，
+特別な記号($\Delta$または$\nabla^2$)が用意されている．
+
+\[ \Delta u \equiv \frac{\partial^2 u}{\partial x^2}
++ \frac{\partial^2 u}{\partial y^2}
++ \frac{\partial^2 u}{\partial z^2}
+\]
+
+\item これを使えば，
+\[ c\frac{\partial \ao{u}}{\partial t} = \Delta u \]
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{物理で目にする例}
+\begin{itemize}
+\item マックスウェルの方程式(真空中)
+  \begin{eqnarray*}
+    \nabla \cdot \ao{B} & = & 0 \\
+    \nabla \times \ao{E} & = & -\frac{\partial \ao{B}}{\partial t} \\
+    \nabla \cdot \ao{E} & = & \frac{1}{\varepsilon}\rho \\
+    \nabla \times \ao{B} & = & \mu j + \mu\varepsilon \ao{E} \\
+  \end{eqnarray*}
+
+注: $B$, $E$は\ao{ベクトル}場
+  \begin{eqnarray*}
+\nabla \cdot u & \equiv & \frac{\partial u_x}{\partial x}
++ \frac{\partial u_y}{\partial y}
++ \frac{\partial u_z}{\partial z} \\
+\nabla \times u & \equiv & \ldots \mbox{教科書を見ま笑} \ldots \\
+  \end{eqnarray*}
+  
+\item (一粒子の)シュレディンガーの方程式
+\[ i\hbar \frac{\partial\ao{\psi}}{\partial t} 
+= \left(\frac{-\hbar^2}{2m}\nabla^2 + V \right)\ao{\psi} \]
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{物理で目にする例}
+\begin{itemize}
+\item 流体の速度場の方程式(ナビエストークス)
+\[ 
+\frac{\partial \ao{u}}{\partial t} + (\ao{u} \cdot \nabla)\ao{u}
+= -\frac{1}{\rho} \nabla \ao{p} + \nu \nabla^2 \ao{u} + F
+\]
+
+\item 波動方程式(音とか光とか)
+\[ \frac{1}{s^2} \frac{\partial^2 \ao{u}}{\partial t^2} = \Delta \ao{u} \] 
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{コワイ??}
+
+\begin{center}
+\includegraphics[width=\textwidth]{out/pdf/svg/cat.pdf}
+\end{center}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{しかし恐れる必要はない}
+\begin{itemize}
+\item 根本的な考えは同じ; (常)微分方程式が
+\ao{たくさん並んでいるだけ}と思えば良い
+\item 例えば1次元の場$u(x, t)$の方程式が，
+\[ \frac{\partial u}{\partial t} = \ldots \]
+と書けているならこれを用いて, 
+{\footnotesize
+\[
+\left(
+\begin{array}{c}
+u(0,   t) \\
+u(0.1,t) \\
+u(0.2,t) \\
+u(0.3,t) \\
+u(0.4,t) \\
+  \vdots  \\
+\end{array}
+\right)
+\rightarrow
+\left(
+\begin{array}{c}
+u(0,   t+\Delta t) \\
+u(0.1,t+\Delta t) \\
+u(0.2,t+\Delta t) \\
+u(0.3,t+\Delta t) \\
+u(0.4,t+\Delta t) \\
+  \vdots  \\
+\end{array}
+\right)
+\rightarrow
+\left(
+\begin{array}{c}
+u(0,   t+2\Delta t) \\
+u(0.1,t+2\Delta t) \\
+u(0.2,t+2\Delta t) \\
+u(0.3,t+2\Delta t) \\
+u(0.4,t+2\Delta t) \\
+  \vdots  \\
+\end{array}
+\right)
+\rightarrow \cdots
+\]}
+という計算をしていくだけ(リストや配列が必須かつ有用)
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{ともかく例を見る}
+\begin{itemize}
+\item [] 簡単のため1次元空間の例題($x$は単なる実数): 
+\[\left\{
+  \begin{array}{rcll}
+{\displaystyle
+\frac{\partial u}{\partial t}} & = & 3\, {\displaystyle \frac{\partial u}{\partial x}} & (0 < x < 1), \\
+u(0, t) & = & 0 \\
+u(1, t) & = & 0 \\
+u(x, 0) & = & f(x)
+  \end{array}\right.
+\]
+
+\item $u$は「場所($x$)」と「時刻($t$)」の関数
+
+\item 1次元($x$が単なる実数)だから視覚的には，
+弦が時間につれどう変化していくかを求める問題
+
+\begin{center}
+\def\svgwidth{\textwidth}
+\input{out/tex/svg/wave.pdf_tex}
+\end{center}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{離散化}
+\begin{itemize}
+\item 微分方程式:
+\[ \frac{\partial u}{\partial t} = 3\, \frac{\partial u}{\partial x} \]
+
+\item 離散化:
+\[ \frac{u(x,t+\Delta t)-u(x,t)}{\Delta t} \approx 
+3\, \frac{\partial u(x+\Delta x, t) - u(x, t)}{\Delta x} \]
+
+\[ \therefore
+u(x,t+\Delta t) \approx 
+u(x,t) + (u(x+\Delta x, t) - u(x, t)) \frac{3\Delta t}{\Delta x} \]
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{離散化}
+\begin{itemize}
+\item []
+\[ \therefore
+u(x,t+\Delta t) \approx 
+u(x,t) + (u(x+\Delta x, t) - u(x, t)) \frac{3\Delta t}{\Delta x} \]
+
+\begin{center}
+\def\svgwidth{0.6\textwidth}
+\input{out/tex/svg/wave_discretize.pdf_tex}
+\end{center}
+
+\item ある時点における自分と，右隣($+\Delta x$)の人の値がわかれば，
+  自分の一瞬($+\Delta t$)後の値がわかる
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{プログラム化}
+\begin{itemize}
+\item 用意する変数: 先の●たちを格納した一次元の配列 {\tt u}
+\item {\tt u}の要素数を{\tt n}とする
+
+\begin{center}
+\def\svgwidth{0.8\textwidth}
+\input{out/tex/svg/wave_discretize_u.pdf_tex}
+\end{center}
+
+\item これを踏まえ，更新式
+\[ u(x,t+\Delta t) =
+u(x,t) + (u(x+\Delta x, t) - u(x, t)) \frac{3\Delta t}{\Delta x} \]
+に相当するPythonのプログラムは?
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{プログラム化}
+\[ u(x,t+\Delta t) =
+u(x,t) + (u(x+\Delta x, t) - u(x, t)) \frac{3\Delta t}{\Delta x} \]
+\begin{itemize}
+\item []
+\begin{lstlisting}
+for i in range(@\aka{\tt 1, n-1}@):
+  u[i] = u[i] + (u[i+1] - u[i]) * (3*dt/dx)
+\end{lstlisting}
+\item ポイント: \aka{端の点({\tt u[0], u[n-1]})
+はこの式では更新しない}．何故か?
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{端の点の扱い}
+\begin{itemize}
+\item 一般に端の点の扱いはよく考えて慎重に．
+いい加減にやるとおかしな結果になる
+
+\item まずプログラム上も，
+右端の点({\tt u[n-1]})を更新しようとすると困ったことになる
+\item []
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+u[n-1] = u[n-1] + (@\aka{\tt u[n]}@ - u[n-1]) * (3*dt/dx)
+\end{lstlisting}
+\item {\tt u}は{\tt n}要素．\aka{{\tt u[n]}などという要素はない}
+
+\item ただしそれが{\tt u[n-1]}
+を更新しない\aka{理由}ではない
+
+\item 微分方程式に立ち返る
+\begin{eqnarray}
+\frac{\partial u}{\partial t} & = & 3\, \frac{\partial u}{\partial x} \quad
+(0 \aka{<} x \aka{<} 1) \label{eq:pde}
+\end{eqnarray}
+そもそも式(\ref{eq:pde})は，端点において成り立つとは言われていない
+($0 < x < 1$でしか成り立たない式を$x = 0, 1$に適用するのは，
+純粋に間違い)
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{端の点の扱い}
+\begin{itemize}
+\item 端の点は，別途与えられた条件で求める
+\item 本問題の場合，$u(0,t) = u(1,t) = 0$だった
+\item よって，
+\begin{lstlisting}
+for i in range(@\aka{\tt 1, n-1}@):
+  u[i] = u[i] + (u[i+1] - u[i]) * (3*dt/dx)
+u[0] = u[n-1] = 0
+\end{lstlisting}
+が与えられた条件に忠実な，正しい更新式
+\item 本問においては, {\tt u[0], u[n-1]}は常に0なのだから，
+実は毎回更新する必要もない
+\begin{lstlisting}
+for i in range(@\aka{\tt 1, n-1}@):
+  u[i] += (u[i+1] - u[i]) * (3*dt/dx)
+\end{lstlisting}
+(注: {\tt A += B}は，{\tt A = A + B}と同じ意味)
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{numpyの配列機能を使ってスッキリと}
+\begin{itemize}
+\item for文を使った更新式:
+\begin{lstlisting}
+for i in range(@\aka{\tt 1, n-1}@):
+  u[i] += (u[i+1] - u[i]) * (3*dt/dx)
+\end{lstlisting}
+
+\item 同じことはnumpyの配列に対する{\tt +, *}
+などを使ってより簡潔に書ける
+\begin{lstlisting}
+u[1:n-1] += (u[2:n] - u[1:n-1]) * (3*dt/dx)
+\end{lstlisting}
+
+\item 簡潔なだけでなく，圧倒的に($>100$倍)速い
+\item 10000要素の更新に必要な時間
+  \begin{itemize}
+  \item for文: $2 \times 10^{-2}$秒程度
+  \item 配列で: $8 \times 10^{-5}$秒程度
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}

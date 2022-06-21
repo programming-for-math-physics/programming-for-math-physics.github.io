@@ -1,0 +1,1620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--
+      <meta http-equiv="Expires" content="10" />
+      <meta http-equiv="Pragma" content="no-cache" />
+      <meta http-equiv="Cache-Control" content="no-cache" />
+      <meta http-equiv="refresh" content="30" />
+      -->
+
+<title>数学・物理をプログラミングで考える</title>
+
+<style>
+h1 {
+  font-size   : 24pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+
+  border-color     : #99A1AA;
+  background-color : #DDDDEE;
+}
+
+h2 {
+  font-size   : 20pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+h3 {
+  font-size   : 18pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt;
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+div {
+  font-size   : 16pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-color     : #99A1AA;
+}
+
+p {
+  font-size   : 16pt;
+  xfont-family : serif;
+  border-color     : #99A1AA;
+}
+
+pre {
+  background-color:#efe;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1><font color=blue>初年次ゼミ(理科)
+    数学・物理をプログラミングで考える</font>
+
+<br />
+田浦健次朗 (水2)
+<br />
+山崎俊彦 (金4)
+</h1>
+<div>
+<font size=-1>(the page is encoded in UTF-8)</font>
+<br>
+</div>
+
+<h2><font color=red>お知らせ</font></h2>
+<h3>共通</h3>
+<div>
+  新しいものが上です
+<ul>
+<li>2022 4/6 : 2022年度版HP開設</li>
+</ul>
+</div>
+
+<h3>田浦(水2)担当クラス固有のお知らせ</h3>
+<div>
+  <ul>
+    <li>
+      6/15 予定
+      <ol>
+        <li>微分方程式のアニメーションを少し解説</li>
+        <li>チームでpmp10を解く</li>
+        <li>目標の議論, できれば実装開始</li>
+        <li>
+          <a href="https://app.one.learnwiz.jp/ja/topic/75890141?pwd=842321"
+             target="_blank">
+            議論の進捗, 振り返り, 感想
+          </a>を書いてください. 
+        </li>
+      </ol>
+    </li>
+    <li>
+      6/8 予定
+      <ol>
+        <li>チームで何をするか相談. なるべく書きながら</li>
+        <li>ミニ発表 (3分 x 10); Word, PowerPointのメモ, 手書き,
+          ホワイトボード
+        </li>
+        <li>
+          <a href="https://app.one.learnwiz.jp/ja/topic/75890141?pwd=842321"
+             target="_blank">
+            振り返り, 感想
+          </a>を書いてください(授業終了時, 終了後どちらでも)
+        </li>
+      </ol>
+    </li>
+    <li>
+      5/25 予定
+      <ol>
+        <li>青木先生講義</li>
+        <li>チームで何をするか相談</li>
+      </ol>
+    </li>
+    <li>
+      5/18 予定
+      <ol>
+        <li><a href="https://forms.gle/r4hPSpgF8LgyC6W4A"
+               target="_blank">チーム分けのためのアンケート</a>
+          に授業開始時(前でもよい)に答えてください
+        </li>
+        <li>
+          説明: <a href=slides/pdf/howto.pdf target="_blank">問題選び・作り</a>
+          について
+        </li>
+        <li>
+          チーム分け決定・発表
+        </li>
+        <li>
+          pmp08 (微分方程式), pmp04 (3Dグラフィクス),
+          pmp09 (微分方程式をアニメーション)
+        </li>
+        <li>
+          次回(5/25),
+          東工大 <a href="http://www.sim.gsic.titech.ac.jp/index-j.html"
+                          target="_blank">
+            青木尊之先生</a>に, 野球の変化球を題材にした,
+          流体力学の特別講義をしていただきます
+        </li>
+      </ol>
+    </li>
+    <li>
+      5/11 予定
+      <ol>
+        <li>10:25-10:35 前回を思い出しながら各自の続き</li>
+        <li>10:35-10:55 <a href=slides/pdf/learn_python.pdf>Python Speed Learning スライド</a>で
+          説明(文法について; 繰り返し)</li>
+
+        <li>10:55- pmp04, pmp05, ...</li>
+        
+      </ol>
+    </li>
+    <li>
+      <a href="https://docs.google.com/spreadsheets/d/1iSB6GMDqmjZQUA8_6_mUZMWe8-t83YgHBXKjPm3bNYA/edit?usp=sharing">
+        進捗収集, 答え共有, 感想(振り返り)</a>
+    </li>
+  </ul>
+</div>
+
+
+
+
+<!--
+
+  <a name="errata"></a>
+  <h3>Jupyter notebookの間違い訂正</h3>
+  <div>
+  </div>
+
+-->
+  
+<!--
+<h3>山崎(金4)担当クラス固有のお知らせ</h3>
+<div>
+<ul>
+</ul>
+</div>
+-->
+
+<h2>スライド, 資料</h2>
+<div>
+<ul>
+  <li><a href=html/setup_jupyter.html>Jupyterを使ってみる</a>
+  <li><a href=slides/pdf/fy_guidance.pdf>ガイダンススライド</a></li>
+  <li><a href=slides/pdf/intro.pdf>イントロ スライド</a></li>
+  <li><a href=slides/pdf/learn_python.pdf>Python Speed Learning スライド</a></li>
+  <li><a href=slides/pdf/visual_numpy_matplotlib.pdf>Visual Python, Numpy, Matplotlib スライド</a></li>
+  <li><a href=slides/pdf/ode_pde.pdf>微分方程式スライド</a></li>
+  <li><a href=slides/pdf/howto.pdf>問題選び・作り</a></li>
+  <li><a href=prints/pdf/python_cheat_sheet.pdf>Python Cheat Sheet</a></li>
+  <!--
+      <li><a href=problems/problems16/Problems16.pdf>去年の問題例（一部）</a></li>
+      -->
+</ul>
+</div>
+
+<!--
+<h2>プリント資料</h2>
+<div>
+  <ul>
+    <li><a href=prints/pdf/0-settings.pdf>環境設定(このページを見る以前)</a></li>
+    <li><a href=prints/pdf/1-python-practice.pdf>Python練習問題</a></li>
+    <li><a href=prints/pdf/python_cheat_sheet.pdf>Python Cheat Sheet</a></li>
+</ul>
+</div>
+-->
+
+<a name="recommended_books"> </a>
+<h2>おすすめ本</h2>
+<div>
+  <ul>
+    <li>
+      <a href="https://tinyurl.com/ybahtjgq" target="_blank">
+        Pythonによるプログラミング入門
+        東京大学教養学部テキスト: アルゴリズムと情報科学の基礎を学ぶ (日本語)
+      </a>
+      冬学期になって「アルゴリズム入門」という講義で使う教科書です.
+      今のうちに読んでおくと何かとお得だと思います.
+      中身はPythonを学びつつ,
+      コンピュータの基礎であるアルゴリズム(計算法)にも重点がおかれています.
+    </li>
+    <li>
+      <a href="https://tinyurl.com/y88p8672" target="_blank">
+        世界標準MIT教科書 Python言語によるプログラミングイントロダクション
+        第2版：データサイエンスとアプリケーション
+      </a>
+      「MIT教科書」という看板につられて推薦します.
+    </li>
+    <li>
+      <a href="https://tinyurl.com/y7lwnmwn" target="_blank">
+        科学技術計算のためのPython入門――開発基礎，必須ライブラリ，高速化
+      </a>
+      このゼミでやることと内容が近い本です.
+      項目的にも
+      numpy, scipy, matplotlibなどこのゼミで使う道具をカバーしています.
+    </li>
+    <li>
+      <a href="https://tinyurl.com/yarnzjal" target="_blank">
+        スッキリわかるPython入門 スッキリわかるシリーズ
+      </a>
+      こちらは本当に最初の一歩という感じのやさしい本です.
+      やさしさ, 読みやすさ第一で選びたいという人向けです.
+      また, Pythonのプログラミング環境に色々ある中で,
+      このゼミと同じJupyterを用いてるのでその意味でも学びやすいでしょう
+      (全ては見ていません).
+    </li>
+  </ul>
+
+  最初の本以外は, Kindleでも読むことが出来ます.
+  もしKindleを使ったことがなければおすすめします.
+  (専用のKindle端末を買っても良いですが, AndroidやiPhoneのアプリならば,
+  無料です).
+  Kindleでは, 「無料サンプルの送信」という昨日で本の最初の何ページかを
+  読むことが出来るので, Python Jupyter などで検索して,
+  よさそうな本をどんどん無料サンプルで拾い読みして
+  自分に合う本を決めると良いです.
+  
+</div>
+    
+<h2>有用リンク</h2>
+<div>
+<ul>
+
+<li>Python関連
+  <ul>
+    <li><a href=http://www.python.jp/ target="_blank">Python Japan</a>.
+      プログラミング言語Pythonの日本語版ホームページ. </li>
+    <li><a href=https://docs.python.jp/3.5/tutorial/index.html target="_blank">
+	チュートリアルページ</a>.
+      このチュートリアルの3-5章あたりを一度，ぱらっとでいいので
+      読んでおくと良いです．
+    </li>
+    <li><a href=https://www.python.org/ftp/python/3.6.5/python365.chm>
+	Windows Help形式.</a> これをダウンロードしておくとよい．
+      <font size=-1>(<a href=cache/python365.chm>遅い時</a>)</font>
+    </li>
+    <li>
+      <a href=http://www.python.org/ >英語版(本家)ホームページ.</a>
+    </li>
+  </ul>
+</li>
+
+<li><a href=http://www.vpython.org/ >Visual Python</a>.
+  3Dアニメーションを超簡単に．
+  <ul>
+    <li><a href=http://www.vpython.org/contents/docs/index.html>ドキュメント</a></li>
+    <li><a href=http://www.vpython.org/contents/docs/primitives.html>どんなオブジェを作れるか</a> 画像をクリックすれば作り方が出てくる</li>
+    <li><a href=http://www.youtube.com/vpythonvideos>YouTubeでのVisual
+	Python 紹介ビデオ集.</a></li>
+  </ul>
+</li>
+
+<li><a href=http://matplotlib.org/ >Matplotlib</a>.
+関数やデータの可視化
+<ul>
+  <li><a href=http://matplotlib.org/gallery.html>
+      ギャラリー</a>. こんな絵を書きたいと思った時に見ると大概ある．
+  </li>
+  <li><a href=http://matplotlib.org/Matplotlib.pdf>マニュアル (PDF)</a>
+    <font size=-1>
+      (<a href=cache/Matplotlib.pdf>遅い時</a>)
+    </font>
+  </li>
+</ul>
+</li>
+
+<li><a href=http://www.numpy.org/ >NumpyとScipy</a>
+Pythonで,
+行列, ベクトル, 積分などの科学技術計算を行うライブラリ.
+  <ul>
+    <li><a href=http://docs.scipy.org/doc/ >ドキュメントページ</a>,
+    </li>
+    <li><a href=http://docs.scipy.org/doc/numpy-1.7.0/numpy-ref-1.7.0.pdf>リファレンスガイド (PDF)</a>
+      <font size=-1>
+	<a href=cache/numpy-ref-1.7.0.pdf>(遅い時)</a>
+      </font>,
+    </li>
+    <li>
+      <a href=http://docs.scipy.org/doc/numpy-1.7.0/numpy-user-1.7.0.pdf>
+	ユーザガイド (PDF)</a>
+      <font size=-2>
+	<a href=cache/numpy-user-1.7.0.pdf>(遅い時)</a>
+      </font>,
+    </li>
+    <li><a href=http://docs.scipy.org/doc/scipy-0.13.0/scipy-ref.pdf>
+	Scipyユーザガイド (PDF)</a>
+      <font size=-2>
+	<a href=cache/scipy-ref.pdf>(遅い時)</a>
+      </font>,
+    </li>
+    <li><a href=http://docs.scipy.org/doc/numpy-dev/numpy-chm.zip>
+	Windows Help形式 </a>
+      <font size=-1>
+	<a href=cache/numpy-dev.chm>(遅い時)</a>
+      </font>
+    </li>
+  </ul>
+</li>
+</ul>
+Windows Help形式のファイルはxchmというソフトでLinuxでも読めます.
+
+</div>
+
+<h2>はじめに</h2>
+<div>
+<p>初年次ゼミとして, 表題のゼミを開講します.
+意欲のある駒場生の参加を期待します.</p>
+<p>
+コンピュータ（プログラミング）を使って，
+数学や物理の問題を解く方法を学びます．
+そうすることを通してプログラミングと数学・物理の両方を学びます.
+</p>
+<p>
+実際の問題は，いくつかの例・テンプレートを提示し，
+グループに別れて解法や，問題の発展形や一般化などについて議論します．
+それと並行して，プログラミングの基本について，演習します
+最後に，お互いが解いた問題について発表しあう，発表会を行います．
+途中でも，グループの間でのアイデア交換や進捗状況の共有のため，
+ミニ発表会を行います．
+</p>
+</div>
+
+<h2>ねらい</h2>
+<div>
+テクニカルな狙いは以下のとおりです．
+<ul>
+<li>数学の問題解決や物理のシミュレーションなどを題材として，
+  プログラミングの基本を身につける</li>
+<li>それにより，プログラミングが何の役に立つか，
+  その一端を理解する</li>
+<li>それにより，今後，プログラミングを，
+  より高い意欲・動機を持って学べるようになる</li>
+<li>実世界の問題が，どう数学の問題として定式化されるかを，
+  実例を通して理解する</li>
+<li>それにより，今後，数学を，
+  より高い意欲・動機を持って学べるようになる</li>
+<li>実世界の現象が，どの物理法則によって支配されるかを，
+  実例を通して理解する</li>
+</ul>
+
+<p>
+これら全体は，大学以降の理系の勉強のかなり大きな部分を占めるもので，
+わずか13回やそこらの授業で，網羅的に扱うことができるものではありません．
+このゼミは，決められた特定の知識を深く習得することよりも，
+実世界に根ざした問題の解決に数学，物理，そしてコンピュータがどう役立つかを
+知ること，それを，教員 -> 学生の一方的な講義ではなく，
+参加学生の間の議論や発表を通して，
+主体的に学ぶという，そのプロセスに主眼をおきます．
+</p>
+<p>
+重要なことは，「実世界の問題はほとんど常に難しい」ということです．
+学校で習ったことだけで直ちに答えが出ることは殆ど無く，
+それは大学の授業をマスターしたしても同じことです．
+また実世界では，学校の勉強のように単元に分かれていて，
+ある問題がどの単元に出ているかによって取り出すべき法則や公式が想像できる，
+というようなこともありません．
+</p>
+<p>
+その状況で重要なことは何でしょうか?
+個々の分野の基礎的な勉強をおろそかにしてはいけませんが，
+残念ながらそれだけだとなかなか実践的な，役に立つ，
+問題解決能力は身につきません．
+</p>
+<p>
+愚直ですが「基本に立ち返って自分で考えられる」
+ことが大事だろうと思います．また，同じ理由で，
+ある問題が自分一人であっさり解決，ということもあまりないので，
+他の人と知恵を出し合えることも重要です．
+他の人と議論するためには嫌でも「基本に立ちかえる」必要があります．
+「なぜそうするのか，なぜそのやり方でいいのか」という疑問に対して，
+「教科書のあそこに書いてあった公式だから」では，通用しません．
+議論は，自分が本当にどれくらいわかっているかがわかるきっかけになります．
+</p>
+</div>
+
+
+<h2>この授業におけるアクティビティ</h2>
+<div>
+以下のような活動を臨機応変に，参加学生が主体的に組み合わせます．
+
+<dl>
+  <dt>グループごとの議論: </dt>
+  <dd>グループごとに問題解決のためのアイデアを出しあう，
+  問題点を共有する，解決に至るまでのステップを議論する</dd>
+
+  <dt>プログラミング演習:</dt>
+  <dd>解決の方針が定まったとして，それをプログラムにするための，
+    演習を行います．プログラミングは語学と似ていて「習うより慣れろ」
+    的な側面が多いので，その「慣れろ」にもある程度の時間を取ります</dd>
+
+  <dt>進捗共有のためのミニ発表:</dt>
+  <dd>2回に一回程度，最後にグループ進捗や次週の予定について情報共有し，
+    コメントをし合います．</dd>
+
+  <dt>学生による講義:</dt>
+  <dd>必要なプログラミング，物理，数学などについて調査・考察した結果で，
+    グループ間で共有すると有用な情報を，教員役となる学生を決めて講義風に
+    発表します(例えばプログラミングで必要なツールについて，プログラミング
+    が得意な学生が講義したりする)
+  </dd>
+
+  <dt>発表会:</dt>
+  <dd>成果をまとめて発表する</dd>
+
+  <dt>教員によるインデキシング:</dt>
+  <dd>教員からの情報提供．といってもあまり多くを講義するのではなく，
+    情報へのポインタやキーワードを与えて，学生の調査の手助けをする程度．
+    その意味でインデキシング(索引付け)と呼ぶ
+  </dd>
+
+</ul>
+</div>
+
+<h2>進行上の工夫</h2>
+<div>
+<ul>
+<li>プログラミングの上級者，
+  数学・物理の得意な人が固まり過ぎないように，
+  チームを編成する</li>
+
+<li>グループで議論をしながら，
+  自分たちの間で次回までの課題(宿題)を自分たちで設定する．
+  調べる・考える・プログラムを作る，など，担当を決める．</li>
+
+<li>それにより次回の時間の使い方も決まる．繰り返すうち，
+  議論の時間の有効な使い方(皆で議論すべきことと，
+  持ち帰ってじっくり考えることの区別など)を身につける．</li>
+</ul>
+</div>
+
+
+<h2>基本情報</h2>
+<div>
+<ul>
+  <li> 田浦 (水2限 担当)
+    <ul>
+      <li>電話: 03-5841-6081 </li>
+      <li> Email: tau@eidos.ic.i.u-tokyo.ac.jp </li>
+    </ul>
+  </li>
+  <li> 山崎 (金4限 担当)
+    <ul>
+      <li> Email: yamasaki ATMARK hal.t.u-tokyo.ac.jp</li>
+    </ul>
+  </li>
+</ul>
+<br>
+(EmailのATMARKは @ 置き換えてください)
+
+<li>実施時刻, 場所:
+<ul>
+  <li>水2限・金4限ともに， <strike>駒場キャンパス KOMCEE K401</strike>
+    2020年度はオンライン授業</li>
+</ul>
+</li>
+</div>
+
+<a name="past"></a>
+<h2>過去の情報</h2>
+<div>
+  <font color="grey">(以下は2021, 2020, 2019, 2018年度のお知らせです.
+    参考のためにしばらく残します)</font>
+
+  <hr />
+
+  <font color="grey"  size="-1">
+    
+  <ul>
+    <li><font color="blue">2021/7/9</font>
+      なるべく授業中に, 授業アンケートに答えてください.
+      ITC-LMS 「授業の「アンケート」のセクションに配信されています」
+    </li>
+      
+    <li><font color="blue">2021/7/9</font> 予定
+      発表!!
+      順番 (家; 教室; ... かわりばんこになるよう)
+      <pre>
+        4, 1, 5, 2, 6, 3, 7
+      </pre>
+    </li>
+
+    <li>8:15 時点でのコードをまとめました.
+      workplace <a href="https://univtokyo-my.sharepoint.com/:x:/g/personal/2615215597_utac_u-tokyo_ac_jp/EZJi9oiD1gVFmfS96oNIZU0BfElE8jN7-TovJVMISo4RLw?e=rBMV9d" target="_blank">開いてください.xlsx</a> からアクセスして下さい.
+
+      アップロードもできますので追加, 変更あればお願いします
+    </li>
+      
+    <li><font color="blue">2021/7/2</font> 予定
+      今日は, 全体でのミニ発表ではなく,
+      各班ごとに少し時間を作って「TA訪問 (10分/班)」を行います.
+      
+      <ol>
+        <li>8:30-9:00 最終目標に向けた作業</li>
+        <li>9:00- TA訪問 --- 10分/班 (高品君: 1, 2, ... 高橋君 7, 6, ...) 
+          現状を, コードや動作例を見せながらTAに説明しつつ,
+          来週の発表に向けた相談をしてください. </li>
+        <li>今日の終わりまでに, 発表スライドの表紙(タイトル, 名前)を作ってください (タイトルはあとから変更してもOKです. とりあえず書き始めることが肝心).
+          また(来週までに)
+          味気ない1班, 2班, ... ではないチーム名を考えましょう.
+        </li>
+      </ol>
+    </li>
+
+    <li><font color="blue">2021/6/25</font> 予定
+      <ol>
+        <li>8:30-9:05 最終目標に向けた作業</li>
+        <li>9:05-9:20 ミニ発表 4, 1, 3, 7, 6, 5, 2</li>
+        <li>9:20-10:00 最終目標に向けた作業</li>
+      </ol>
+    </li>
+
+    <li><font color="blue">2021/6/25</font> 最終回(7/9)について
+      <ol>
+        <li>各チーム発表 5-10分</li>
+        <li>コードによる実演 + スライド
+          (Officeのフォルダにスライドを作成)による説明</li>
+        <li>メンバー全員が少しずつでもしゃべることが望ましい</li>
+        <li>発表後に感想を一言</li>
+      </ol>
+    </li>
+      
+    <li><font color="blue">2021/6/25</font> Jupyterで新しい空のnotebook
+      を作るには, Files -&gt; New -&gt; Python 3 を選択します
+      (<a href="https://drive.google.com/file/d/1XGfmmY5I-pK8MkHlUOnlnFT0_aKDqGWT/view?usp=sharing" target="_blank">動画</a>).
+      <blockquote>
+      <img src=img/new_file.png width=300/>
+      </blockquote>
+    </li>
+      
+    <li><font color="blue">2021/6/19</font>
+      <a href="https://drive.google.com/drive/folders/1O5nQe4VlvF8h4ODe7G85x2TWdSFqPqkc?usp=sharing" target="_blank">Google ドライブ</a>に,
+      偏微分方程式の解説と, そのプログラミング, 可視化方法をアップしました.
+      自分のグループの課題で必要になりそうだったら読んでみてください.
+    </li>
+
+
+    <li><font color="blue">2021/6/18 (はや10回目)</font>予定
+      <ol>
+        <li>8:30-9:00 (演習: 各チームの進度に応じて問題は調節)
+          <ol>
+            <li>リスト : pmp11_list.py の問題をグループで解く</li>
+            <li>matplotlib : pmp13_matploblib.py の問題をグループで解く</li>
+            <li><font color="blue">答えを fetch</font>
+              できるようにしました(ans_pmp11_list, ans_pmp13_matlib)</li>
+          </ol>
+        </li>
+        <li>9:00-9:45 最終目標に向けた議論と作業
+          (演習問題が終わっていなくても気にせず)</li>
+        <li>目標を決めて「どう解くか」の議論になるべく入りましょう</li>
+        <li>9:45-10:00 進捗ミニ発表 順番 [2, 5, 6, 3, 1, 4, 7]</li>
+      </ol>
+    </li>
+    <li>
+      <a href="https://drive.google.com/drive/folders/1O5nQe4VlvF8h4ODe7G85x2TWdSFqPqkc?usp=sharing" target="_blank">Google ドライブ</a>にいくつか説明動画をアップ; 週末に<a href="slides/pdf/ode_pde.pdf" target="_blank">
+        偏微分方程式
+      </a>の説明をアップするつもりなので, 見てください.
+    </li>
+
+    <li><font color="blue">2021/6/11</font>
+      <ul>
+        <li>6/11 の予定
+          <ol>
+            <li>リスト : <a href="slides/pdf/learn_python.pdf" target="_blank">スライド説明 (9節, 12節)</a>, pmp11_list.py</li>
+            <li>numpy : <a href="slides/pdf/visual_numpy_matplotlib.pdf" target="_blank">スライド説明 (3節)</a>, pmp12_numpy.py</li>
+            <li>グループでpmp10_ode_group_work.pyを解く(必要に応じてpmp09_ode_anime.py などをする時間をチームで設ける)</li>
+            <li>matplotlib : <a href="slides/pdf/visual_numpy_matplotlib.pdf" target="_blank">スライド説明 (5節)</a>, pmp13_matploblib.py, pmp14_matplotlib_2v.py, pmp15_matplotlib_anim.py</li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+
+    <li><font color="blue">2021/6/11</font>
+      <ul>
+        <li>6/18までの各自の宿題
+          <ol>
+            <li>リスト : pmp11_list.py を読み, 実行して理解 (問題は解かなくても良い)</li>
+            <li>numpy : pmp12_numpy.py を読み, 実行して理解 (問題は無い)</li>
+            <li>matplotlib : pmp13_matploblib.py を読み, 実行して理解 (問題は解かなくても良い)</li>
+            <li>pmp14_matplotlib_2v.py, pmp15_matplotlib_anim.py  を読み, 実行して理解 (問題は無い)</li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+        
+    <li><font color="blue">2021/6/11</font>
+      <ul>
+        <li>6/18 の予定
+          <ol>
+            <li>リスト : pmp11_list.py の問題をグループで解く</li>
+            <li>matplotlib : pmp13_matploblib.py の問題をグループで解く</li>
+            <li>...</li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+    
+    <li><font color="blue">2021/6/4</font>
+      <ul>
+        <li>6/4 の予定
+          <ul>
+            <li>-9:15 各チームでpmp08, pmp09, pmp10 ;
+              pmp10をやることを目標に.
+              そのためにpmp10の練習問題のいくつかをかたづける.
+              いつものようにみなで進捗情報を交換してから,
+              何に時間を使うかを決める
+            </li>
+            <li>-9:45 各チームでのテーマ, 目標議論;
+              前回の続きで, テーマと目標を議論する
+            </li>
+            <li>-10:00 テーマ目標のミニ発表・進捗を全体で共有
+              [4, 5, 7, 1, 2, 3, 6]
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/5/21</font>
+      <ul>
+        <li>5/21 の予定
+          <ol>
+            <li>
+              <a href="https://docs.google.com/spreadsheets/d/1i3LeJ0bTIFsjTV7MC0OQp7iDmhbIXjKnlG634beAdgw/edit#gid=0" target="_blank">Googleシート</a>を開いて,
+              Microsoftフォルダへアクセスし,
+              <font color="green">0-開いてみてください.xlsx</font>
+              を開いてみてください.
+              <ul>
+                <li>指示に従い, xlsxに書けることの確認</li>
+                <li>指示に従い, workplace/チーム番号/memo.docx を開く</li>
+              </ul>                
+            </li>
+            <li>各チームでの議論(25分);
+              各チームの課題をどうするか,
+              まずは各自が考えてきたこと, 方向性を出し合ってください.
+              その際, 出てきたキーワードをmemo.docxに残していく
+              (アイデアをふくらませるため + 後で発表のため)
+            </li>
+            <li>議論の進捗共有(10分)</li>
+            <li>もう一度各チームでの議論(25分); 
+              上記と同様;
+              終わりが近くなったら, 来週までに考えてくることを決めて終わる
+            </li>
+            <li>講義 (30分)
+              <a href="slides/pdf/ode_pde.pdf" target="_blank">
+                微分方程式 / 偏微分方程式
+              </a>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/5/21</font>
+      以下をFetchできます
+      <ul>
+        <li>pmp05, pmp06, pmp07 の答え</li>
+        <li>pmp09 (読むだけ)</li>
+        <li>pmp10 (練習問題. 授業時間内にすべてやろうとしなくてよい)</li>
+        <li>pmp11 (グループワーク)</li>
+      </ul>
+    </li>
+      
+    <li><font color="blue">2021/5/18</font>
+      <ul>
+        <li>Jupyter notebook pmp07に間違いがありました
+          (ご指摘ありがとうございます).
+          以降, 見つかった間違いを
+          <a href="#errata">下</a>にまとめます</li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/5/14</font>
+      <ul>
+        <li>5/14 の授業もプログラミング練習</li>
+        <li>
+          次回以降, 最終課題のための議論を始めてもらうのでその
+          予告 (<a href=slides/pdf/howto.pdf>問題選び・作り</a>)
+        </li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/5/7</font>
+      <ul>
+        <li>5/7 の授業もプログラミング練習</li>
+        <li>4/30 と同じ形式で行います. 前回の続きを進めてください</li>
+        <li>pmp04_vptyhon にまつわるトラブル
+          <ul>
+            <li>絵を出そうとして, 以下のようなエラーが出てしまった場合
+          <pre>
+            PermissionError: [Errno 13] Permission denied: '/usr/local/share/jupyter/lab/static/vpython_data/rough_texture.jpg'</pre>
+          システムの問題ですのでお知らせください
+          申し訳ありません.
+            </li>
+            <li>絵を出したつもりが(エラーにはならないものの)絵が出ない場合
+              <ul>
+                <li>実はページの別のところ(最初に絵を出したセルの出力)
+                  に出ている場合があるので見てみてください</li>
+                <li>またはメニューの Kernel -&gt; Restart and Clear Output
+                  してからそのセルを実行してみてください
+                </li>
+              </ul>
+            </li>
+          </ul>
+        <li>チーム分けは前回と同じですが, 同じチームで教室と家に
+          別れてということがないように多少の入れ替えをするかもしれません.
+        </li>
+      </ul>      
+    </li>
+    <li><font color="blue">2021/5/3</font>
+      <ul>
+        <li>pmp01の回答を更新し, いくつか解説を加えています(すでにFetchをした人は一旦消す必要があります. <a href="https://drive.google.com/file/d/1Qg1ObUx5G5MBMgKJVVxUDjajHDplLwcA/view?usp=sharing" target="_blank">やり方</a>)</li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/4/29</font>
+      <ul>
+        <li>4/30 の授業はプログラミング練習</li>
+        <li>
+          <a href="https://docs.google.com/spreadsheets/d/1i3LeJ0bTIFsjTV7MC0OQp7iDmhbIXjKnlG634beAdgw/edit#gid=0" target="_blank">Googleシート</a>で自分のチームを確認し,
+          gatherに入り, チーム番号が書かれた机についてください
+          (教室で受けている人もgatherに入った上で, 物理的に同じ机に座る).
+        </li>
+        <li>試みとして,
+          こちらからスライドで説明することはしません(必要を感じたらします).
+        </li>
+        <li>今日のプログラミング練習では pmp01, pmp02, ... の中の Problem を,
+          順に片付けていくことを目標にします</li>
+        <li>チームでのプログラミング練習の進め方:
+          必ず以下を守って, 「自分ができたからといって他の人を置いてきぼり」
+          にしないようにしてください.
+          <ol>
+            <li>次に解くべき問題を確認(「次はpmpXXのProblem YYね」)</li>
+            <li>すでに全員ができていたらその問題は終了. 次の問題へ行く</li>
+            <li>まだという人が一人でもいたら, 相談の上時間を決めて, その時間まで取り組む.
+              時間は短めに. 説明を読んでいないという場合は少し時間が必要かもしれないが,
+              せいぜい5分. 説明がわからないという場合は遠慮なく, できている人に聞いたり,
+              田浦に聞いたりしてください.
+              すでにできている人はその間, 適宜先へ進む(質問が来たら答える).
+            </li>
+            <li>約束の時間が来たら, 一人(まだだった人がいればその中の一人)の
+              <font color="blue">
+                画面を共有</font>
+              して, <font color="blue">「相談モード」</font>で問題を解決する;
+              <font color="orange">注意:</font>
+              「全員が自力でできるまで待つ」と, いつになるかわからないので,
+              max 5分なら5分と, 時間を決めて先へ進む.
+              質問をしたり, 残りの人が教えたりして解決する.
+              特に最初のうちの練習問題は
+              <font color="orange">「自力で解く」ことにこだわらなくて良い.</font>
+              プログラミングは習うより慣れろだから, 特に最初のうちは,
+              答えを聞いて次の問題が解ければ, それで学んだことになる.
+            </li>
+            <li>同じ理由で, チーム内の誰か一人が解けたら,
+              その答えを他の人も写して, 全員が解けた状態にしておくと良い.
+              最初のうちは答えを写すだけでも練習になる(漢字練習, 英語の書き取り練習と同じ)
+            </li>
+            <li>時間がたっても誰も解けていないとか, 答えが合わない,
+              ということがあるかもしれない.
+              その場合も時間が来たら「相談モード」に移行して皆で解決するようにする.
+              <font color="orange">最初のうちの初歩的な練習問題では,
+                時間をかけて悩む意味はあまりない.</font>
+            </li>
+            <li>相談しても答えが出なければ, 長時間悩まず, 答えを見る.
+              全員で「あーそうか」となればそれでよい</li>
+            <li>そのようにしてその問題がチーム内で解決したら, 次の問題へ進む</li>
+          </ol>
+        </li>
+        <li>以上を, 1セット40分で2回繰り返す予定</li>
+        <li>どこまで解けたかを競っているのではないが, 上に述べた理由で,
+          特に最初のうちは1問にあまり時間をかけて悩む必要はないので,
+          無理無い範囲で, 早めのペースで進めることを目標にする</li>
+        <li>
+          来週もこれをやりますので, チームで自習までの努力目標を決めておくと良い.
+          最低限, 説明は全員が同じところまで読んでくるように約束をすると良い.
+          徐々に, その場で5分で解決しない問題も増えてくるので,
+          1個や2個, 問題を解いてくるとよい.
+        </li>
+        <li>
+          今日の感想をUTASで「振り返りシート」に記入してください
+          (UTAS -&gt; 履修 -&gt; 履修登録(前期課程) -&gt; 振返シート登録;
+          教員と学生で少し違うかもしれません. 教員から見るとこんな感じです).
+          <img src="img/utas.png" width="300" />
+        </li>
+      </ul>
+
+    </li>
+      
+    <li><font color="blue">2021/4/20</font>
+      このゼミ固有の初回(第3週)は, <font color="blue">4/23 (金)</font>です.
+      <font color="blue">初回はKOMCEE 401</font>で行います
+      (4/23の登校がどうしても困難な場合は下記連絡先まで事情をお知らせください).
+      <ul>
+        <li>大学のネットワーク(<font color="blue">UTokyo WiFi</font>)
+          につながるパソコンを持参してください
+          (困難な場合は下記連絡先までお知らせください).
+          電源につなげるコード(ACアダプタ)も忘れず持参.
+          そのパソコンで, </li>
+        <li>UTAS, ITC-LMSにアクセスできるように
+          (UTokyo Accountの番号やパスワードなどがわかるように)
+          しておいてください</li>
+        <li>大学のGoogleアカウント(ECCSクラウドメール)
+          でサインインできるようにしておいてください.
+          例えば<a href="https://docs.google.com/spreadsheets/d/1jf1O-lbDwIsz9QJdPWWhZTh-Nn4Z_ge3BXGIua2fyCs/edit?usp=sharing" target="_blank">
+            このページ</a>が見られるようにしておいてください.
+          ちゃんとやっているつもりなのに見れない(アクセス権をリクエスト,
+          というのが出てしまう)場合はお知らせください.
+        </li>
+        <li>準備で問題がある場合は
+          <a href="https://utelecon.adm.u-tokyo.ac.jp/oc/" target="_blank">
+            utelecon</a>を見ましょう
+        </li>
+      </ul>
+    </li>
+    <li><font color="blue">2021/4/20</font>
+      このゼミの受講が決まった人は, 初回(4/23)に先立ち
+      <a href="https://docs.google.com/spreadsheets/d/1i3LeJ0bTIFsjTV7MC0OQp7iDmhbIXjKnlG634beAdgw/edit#gid=0" target="_blank">
+        このシートに同日の2限以降の予定を教えて
+      </a>ください(+  自己紹介).
+      その後の実施形態を決めるための参考にします.
+    </li>
+    <li><font color="blue">2021/4/20</font>
+      <a href="https://itc-lms.ecc.u-tokyo.ac.jp/lms/course?idnumber=2021315040Y01" target="_blank">ITC-LMS このゼミのページ</a>
+    </li>
+    <li><font color="blue">2021/4/20</font>
+      教員 + TA のメールアドレスは
+      pmp@eidos.ic.i.u-tokyo.ac.jp です.
+      連絡, 質問はこちらへメールを送るか,
+      ITC-LMSの教員あてメッセージを使ってください.
+    </li>
+    
+    <!--
+        <li>実際にこのゼミ固有の内容は第3週目からです.
+          第3週は対面で行います(KOMCEE K401).
+          金1限です. 第4週以降の形式を決めるため, 第3週に先立ち,
+          <a href="https://docs.google.com/spreadsheets/d/1i3LeJ0bTIFsjTV7MC0OQp7iDmhbIXjKnlG634beAdgw/edit#gid=0" target="_blank">
+            同日の2限以降の予定を教えて
+          </a>ください.
+        </li>
+    <li>第1週, 第2週については:
+      <a href="https://fye.c.u-tokyo.ac.jp/about/" target="_blank">
+        初年次ゼミ理科
+      </a>のページを見てください
+    </li>
+    -->
+  </ul>
+
+  </ul>
+  </font>
+
+  <hr />
+  
+  2020年度
+
+  <font color="grey"  size="-1">
+
+  <ul>
+    <li><font color=blue>7/8</font>
+      <ul>
+        <li>授業アンケート回答よろしくおねがいします.
+          いつものGoogle Spreadsheet (
+          <a href="https://docs.google.com/spreadsheets/d/1gVkRB8OG6lqow5rg3Iw16wgtTuoStedqlo1VSK2vefc/edit#gid=0" target="_blank">自己紹介その他もろもろ用シート ... </a>)
+          を見て下さい
+        </li>
+        <li>空き時間に<a href="https://forms.office.com/Pages/ResponsePage.aspx?id=T6978HAr10eaAgh1yvlMhKiEyE2V_T1Ao4OzeJJKaG1UNkhHRTYyVDhCOVdaNTQxNTM2NVJRS0VLNi4u"  target="_blank">こちらのアンケート</a>にもお応え下さい(問題なければ授業の最後に結果を共有します)
+        </li>
+        <li>余談: 登校が可能であれば使っていたはずの
+          <a href="https://www.c.u-tokyo.ac.jp/info/about/booklet-gazette/bulletin/544/open/B-1-1.html" target="_blank"> KOMCEE</a>という教室(ここにいるつもりで...)
+        </li>
+        <li>10:25-10:33最終打ち合わせ (8分)</li>
+        <li>10:35- 発表 [順番: 素直に 1,2,3,4,5,6,7 でどうでしょう]</li>
+        <li>発表は5分以内 (+ 質問時間 5分)のつもりで</li>
+        <li>(できる人は)発表直後にマイクオンで拍手してください</li>
+        <li>スライドを見る限り充実の予感しかしません! 時間超過に気をつけましょう</li>
+        <li>発表最後に全員, 一言「感想」をお願いします</li>
+        <li>こちらで見つけたスライドへのリンクは上記Google Spreadsheet
+          へまとめておきましたが違う場合はお知らせ下さい
+        </li>
+      </ul>
+    </li>
+    
+    <li><font color=blue>7/1</font>
+      <ul>
+        <li>次回が最終回</li>
+        <li> タイマー
+          <!-- 
+               <iframe src="https://www.timeme.com/timer.htm?17q0c7ps0v10660501/Timer" width=900 height=300></iframe>
+               -->
+        </li>
+        <li>今日はひたすら完成へ向けてグループワーク</li>
+        <li>「当初宣言した通りのことができない」は気にせず,
+          「今日の終わりまでにできそうなこと」
+          を決めそれに向かって取り組んでください</li>
+        <li>来週は発表(作業の時間はない).
+          完成度は気にせず「何をしたかを初耳の人にも教えてあげる」
+          つもりで
+        </li>
+        <li>形式 (どれでもよい)
+          <ul>
+            <li>WorkplaceにあるMicrosoftのPower Pointでスライド</li>
+            <li>手書き</li>
+            <li>Jupyter Notebook に説明を書く (Markdownセルを使う)</li>
+          </ul>
+        </li>
+        <li>内容
+          <ul>
+            <li>目安: 発表時間5分 + 質問5分</li>
+            <li>「話すことないよー」と心配する人が多いですが実際には,
+              長引く班が多いので,
+              喋りたいことを極力コンパクトにまとめるつもりで準備するが吉</li>
+            <li>動いたもののデモ</li>
+            <li>何をしたか, どうモデル化しかた(数式など)</li>
+            <li>プログラムとしてどう書いたか</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li><font color=blue>6/25</font>
+      <ul>
+        <li>今日を入れてあと3回!
+          できれば最終回は発表にしたいので実質あと2回</li>
+        <li>10:25- 各チーム目標へ向けた議論</li>
+        <li>11:00- ミニ発表 3, 2, 1, 6 (目安: 5分 x 4)</li>
+        <li>11:20- 各チーム目標へ向けた議論</li>
+      </ul>
+    </li>
+    <li><font color=blue>6/25</font>
+      <ul>
+        <li>matplotlib (グラフの可視化) の使い方の動画をアップしています
+          (ITC-LMSを見てください)</li>
+      </ul>
+    </li>
+    <li><font color=blue>6/17</font>
+      <ul>
+        <li>議論 10:35-11:20ごろまで</li>
+        <li>ミニ発表3チーム 10:20-11:40ごろまで 5, 7, 4 (来週 3, 2, 1, 6)</li>
+        <li>11:40-
+          <a href=slides/pdf/visual_numpy_matplotlib.pdf>
+            配列/matplotlib説明 (スライド13以降)
+          </a>
+        </li>
+        <li>配列練習問題 pmp12</li>
+        <li>matploblib練習問題 pmp13, pmp14
+        </li>
+      </ul>
+    </li>
+    <li><font color=blue>6/10</font>
+      <ul>
+        <li>今日の予定
+          <ul>
+            <li>10:25-10:40 説明 「リスト」
+              <a href="https://pmp.eidos.ic.i.u-tokyo.ac.jp/slides/pdf/learn_python.pdf">スライド</a>
+              9節55枚目〜
+            </li>
+            <li>10:40-10:55 pmp11_list.py の「問題1」手前まで各自で学習</li>
+            <li>10:55-11:40(最大) 班で協力して, pmp11_list.py の「問題1」を解く
+              <ul>
+                <li>前回同様, 一人が手を動かす役, 残りの人は口を出す役</li>
+              </ul>
+            </li>
+            <li>11:40-12:10 最終成果物に向けた議論(問題設定, 解き方)</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li><font color=blue>6/3</font>
+      <ul>
+        <li>今日の予定
+          <ul>
+            <li>10:25-10:40 下記を簡単に説明</li>
+            <li>10:40-11:10 目標とそのやり方議論続き
+              (いいアイデアが浮かべば目標を変えるのもいいけど,
+              あるところで決めて前進する(「どう」するかの議論に移る)
+              のもよい)</li>
+            <li>11:10 - 「グループの共同で」1問問題を解く.
+              pmp10_group_programming
+            </li>
+            <li>11:50 - できれば, 動いたものを見せてもらう
+            </li>
+          </ul>
+        </li>
+        <li>各グループのアイデア記入ファイル(word)に, コメントを書きました.
+          (吹き出しをクリックしてください). コメントの観点は主に以下です.</li>
+        <li>目標設定のポイント
+          <ul>
+            <li>再現したい現象(ゴール)を決める</li>
+            <li>それがおきるための単純化されたモデルを考える.
+              現象を
+              「根本的な原理(第一原理)」
+              から忠実に再現しようと思う必要はない.
+            </li>
+            <li>例: ボウリング.
+              <ul>
+                <li>ピンの形やボールの回転などをすべて考慮した,
+                  3次元の世界をシミュレートしようと思う必要はない(かもしれない).
+                </li>
+                <li>再現したいことはなんだっけ?
+                  <ul>
+                    <li>真ん中に当てるとスプリットする(端にピンが残る).</li>
+                    <li>少しずらしたほうが良い.</li>
+                    <li>または少し斜めに入ったほうが良い.</li>
+                  </ul>
+                  2次元(おはじき)みたいな世界でもよいのではないか? とか.
+                </li>
+                <li>これであれば,
+                  おはじき(円盤)の衝突を再現すれば良いことになる.
+                  やってみてうまく行かなければ徐々に複雑にしても良い.
+                </li>
+              </ul>
+            </li>
+            <li>例: 水切り
+              <ul>
+                <li>単純化されたモデルと言っても, その時点で難しい.</li>
+                <li>そもそもなぜ水切りが起きるのかの,
+                  大雑把な原理の理解が先決</li>
+                <li>文献(といってもGoogle先生, Wikipediaなど)調査.
+                  「無条件に鵜呑みにしない」という態度で臨めばOK.
+                  それは立派な図書館の本でも同じこと</li>
+                <li>大雑把に理解したら,
+                  改めて「再現したい現象の単純化」を試みる</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li><font color=blue>5/27</font>
+      今日(5/27)の予定
+      <ol>
+        <li>10:25- 目標についてグループ議論(30+分)</li>
+        <li>同じ画面を見ながら(画面共有);
+          目にしたページや動画などをどんどん共有ドキュメントにメモ</li>
+        <li>10:55- 議論の結果をミニ発表(1分以上/班.
+          話すことがあればもっと長くても良い)</li>
+        <li>11:??- プログラミング続き</li>
+      </ol>
+    </li>
+
+    <li><font color=blue>5/13</font>
+      次回(5/20)までにpmp07までの問題を
+      <a href="https://pmp.eidos.ic.i.u-tokyo.ac.jp/slides/pdf/learn_python.pdf">スライド</a>の51枚目までを読んで終了しておくことを目指して下さい
+      (<a href="https://docs.python.jp/3.5/tutorial/index.html" target="_blank">
+        Pythonチュートリアル</a>の「4. その他の制御フローツール」
+      の4.1〜4.6あたりまでも参考にすると良いでしょう)
+    </li>
+
+    <li><font color=blue>5/2</font>
+      Pythonの自習用に
+      <a href="#recommended_books">おすすめ本</a>をいくつか紹介しました
+    </li>
+
+    <li><font color=blue>5/1</font>
+      Safariで動かない問題はおそらく直りました.
+      試してみてください.
+    </li>
+
+    <li><font color=blue>4/29</font> 4/29 授業後のお知らせ
+      <ul>
+        <li>今日はSafariで動かない件とか, どういうわけかnotebookの中でコードを書く欄が抜けているとか(実はそれ以外にも抜けているところがありました), こちらの不具合のせいで色々ご迷惑をおかけしました.</li>
+        <li>コードを書く欄が抜けている問題は直ったはずです. 直ったファイルを仕込んでいます.
+          しかしすでに問題を解くのが進んでいて, もとの(壊れていた)ファイルに答えを記入し終えている人もいるので,
+          混乱が無いようファイル名を変えています. 例えば, pxxxxx.py.ipynb の代わりに pmpxxxxx.py.ipynb
+          という名前で新たにファイルを仕込んであります
+        </li>
+        <li> 番号としては pmp07 まで仕込んであります.  </li>
+        <li> 今日までに一応カバーしたことで pmp04_vpython.py.ipynb までが解けるので, できれば次回までの宿題として,
+          各自pmp02-04までの問題を解いておくことを目指してください(もちろんその先へ進んでも構いません).
+        </li>
+        <li>解けないものは放置で構いませんが, 授業時間内に初めて見るのではなく, 授業時間を, わからないことについてグループの他の人と相談したり,
+          こちらが解説をしたりする時間に使えるよう, できることを進めておいて下さい.
+          進捗はこちらから見ることが出来るので, 適宜見るようにはしますが, 何かで詰まってた場合は遠慮なく聞いて下さい.
+          ITC-LMSの履修者から教員へのお知らせでも, ITC-LMSの掲示板でも, メールでも良いです(メールアドレスはITC-LMSに記載しました).
+        </li>
+        <li>VPythonのグラフィックスがうまく出ないみたいなのはシステム側の問題であることも多いので, 何か変だったら,
+          メニューのKernel -&gt; Reset を試して, それでもダメなら遠慮なく連絡下さい.
+        </li>
+        <li>
+          <strike>Safariで動かない問題については, 次回までにできるだけ直したいですとは言うものの, 時間が取れるかわからないので, まずはChromeでやって下さい.</strike>
+          <font color="purple">5/1 更新 直ったと思います.</font>
+          途中からSafariになっても作業内容は自然に引き継げます
+        </li>
+        <li>
+          Jupyter環境へアクセスするためのURLが書いてあるspreadsheetも, ITC-LMS経由で見られるようにしていますが,
+          そのspreadsheetにアクセスする際は大学のECCSクラウドメール (xxxx@g.ecc.u-tokyo.ac.jp)
+          でGoogleにサインインした状態でアクセスして下さい. やり方がわからない場合は<a href="https://utelecon.github.io/oc/#check-google-spreadsheet" target="_blank">
+            新入生・在学生のための, オンライン授業を受けるための準備: G Suite for Educationが使えるかのチェック</a>を見て下さい.
+          それでもわからなければ聞いて下さい
+        </li>
+        <li>Google Meetの部屋に入る際も, ECCSクラウドメール (xxxx@g.ecc.u-tokyo.ac.jp)でGoogleにサインインした状態でアクセスすれば,
+          こちらの承認を得ることなく入室できます. 安全性の観点らもこちらのほうが望ましい(田浦が間違って部外者を承認して入室させる心配がない)ので,
+          なるべくECCSクラウドメール (xxxx@g.ecc.u-tokyo.ac.jp)でGoogleにサインインして下さい. 上記のページ経由でそうなっているかのチェックが出来ます.
+          また, 授業のURLは(田浦がいなくても)いつでも入室できると思いますので, そこにつないでみても良いです.
+        </li>
+        <li>
+          グループワークはいつから始まるのか? という質問がありました. プログラミング練習の進捗と, Web会議での部屋の出入りとか議論の慣れ具合にもよるのですが,
+          4/29 が(休講だった最初の2回を数えて)4回目. 以降の予定(あくまで予定)は, こんな感じを目指しています. ですので, 5, 6回目辺りは授業ではグループワークに
+          入りませんがそれに備えて各自に興味のあることを考えておいて欲しいと思います. このホームページの中
+          <a href=slides/pdf/howto.pdf>問題選び・作り</a>のスライドも眺めるとヒントがあります.
+          <ul>
+            <li>5回目: プログラミング練習. ほんの少しだけグループワーク予告</li>
+            <li>6回目: プログラミング練習. グループワーク予告</li>
+            <li>7回目: 最終目標に関するグループでの議論を始める</li>
+            <li>8回目: 最終目標に関するグループでの議論を続ける/決める</li>
+            <li>...</li>
+          </ul>
+        </li>
+        <li>Pythonの自習に良い教材はないかという質問をもらいました. 
+          <ul>
+            <li><a href="https://docs.python.jp/3.5/tutorial/index.html" target="_blank">
+	        Pythonチュートリアルページ</a>.
+              このチュートリアルの3-5章あたりを寝ながらで良いので読んでおくと良いです．今練習していることの多くはここにも書いてあります.
+              ただしプログラミングそのものが初めての人のための入門と言うよりは, プログラミング言語は知っている人のためのPythonの簡潔な入門という感じです.
+            </li>
+            <li>
+              プログラミングそのものは初めてという人のための概念的な入門を含めた書籍は,
+              <strike>別途, また見つかったらお知らせします.</strike>
+              <font color="purple"> <a href="#recommended_books">おすすめ本</a>に追加しました. </font>
+              Pythonの情報はGoogleで探せばたくさん出てくるので, まずは気軽に色んなページを読んでみるのでも良いです.
+              その他このホームページの中にも多数のリンクが生えているので気の向くものを読んでみて下さい
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><font color=blue>4/22</font> 4/29の授業は前回とURL/使うソフトが代わります(4/22の授業中で試したとおりです).
+      Email/LINEお知らせを飛ばしたつもりですが飛んでいない可能性があります.
+      どこにつなぐかはITC-LMSを見て, 「お知らせ」欄でチェックしてください</li>
+    <li>このページの検索方法: <font color="blue">田浦 初年次</font> で検索すると多分見つかります</li>
+  </ul>
+
+  </font>
+
+  <hr />
+    
+  2019年度
+
+  <font color="grey"  size="-1">
+    <ul>
+      <li> <a href="#office">Microsoft Office 365での
+          スライド・ドキュメント共有方法</a></li>
+      <li> <a href="#desktop_sharing"> デスクトップ共有の方法</a></li>
+      
+      <li><a href="https://docs.google.com/spreadsheets/d/199cjTEc_5lgeh2zGNJDBQ0LSBG4p4byQh56b0gcqYHE/edit?usp=sharing" target="_blank">演習環境</a>
+      </li>
+      <li><a href="https://forms.gle/1gZr7tyXAqDRZeTu6" target="_blank">初回アンケート</a>
+        に答えてください</li>
+    </ul>
+  </font>
+
+
+  <hr />
+
+  2018年度
+
+  <font color="grey"  size="-1">
+    <ul>
+      <li><font color=blue>(5/2)</font><a href=https://goo.gl/forms/WTzRBqn2SnAVVHv33 target="_blank">
+          練習問題進捗共有</a></li>
+      <li><font color=blue>(7/11)</font>
+        お疲れ様でした.
+      </li>
+      <li><font color=blue>(7/11)</font>
+        今日発表した班もしなかった班も, 最終作品(プログラム)を
+        練習用環境にアップロードして下さい. まだ出来ていない人も,
+        今日の時点での物をアップロードして下さい. 今日の授業でも
+        述べましたが, 教室で使っていたPCで開いていたページのURL
+        (http://localhost.../) というのではダメです. 練習環境
+        (http://pmp.../...)の方でやって下さい.
+        具体的には, <font color=red>2, 3, 4, 6</font>班の
+        作品はまだこちらで見られる状態になっていません.
+      </li>
+      <li><font color=blue>(7/11)</font>
+        <ul>
+          <li><font color=red>
+              今日発表できなかった人は後日, まとめ(スライドないし, レポート.
+              今日の発表資料くらいのもの)
+            </font>
+            を提出して下さい.</li>
+          <li>締め切り<font color=red>8/17 (金)</font>.
+            ただしこれはあくまで, どうせ後日提出なら余裕を与えようと
+            遅く設定しているもので, できたらすぐに出してくれて構いません.</li>
+          <li><font color=blue>提出方法:</font>
+            田浦までメールを下さい. 班の代表を決め,
+            その人から田浦あてに, + <font color=red>
+              残りのメンバーをCC</font>に含めて送って下さい.
+            田浦のアドレスはこのページの下の方にあります</li>
+          <li>よく連携が取れて議論が行われているチームもあれば,
+            メンバーの関与の度合いに差があるチームがあるという印象です.</li>
+          <li>チームワークとして, <font color=red>全員で協力</font>
+            することを心がけて下さい.
+            問題の理解度やスキルに差があるチームもあると
+            思いますが, よく理解している人は周りを置いてきぼりにしない,
+            そうでない人は, よく理解している人まかせにしない, という
+            ことをお互いに心がけて下さい.</li>
+        </ul>
+      </li>
+      <li><font color=blue>(6/13)</font>
+        今日の議論を受けてのいくつかの
+        チームの課題と関係する<a href=html/comment2018.html>コメント</a>
+      </li>
+      <li><font color=blue>(6/13)</font>
+        すみませんが補講をする代わりに,
+        <font color=red>6/20, 27, 7/4に時間を35分ずつ延長</font>します.
+      </li>
+      <li><font color=blue>(5/31)</font>
+        すみませんが, <font color=red>6/6 (水) の回を休講</font>とします.
+        補講は追ってアナウンスします.
+      </li>
+      <li><font color=blue>(5/16)</font>
+        <a href=problems/problems18/hnakazawa.pdf target="_blank">問題例1</a>
+        <a href=problems/problems18/thiguchi.pdf target="_blank">問題例2</a>
+      </li>
+      <li><font color=blue>(5/2)</font> <a href=http://pmp.hopto.org:20000/notebooks/u20000/2018/ target="_blank">練習問題解答例</a>. PW必要です(授業で).
+        特に最初のうち, 「どう書いたら良いかわからない」みたいなときは,
+        見て先へ進んで下さい.
+        ファイルを開くと,
+        "I couldn't find a kernel matching Python 3. Please select a kernel"
+        みたいなことを言われます.
+        出てくるメニューからVPythonを選んで下さい(ちゃんとした対策調査中).
+      </li>
+      <li><font color=blue>(4/25)</font> <a href=https://docs.google.com/spreadsheets/d/1KKUTEMRBwpitKiCJpxDRnPxBxhcwMXiEXdw0wQGj93Q/edit#gid=0 target="_blank">毎週アドレス申告</a></li>
+      <li><font color=blue>(6/7 水)</font>
+        家で練習するための練習環境(次項参照)でも,
+        Visual Pythonが動かせるようにしました(ブラウザの中でアニメーションが動きます).
+        Visual Pythonを使う練習問題の解答例ものせました.
+      </li>
+      <li><font color=blue>(5/24 水)</font>
+        「家で練習します」という声が多かったのに反応して,
+        練習問題の解答例をのせました. いつものgooglesheet
+        (振り返りシートに記載)からたどってください
+      </li>
+
+      <li><font color=blue>(5/24 水)</font>
+        <font color=red>5/29 (月)に補講</font>を行います(4/26 休講分).
+        授業でアナウンスしたとおり, 約半分の学生を2限, 残りを3限というふうにしています.
+        自分がどちらに出ることになっているかは,
+        振り返りシートに記載のページ (いつものgooglesheetです)
+        に書いておきましたのでそれを見てください.
+        また, 2限 -&gt; 3限へ移りたいという人を早いもの勝ちで,
+        最大4名まで受け付けますので, 希望者はお知らせください(連絡先は
+        上記のgooglesheetに書いてあります).
+      </li>
+      <li><font color=blue>(5/18)</font> 自宅から練習ができる環境を用意しました.
+        振り返りシートを見てそこに書いてあるスプレッドシートのURLをあけてみてください.
+        そこに, (名前, 練習環境のURL, パスワード) の一覧(各人用別々)が書いてあるので,
+        自分用の練習環境にアクセスしてください.
+        パスワードを聞かれるので, スプレッドシートに書いてあるパスワードでアクセス
+        してください. その後は授業で使っている環境と同じように使ってください
+        (New -&gt; Python 2を選択).
+        <font color=red>ただし, Visual Pythonは使えません.</font>
+      </li>
+      <li><font color=blue>(4/??)</font> いきなりすいませんが, 4/26 (水) は休講です.</li>
+
+      <li>
+        教室で使っているPC (Linux)にDropbox
+        をインストールしましょう．
+        <ul>
+	  <li>やり方(その1):
+	    <a href=https://www.dropbox.com/install?os=lnx target=_blank>
+	      Dropbox ダウンロードサイト</a>に行って，
+	    <a href=https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb>
+	      「Ubuntu (.deb) 64-bit」</a>をクリックして下さい．
+	    するとパッケージインストールソフトが勝手に立ち上がって，
+	    インストールしようとするので指示に従えばよいです．
+	  </li>
+	  <li>やり方(その2):
+	    端末を開いて以下のコマンドを打つ
+            <pre> sudo apt-get install nautilus-dropbox</pre>
+	  </li>
+        </ul>
+
+        <ul>
+	  <li>上記どちらでも良いです．どちらにしても終わったら，画面左上の
+	    Ubuntuボタン(<img src=img/ubuntu_button.png height=30/>)を押し，
+	    dropbox と打ち込むと，
+	    dropboxアイコンが出てくる:<br />
+
+            <img src=img/drop.png width=300/>
+
+	    <br />
+	    ので，起動します
+	    (このとき，やりかた(その1)でやった人は最初に何やら
+	    ダウンロードしに行くので時間がかかります)．
+	  </li>
+	  <li>無事起動したら，すでにDropboxを使っている人は，
+	    そのユーザ名，パスワードを入れて下さい．
+	    そうでない場合は今ユーザ名とアカウント名を決めて，
+	    使い始めてください．</li>
+	  <li>
+	    ここまで来ると，
+	    自分のホームフォルダの直下にDropboxというフォルダが現れます．
+	    すでに家などでDropboxを使っている人は，
+	    家で見ているものと同じものが見えるようになります．
+	    初めての人も，
+	    後で家のマシンにDropboxを入れて同じアカウントでログインすれば，
+	    家で同じものが見えます</li>
+	  <li>どちらの場合も，前回授業直後に送った，
+	    フォルダ共有招待メールにあるリンクを
+	    まだクリックしていない人は，
+	    クリックしてください．
+	    Dropboxフォルダの下に
+	    pmpというフォルダが見えるようになります．
+	    pmp/2016/班番号 というフォルダの下に，
+	    作業結果を残せば(JupyterのFile -&gt; Download as (.ipynb))，
+	    それが家でも見られるようになりますし，
+	    班員，我々とも自動的に共有されます．
+	  </li>
+	  <li>家のマシンで作業を継続したければ，自分のマシンにJupyter
+	    がインストールされていれば，.ipynbを直接開けばよいです．
+	    なければ
+	    <a href=http://ec2-52-192-189-165.ap-northeast-1.compute.amazonaws.com:10040/notebooks/u10040/ >練習用環境</a>を開き，
+	    .ipynbファイルをアップロードすればよいです．
+	  </li>
+        </ul>
+      </li>
+
+      <li>東大蔵書検索システム
+        <a href=http://www.dl.itc.u-tokyo.ac.jp/gacos/ target=_black>GACOS</a>;
+        googleで gacos を検索すれば(きっと)見つかります.</li>
+      <li><a href=https://www.youtube.com/watch?v=pnkxHBKQrkE&feature=youtu.be target=_black>検索実習動画</a> (初年次ゼミポータルからたどれます)</li>
+      <li><a href=http://ec2-52-192-189-165.ap-northeast-1.compute.amazonaws.com:10040/notebooks/u10040/ >練習用環境</a>です．復習に役立てて下さい．パスワードは授業でいいます． </li>
+      <li><a href=http://ec2-52-192-189-165.ap-northeast-1.compute.amazonaws.com:10040/notebooks/u10040/ >練習用環境</a> に，練習問題の解答を徐々に載せていきます．practice.ipynb というファイルを開いてみて下さい．</li>
+      <li>練習問題の解答を直接ダウンロードしたい人は，
+        <a href=prints/2016/practice.ipynb>これを右クリックして保存</a>
+        ください．そののち，手元のJupyter環境で開けば手元で実行できます．</li>
+
+
+      <li>
+        <b>matplotlibで</b>
+        <a href=html/retrospect.html#howtoanimatematplotlib>
+          アニメーションがしたい</a>人へ
+      </li>
+
+      <li>最終回へ向けて
+        <ul>
+          <li>何か動いた人は動いたものをデモ</li>
+          <li>スライドにまとめて発表</li>
+          <li>スライド作りを共同でやるには，
+	    <a href=https://office.live.com/start/default.aspx?omkt=ja-jp>Office Online</a>や<a href=https://www.google.com/intl/ja_jp/drive/ >Google Drive</a>が使えます．
+          </li>
+          <li>チームで相談して，できるだけのことを</li>
+        </ul>
+      </li>
+
+      <li><a href=problems/problems/Problems.pdf>より具体化された問題案</a>
+        を載せました</li>
+      <li> <a href=html/retrospect.html#howtoproceedafter624>
+          6/24の進め方</a>
+        に関するアナウンスを読んで準備をしておいて下さい</li>
+      <li><a href=html/retrospect.html#problem73>問題7-3の解説</a>
+        を載せました</li>
+      <li><font color=red>6/17 は休講です</font></li>
+      <li>以下の日時に補講をします．
+        <ul>
+          <li>月日： 6月4日<font color>(木)5限</font></li>
+          <li>場所： K401 (いつもと同じ)</li>
+        </ul>
+      </li>
+      <li><font color=red>6/17 は休講です</font></li>
+      <li>
+        <a href=html/python_practice_1.html>
+          Python練習投稿ページ</a>
+      </li>
+      <li><a href=html/retrospect.html>質問や振り返りに対する回答</a>で,
+        共有すると有益なものを書くためのページ <a href=https://docs.google.com/spreadsheets/d/18XZNshGDmk8Kq5eGmhVIYx5KkzFH8fwCrNIc2ATwvMU/edit#gid=0>.</a>
+        
+      </li>
+      <li><a href=https://www.youtube.com/watch?v=pnkxHBKQrkE&feature=youtu.be>検索実習動画</a> (初年次ゼミポータルからたどれます)</li>
+      <li><a href="http://www.dl.itc.u-tokyo.ac.jp/gacos/">GACOS</a>;
+        googleで gacos を検索すれば(きっと)見つかります.</li>
+    </ul>
+  </font>
+</div>
+
+<!--
+<a name=desktop_sharing> </a>
+<h2>画面(デスクトップ)の共有の方法</h2>
+<div>
+  議論をしながらコードを書くために, 一人の画面を他の人も見られるようにする方法.
+  <ol>
+    <li>Ubuntuボタン <img src="img/ubuntu_button.png" /> を押し,
+      "remmina" を検索 (rem くらいまでで多分見つかる)
+    </li>
+    <li> 緑色の + ボタンをおす
+    </li>
+    <li>
+      <ul>
+        <li> Protocol:  <font color=red>VNC</font> を選択 </li>
+        <li> Server: に見たい画面の IP アドレス(<a href="https://docs.google.com/spreadsheets/d/199cjTEc_5lgeh2zGNJDBQ0LSBG4p4byQh56b0gcqYHE/edit?usp=sharing" target="_blank">演習環境</a>
+          スプレッドシート参照)を入力</li>
+        <li> User Password: に xxxx (授業中に述べる) を入力</li>
+        <li> Color depth: 好きなものを設定(品質をあげるとネットワークの負荷が大きくなる)</li>
+        <li> Quality: 好きなものを設定(品質をあげるとネットワークの負荷が大きくなる)</li>
+        <li> <font color=red>"Disable Encryption" のチェックはしない</font></li>
+        <li> <font color=blue>Connect</font> または <font color=blue>Save and Connect</font> で接続</li> 保存をしとくと何度も繋げる時に楽
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<a name=office> </a>
+<h2>Microsoft Office 365での
+  スライド・ドキュメント共有方法</h2>
+<div>
+  <ol>
+    <li>大学のアカウント(UTokyo Account)でOffice 365
+      を使える状態にしていない人はする
+      (そのやり方: <a href="https://utacm.adm.u-tokyo.ac.jp/webmtn/LoginServlet" target="_blank">
+        UTokyo Account 利用者メニュー</a>に行ってOffice 365 ProPlus 利用許諾
+      から,  「利用規約に合意し利用権を申請する」を「はい」にして保存)
+    </li>
+    <li>それができたら <a href="https://www.office.com/" target="_blank">Office 365にログイン</a>. その際のアカウント名は utokyo account の10桁@utac.u-tokyo.ac.jp </li>
+    <li>普通にパワポでも何でも作って, "share" ボタンで共有相手を指定.
+      その際, 普通に本名で指定すれば,
+      そういう人がいればそうとわかるように出てくるので,
+      普通にチームメイトの本名を入れれば良い</li>
+  </ol>
+</div>
+  
+<h2>自宅で試したい人用のヘルプ</h2>
+<h3>Windows or Mac</h3>
+<div>
+  Pythonだけならインストールは簡単ですが，
+  グラフィック表示が必要となると少し複雑です．
+  そこで簡単に使える小さめのLinuxを用意しました．<br>
+
+  これを実際にWindowsまたはMac上で動かすには仮想ソフトウェアである
+  <a href=http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html?ssSourceSiteId=otnjp>VirtualBox</a>
+  を利用しますので，
+  以下にインストール方法について簡単に示します．
+
+<ol>
+  <li>
+    上記のリンクからOracleのVirtualBoxダウンロードページにいきます．
+  </li>
+  <li>
+      「Oracle VM VirtualBox Base Packages」の64bit版をWindows用もしくはMac用にダウンロードします．どちらのOS用のリンクであるかはPlatformを確認してください．
+  </li>
+  <li>
+      <a href=data/lubuntu.ova>こちら</a>からダウンロードしたファイルを適当なフォルダに入れ，VirtualBoxを起動してください．
+  </li>
+  <li>
+    左上のメニューから「ファイル」->「仮想アプライアンスのインポート」で先程もらったファイルを選択して仮想マシンをインストールします．
+  </li>
+  <li>
+    インストールされた仮想マシンを選択して「起動」アイコンをクリック．パスワードはゼミ初回に教えたものと同じです．(HINT:*********33)
+  </li>
+  <li>
+    ホスト側のウィンドウサイズとゲスト側のウィンドウサイズが違う場合は「表示」->「ゲストOSの画面を自動リサイズ」としてください．
+  </li>
+  <li>
+    見慣れたjupyter notebookの開き方
+    <ol>
+      <li>
+        仮想マシンの「画面」をクリックしてフォーカスする
+      </li>
+      <li>
+        「Ctrl」+「Alt」+「t」を押すとターミナルという黒い画面が出てくるので，以下のコマンドを入力
+        <pre>
+$ jupyter notebook</pre>
+      </li>
+      <li>
+        firefoxが自動的に起動し見慣れたjupyter notebookが開きます
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h4>トラブルシューティング</h4>
+<ul>
+  <li>Mac</li>
+  MacOS 10.13を使っている場合，VirtualBoxのインストールに失敗する場合があるようです．
+  その場合は以下の様な画面になると思います．<br>
+  <img src="img/macVMfail.png" width=400><br>
+  この<a href=https://apple.stackexchange.com/questions/301303/virtualbox-5-1-28-fails-to-install-on-macos-10-13-due-to-kext-security>リンク</a>を参考にした解決手段はこのようになります．
+  <ol>
+    <li>
+      VirtualBoxのイメージをFinder->Devicesから取り出す
+    </li>
+    <li>
+      System Preferences->Security&PrivacyからOracleのソフトウェアに対して例外を追加する
+    </li>
+    <li>
+      .dmgファイルから再びインストールを行う
+    </li>
+  </ol>
+</ul>
+
+<font color=red>
+試したい人は2GB以上入るUSBメモリーを持ってTAにお願いしてください．
+</font>
+</div>
+
+<h3>Windows用簡単Python</h3>
+<div>
+  もうすぐ書きます.
+
+  簡単なWindows用のPython（<a href=data/Portable_Python_2.7.2.1-v0.2.zip>Portable Python 2.7.2.1-v0.2.zip</a>）を用意しました(04/22/18:00)！
+十分に洗練されたものではないので, 不具合があればお知らせください．
+使い方は, zipを解凍した際に中に入っているreadme.pdfを参照してください．
+</div>
+
+<h3>Mac</h3>
+<div>
+そのうち...
+</div>
+
+<h3>Linux</h3>
+<div>
+  <font color=red>以下, jupyter で VPython, matplotlib, numpy, scipy
+    が使えるためのインストラクションに書き換える必要あり.
+    python3-pip を入れ, pip3 install --user xxxx xxxx xxxxという
+  形式にしたい</font>
+
+以下のパッケージをインストールすればよいです.
+以下はUbuntuのパッケージ名で, 微妙に違うかもしれませんが,
+パッケージ名検索などで容易に見つかると思います.
+
+<table border=1>
+  <tr><td>Visual Python</td><td>python-visual</td></tr>
+  <tr><td>Matploblib</td><td>python-matplotlib</td></tr>
+  <tr><td>Numpy</td><td>python-numpy</td></tr>
+  <tr><td>Scipy</td><td>python-scipy</td></tr>
+</table>
+
+Ubuntuなら以下を実行すれば出来ます.
+<pre>
+$ sudo apt-get install python-visual python-matplotlib python-numpy python-scipy
+</pre>
+
+<h4>
+  VMの作成手順
+</h4>
+<ol>
+  <li>
+    最新版LTSのLubuntuを公式サイトからダウンロード
+  </li>
+  <li>
+    VirtualBoxからisoをインポートしてLubuntuをインストールし，見た目などの設定を行っておく
+  </li>
+  <li>
+    Guest Additionsをインストールする
+  </li>
+  <li>
+    python3をaptを使ってインストールする（firefoxはインストール済み）
+    <pre>
+$ sudo apt update
+$ sudo apt install python3 python3-pip</pre>
+  </li>
+  <li>
+    python3用のモジュールをpip3を使ってインストールする
+    <pre>
+$ pip3 install --user numpy scipy jupyter vpython ipython</pre>
+  </li>
+</ol>
+</div>
+
+-->
+
+  
+
+</body>
+</html>

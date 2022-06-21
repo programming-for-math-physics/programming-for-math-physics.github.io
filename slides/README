@@ -1,0 +1,74 @@
+[1] \documentclass[12pt,dvipdfm]{beamer} % draft,
+
+だと, gnuplot epslatex で生成したグラフが取り込めない.
+
+   ! LaTeX Error: File `graphs/search_time' not found.
+
+[2] \documentclass[12pt,dvips]{beamer} % draft,
+
+とすると, dvipdfmx で処理した絵が出てこないことがある.
+
+直接,
+
+\begin{frame}
+    \includegraphics[width=\textwidth]{svg/workflow}
+\end{frame}
+
+とかだとOKだが,  columns とかを使うと, 絵の部分が白くなる
+
+[3] dvips はもっと変なエラーで動かない
+
+[4] そもそも gnuplot epslatex で生成したグラフが取り込めない理由は,
+
+    \includegraphics{graphs/search_time}
+
+のように拡張子が付いていないから. dvipdfm だとそれにepsを補うことをしてくれない
+みたい. 考えられる手は二つ
+
+(a) グラフィクスを eps ではなく全部 pdf にする. 
+
+(b) 上記ファイルを無理矢理 
+
+    \includegraphics{graphs/search_time.eps}
+
+と書き換える
+
+[5] グラフィクスを eps ではなく全部 pdf にする. 
+
+この場合, bounding box (.bb)ファイルを ebb というプログラムで作る必要もある.
+
+もともとはinkscapeで作ったsvg. pdfを吐くには色々なパスがある.
+
+(p) inkscape --export-pdf=x.pdf x.svg
+    ebb x.pdf
+
+bounding boxが狂っていた
+
+(q) inkscape --export-eps=x.eps x.svg
+    ps2pdf x.eps x.pdf
+    ebb x.pdf
+
+bounding boxが狂っていた
+
+(r) inkscape --export-eps=x.eps x.svg
+    convert x.eps x.pdf    
+    ebb x.pdf
+
+OK. だが, gnuplot で生成したeps にこれを施すと, グラフの図部分と
+字の部分がずれて配置される
+
+よってこの方法はダメ
+
+[6] \includegraphics{graphs/search_time.eps} に書き換える
+
+スクリプトで,
+   \includegraphics{x}
+を
+   \includegraphics{x.eps}
+に書き換える.
+
+この方法でなんとかうまく行った.
+
+
+
+

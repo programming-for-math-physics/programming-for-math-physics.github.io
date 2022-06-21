@@ -1,0 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>質問や振り返りに対する回答</title>
+
+<style>
+body {counter-reset: h2}
+  h2 {counter-reset: h3}
+  h3 {counter-reset: h4}
+  h4 {counter-reset: h5}
+  h5 {counter-reset: h6}
+
+  h2:before {counter-increment: h2; content: counter(h2) ". "}
+  h3:before {counter-increment: h3; content: counter(h2) "." counter(h3) ". "}
+  h4:before {counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ". "}
+  h5:before {counter-increment: h5; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "}
+  h6:before {counter-increment: h6; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "}
+
+  h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.nocount:before { content: ""; counter-increment: none } 
+
+h1 {
+  font-size   : 24pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #DDDDEE;
+}
+
+h2 {
+  font-size   : 20pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+h3 {
+  font-size   : 18pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 1pt;
+  border-color     : #99A1AA;
+  background-color : #F8F8FF;
+}
+
+div {
+  font-size   : 16pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-color     : #99A1AA;
+}
+
+p {
+  font-size   : 16pt;
+  xfont-family : serif;
+  border-color     : #99A1AA;
+}
+
+pre {
+  background-color:#efe;
+}
+
+</style>
+</head>
+
+<body>
+
+  <a href=../ > top </a>
+<h1>質問や振り返りに対する回答</h1>
+<div>
+授業中に受けた質問や, 振り返りシートに書かれた質問・コメント
+などで，こちらからの回答やコメントを共有するのが有益と思われた
+ものをここに書きます．振り返りシートに対する回答は150文字以内に
+限定されているというのもここに書く理由です．
+</div>
+
+<h2>C++をいきなり学ぶのはキツイでしょうか?</h2>
+<div>
+という趣旨の質問を振り返りシートで受けました. 
+主観も交じるかもしれませんがお答えします(田浦)．
+
+<ul>
+
+  <li>C++は言語仕様もややこしい上に，間違った
+  プログラムの動作を理解するにはコンピュータの
+  低レベルな動きをかなり知らないといけません．
+  初学者には向いていません．</li>
+
+  <li>Cは言語仕様がC++に比べれば10倍は単純なの
+  で「コンピュータの低レベルの仕組みを理解する」
+  のが目的の一部である場合にはよい言語ですが，
+  コンピュータを用いた問題解決を学びたい人が最
+  初に手を付けるべき言語かと言われると違うかな
+  と思います．
+  </li>
+
+  <li>C++にたどりつきたいなら，コンピュータの
+  仕組みも学びつつ,C -> C++と進むのが良いと思
+  います．</li>
+
+  <li>Javaはポピュラーな言語では有りますが，初
+  学者にとっては意味のわからないおまじないのよ
+  うなキーワードも多すぎますし，長ったらしい変
+  数の型をたくさん書くなど，「なぜこう書かなく
+  てはいけないのか（言語仕様がなぜこうなってい
+  るのか）」を理解するという，本質的でない部分
+  にかなりの時間と脳みそをとられます．個人的に
+  はプログラムでの問題解決を学びたい初学者向け
+  ではないと思います．Javaをやる場合，「オブジェ
+  クト指向」という概念一般について学びながらや
+  るといいと思います．</li>
+</ul>
+
+</div>
+
+<h2>初学者用におすすめの言語は?</h2>
+<div>
+初心者向けの言語という意味では，以下の3つの点が重要だと思います．
+
+<ul>
+  <li><b>単純:</b> 
+    問題解決の本質(「どう計算するか」)
+    以外にあまり余計なことを学ばなくて良い</li>
+  <li><b>エラー時の挙動:</b> 
+    間違ったプログラムがなぜ間違っているかを理解しやすい．
+    「話せば長い理由で」言語仕様がこうなっている，
+    ということが少ない．</li>
+  <li><b>強力:</b>
+    色々な「飛び道具」が揃っていて自分で難しい
+    プログラムを書かなくても最初からできること
+    が多い
+  </li>
+</ul>
+
+それらをよく満たすという意味で，
+なかなかPythonに並ぶものはありません．
+Pythonを90点として, いくつか70点くらいはあげられる言語を
+あえてあげるとすると，
+
+<ul>
+  <li>Ruby: Pythonとフレーバーが似ています．強力な道具も分野によっては有りますが，「オブジェクト指向」一般について知らない人には戸惑う記法や仕様もあるかもしれません．</li>
+  <li>Scheme: 純粋に「プログラミングの概念」を学びたいという人には，Schemeという言語，というよりも <a href=http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%AB%E3%83%89%E3%83%BB%E3%82%B8%E3%82%A7%E3%82%A4-%E3%82%B5%E3%82%B9%E3%83%9E%E3%83%B3/dp/489471163X>この本</a>
+    を使って学ぶのは勉強方法としてはお勧めです．
+    Schemeは覚えることが少ない言語で，
+    問題解決方法を学ぶには良い言語です．
+    欠点は，この本で非常に良い概念は学べるが，
+    Schemeは残念ながらPythonほど「強力」「便利」
+    な飛び道具を揃えていないので，
+    今回のような目的にはちょっと足りません．</li>
+  <li>私がよく知らない言語で実はいい，というのがあるかもしれませんが，
+  見つかったらまた追記します．</li>
+</ul>
+</div>
+
+<h2>端末でpythonと実行するのとEmacsのバッファでC-c C-z してC-c C-cで実行するのとで違いはあるか?</h2>
+<div>
+<ul>
+  <li>Emacsのバッファも結局内部てpythonを起動しているだけなので, 
+    まずは「(ほとんど)ない」と思ってもらって良いのですが, 
+    全く同じとは言い切れず, 
+    ときどき混乱のもととなるので一応解説します.</li>
+  <li>説明の前に, 
+    「なにか変だな」と思ったら一度Emacsが出しているpython
+    のバッファ ($gt;$gt;$gt;が表示されているバッファ)で,
+    C-d (Ctrlを押しながらd) を入れて, pythonを終了させればよいです.
+<pre>
+>>> ## <--- C-d を入れる
+
+Process Python[ ... ] finished
+</pre>
+という表示が出ればOK. この状態でもう一度 C-c C-z からやり直せば,
+その時は同じになるはずです. 
+  </li>
+
+  <li>端的に言って違いは, 
+<ul>
+  <li>端末から,
+<pre>
+$ python a.py 
+</pre>
+のようにした場合は, 毎回pythonは「何も知らない(新たに定義されていない)状態」から始めるのに対し, Emacsのbufferを用いている場合, 過去にC-c C-c
+で入力したり, 直接プロンプト(&gt;&gt;&gt;)に入力したものは, 
+明示的に終了するまで覚えているということです. つまりEmacsのbufferを
+用いているのは実際には, 
+<pre>
+$ python
+>>>
+</pre>
+とやって, C-c C-cを打つたびに, &gt;&gt;&gt; に向かって
+ファイルの内容を全て入力しているのに近いです.
+  </li>
+<li>
+例えばある時, a.pyに def f(x) ... でfを定義して, C-c C-c
+その後それを消したとします. 毎回端末で,
+<pre>
+$ python a.py
+</pre>
+とした場合は, f(x)を消した以降の実行ではfは使えません(まともな動作と言えます)が, Emacs上で続けて実行しているときは, C-d で修了するまで,
+fは残り続けます. 本当は消してはいけないものを間違えて消してしまった,
+などという時にそれに気づかない, ということが起こりえます
+</li>
+<li>他にも例えば長い関数の名前をあとから変更した. その場合本当は, 
+それを呼び出しているところでも変更しなくてはいけないのにそれを忘れてしまった,
+というような場合とか. 端末で実行していれば直ちにエラーになるが,
+Emacsのバッファだと, 過去の定義を使い続けることになる.
+新しい名前の関数の中身をいくらいじっても,
+  効果が無いように見えるとか, よくわからないことになります. 
+</li>
+<li>いずれにせよよくわからなくなったらpythonを一度(C-dで)
+  終了させれば良いということです. またはEmacsをまるごと
+  終了させるとか.
+</li>
+</ul>
+  </li>
+</ul>
+</div>
+
+<h2>プログラミングができるようになるためのコツはありますか?</h2>
+<div>
+深淵かつ難しい問いです．これがコツ，という万人
+に当てはまる答えはきっとないのでしょう．スポー
+ツと同じで，どこでひっかかるか，何をマスターし
+た瞬間に，悟りを開くかが人によって異なるのだと
+思います．ちなみに自分(田浦)も1年生でプログラ
+ミングをやった時は何のことかよくわかりませんで
+した．いつの間にできる(ような気がする)ようになっ
+たのか，その瞬間は覚えていませんが，授業でその
+当時習っていた言語(当時はアニメーションやグラ
+フィクスなどはおろか，メニューの出るプログラム
+を書くのも大変でした)で本格的・実用的なプログ
+ラムが書けるということを知ったとき，モチベーショ
+ンが湧いてきて，それ以降はなぜか，今までどうで
+も良かった課題も意欲を持って取り組めるようにな
+りました．あと，当時は家にWindowsが動くPCがあ
+る人が珍しかったので，家でも課題ができるように
+頑張って環境を整えるとやる気が出るとか，案外そ
+んなものかもしれません．
+<br />
+以下は，参考になるかわかりませんが，
+こうすると良いのではないかという学び方です．
+
+<ul>
+<li>ステップ1: 
+  <font color=red>プログラムを文法に沿って読むフェーズ.</font>
+  とにかく，何かしらプログラムを見てそれがどういう動作をするのか，
+  少なくとも一文一文の意味がわかるようになる，というフェーズです．
+  <br />
+  プログラム言語を覚えるのは英語など新しい言語を覚えるのと似ています．
+  英文解釈は，プログラムを見てその動作を終えるようになること，
+  英作文は，何か特定の計算をするプログラムを書けるようになることです．
+  その前の要素として，英単語や文型・構文・よく出るイディオムが
+  あるというところも同じです．
+  さらに，
+  <font color=red>厳密に理解しなくても単語だけわかれば雰囲気で読めてしまう範囲
+  </font>があるというところも似ています．
+  ですが，「雰囲気でわかる」で通りすぎてしまうと，後で書けと言われても
+  中々書けません．また，プログラム言語の場合，文法は英語など自然言語
+  よりもはるかに簡単，かつ厳密です．一文一文，曖昧さ無く意味がわかるかを
+  意識しながら読めるようになること，まずはこれがステップ1と思います．
+  <br />
+  そう思ってPython Speed Learningというスライドを作ってみましたが，
+  それ以外に，
+  <a href=http://docs.python.jp/2.7/tutorial/index.html>
+    Pythonの日本語チュートリアル</a>
+  を，電車の中ででも寝床ででも，スマホで読んでみるといいと思います．
+  3-5節あたりを読めばかなりのことがわかります．
+  プログラムの断片が出てくるところを読み飛ばさず，
+  「文法」に注意をしながらまずは読んでみると良いと思います．
+</li>
+
+<li>ステップ2:
+  <font color=red>簡単な関数を書くフェーズ.</font>
+  英語で言うならば簡単な英作文．プログラムの場合，
+  目標はある入力に対して所定の出力をするような，
+  「関数」と捉えられることが多いです．関数の中でも，
+  手計算でも数回演算をすれば出来てしまうような計算
+  (点と直線の距離，2次方程式の解，etc.)をプログラム(関数)に
+  翻訳できることが第一歩です．
+  <br />
+  もしこのへんでつまづきを感じる場合，
+  自分がどこでつまづいたかをじっくり振り返ることが，
+  地道ですが効果的じゃないかと思います．
+  もし答えを書きだせなかったとしたら，
+  何を言われれば出来たと思うか? 
+  または，答えを書いたのだがうまく動かないという場合，
+  何を誤解していたか，自分で自分を分析してみると良いと思います．
+  文法の細かいところを覚えていなかったので，
+  エラーになってしまったとか，
+  エラーになった時にメッセージを読んでも，
+  その意味がよくわからなかったとか．
+</li>
+
+<li>ステップ3 (以降):
+  これ以降もあるとは思いますがまたおいおい．．．
+
+</ul>
+
+</div>
+
+<a name=problem73></a>
+<h2>7-3の解説</h2>
+<div>
+<p>
+時間がなくてやらなかった7-3 
+(バネに吊るされた質点のシミュレーション)を解説します．
+他と比べて極端に難しいわけではないですが，
+他の人の解答を見るのはためになるということで，
+それに1つ追加というつもりです．中々慣れないという人のために，
+思考過程を示します．
+</p>
+
+<p>
+問題は以下でした．
+</p>
+<blockquote>
+バネで吊るされた質点に,時間と共に変わる外力 f(t)
+を与えたときの運動を Visual Python を用いて
+アニメーションせよ(t は時刻, f(t) は垂直方向のベクトル).
+バネ定数k, 質点の質量が m で,初期状態は自然長の位置に停止しているとする.
+</blockquote>
+<ul>
+  <li>外力が 0 のときの動き</li>
+  <li>外力が f(t)=sin wt のときの動き</li>
+</ul>
+
+<h3>外力0の場合</h3>
+<div>
+<ul>
+  <li>まず．明らかにこの問題は一次元の問題です．
+    垂直方向，つまりy軸に沿った動きだけを考えればよいです．
+    原点の位置として，自然長の位置を原点(y = 0)としましょう．
+    符号はもちろん上向きが正です．</li>
+
+  <li>そのもとでyに関する微分方程式をたてます．位置がyの時，
+    物体にかかる力は，
+    <ul>
+      <li>バネの力: -ky </li>
+      <li>重力: -mg (g = 9.8m/s^2)</li>
+    </ul>
+    なので，方程式は，
+    <blockquote>
+      y'' = - k/m y - g
+    </blockquote>
+    (y'' は yを2階時間で微分したもの．
+    ややこしい式がHP上で書くのが困難なのでこの記号で)
+  </li>
+  
+  <li>これをPython化する作業はいつものとおりです．
+<ul>
+  <li>変数y (位置), y_ (速度)を準備</li>
+  <li>y は y_ で更新． y_ は上記より加速度を用いて更新</li>
+</ul>
+が方針です．まず大雑把に書くと，
+<pre>
+def spring(k, m):
+  y = 初期位置
+  y_ = 初期速度
+  for ... : 
+     alpha = -k / m * y - g
+     y  = y  + y_    * dt
+     y_ = y_ + alpha * dt
+</pre>
+以下は上記でごまかしているところをなくした，一応動くコードです．
+<pre>
+def spring(k, m):
+    y = 0
+    y_ = 0
+    g = 9.8
+    T = 50.0 # 目標時刻
+    n_steps = 1000
+    dt = T / n_steps
+    for i in range(n_steps): 
+        alpha = -k * y / m - g
+        y  = y  + y_    * dt
+        y_ = y_ + alpha * dt
+</pre>
+  </li>
+
+  <li>次にアニメーション化します．やることはいつも同じで，
+    <ul>
+      <li>sphereでも作って，これまで変数yに入れていたものを，その
+	shpereの .pos という属性に入れることです．
+	必須ではありませんがその他の関連する値(y_やalpha)も全部，
+	sphereの属性として保持するのが見通しが良いです．</li>
+      <li>繰り返し時間を刻んでいるループで，rate関数を呼んでやります．
+	引数はフレームレートです．なので，実際の時間というつもりに
+	したければ，1ステップ動く間にdt進むわけですからフレームレートにして，
+	1.0/dt となります．したがって rate(1.0 / dt)とすると，実時間
+	に近い動作になります．ただしこの値があまり大きいとそんなことは
+	無理です．この値が30とか，
+	いわゆるフレームレートとして
+	普通のよく見る値になっている必要があります．
+      </li>
+      <li>いつものことですが一個の物体を表示するだけだとカメラの
+	自動追随機能によって，何も動いていないように見える絵に
+	なってしまいます．動くもののまわりに，どっしりと，
+	動かないものを書いてやるのが良いです．この問題ではバネを書くのは
+	必須でしょうからバネを書きましょう．バネはhelixで，
+	上端の位置は適当に決めましょう．例えば30. すると，posが(0,30,0),
+	axisが(0,y-30,0)というのがバネの状態です(yは質点の座標)．
+      </li>
+    </ul>
+<pre>
+def spring(k, m):
+    s = sphere(pos=vector(0,0,0), vel=vector(0,0,0))
+    h = helix(pos=vector(0,30,0))
+    h.axis = s.pos - h.pos
+    g = vector(0, 9.8, 0)
+    T = 50.0 # 目標時刻
+    n_steps = 1000
+    dt = T / n_steps
+    for i in range(n_steps): 
+        rate(1.0 / dt)
+        s.alpha = -k * s.pos / m - g
+        s.pos = s.pos + s.vel * dt
+        s.vel = s.vel + s.alpha * dt
+        h.axis = s.pos - h.pos
+</pre>
+やってみるとバネが細すぎるとか，いくつか見てくれの悪いところが
+見つかりますがここでは目をつぶります．
+</li>
+
+  <li>このシミュレーション結果を見ているとすぐに気づくことですが，
+    しばらくの時間見ていると(長時間回すと)，
+    質点の振幅が，徐々にですが大きくなっていきます．
+    これは我々の知っている物理に反する結果です．
+    今は先へ進みます．余力があったら考察してみて下さい．
+  </li>
+</ul>
+</div>
+
+<h3>外力f(t) = sin wtの場合</h3>
+<div>
+外力が0でない場合も大した困難はありません．fはPythonの関数として与えられ，
+tを入れると3次元のベクタを返してくれるとします．もちろんy軸方向のみの
+力と仮定します．更新式をほんの少しいじれればよいだけです．
+fはtを必要とするのでtを明示的にトラックするコードも入れてやります．
+<pre>
+def spring(k, m, f):
+    s = sphere(pos=vector(0,0,0), vel=vector(0,0,0))
+    h = helix(pos=vector(0,30,0))
+    h.axis = s.pos - h.pos
+    g = vector(0, 9.8, 0)
+    T = 50.0 # 目標時刻
+    n_steps = 1000
+    dt = T / n_steps
+    <font color=blue>t = 0</font>
+    for i in range(n_steps): 
+        rate(1.0 / dt)
+        s.alpha = -k * s.pos / m + <font color=blue>f(t) / m</font> - g
+        s.pos = s.pos + s.vel * dt
+        s.vel = s.vel + s.alpha * dt
+        h.axis = s.pos - h.pos
+        <font color=blue>t = t + dt</font>
+</pre>
+</div>
+</div>
+
+<a name=howtoproceedafter624></a>
+<h2>6/24からの進め方</h2>
+<div>
+<ul>
+  <li>この初年次ゼミも残すところあと，
+    6/24, 7/1, 7/8, 7/15の4回となりました</li>
+  <li>次回の授業までに，
+    <a href=../problems/problems/Problems.pdf>
+      より具体化された問題案</a>(以前一度授業内で説明した
+    問題案に，いくつか問題の追加や，修正・具体化を行ったもの)
+    を見ておいて下さい．そして，自分がどの問題をやりたいかを2,3個，
+    選んでおいて下さい
+  </li>
+  <li>その上で6/24は以下のように進めたいと思います
+  <ol>
+    <li>解きたい問題に応じてチームを決める．
+      一チーム3人を原則とする</li>
+    <li>問題の解き方をチーム内で議論する</li>
+    <li>時間に応じて，
+      最後の練習メニューとしてグラフの描画(matplotlib)
+      について説明，練習する</li>
+  </ol>
+  </li>
+  <li>ということで皆さんにおかれましては，
+    <font color=red>自分の興味のある問題，
+      解くための方針</font>
+    (Pythonのコードにどうするかがイメージできない場合でも，
+    計算の方針として考えられることはあると思うので，
+    自身がない人もできる範囲で考えてきて下さい)，
+    を自分なりに考えて，
+    <font color=red>チーム内議論の準備(主に心の準備)</font>
+    をしておいて下さい
+  </li>
+  <li>チーム決めはあくまでその場で興味をもう一度聞き直すつもりですが，
+    こちら側の準備の都合上，
+    あらかじめ興味を教えておいてもらいたいので，
+    自分の興味のある問題を教えておいて下さい．
+<br>
+<iframe src="https://docs.google.com/forms/d/1KUcAk5zXinogkjpmLab_N4RIyylpJOtcKT3njS0iQow/viewform?embedded=true" width="760" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+
+  </li>
+</ul>
+</div>
+
+<a name=howtoanimatematplotlib></a>
+<h2>「matpliblibで」アニメーションがしたい</h2>
+<div>
+matplotlibの説明を軽くしましたが，
+もしかするとmatplotlibで表示するグラフを時々刻々変えたい
+（例えば温度の分布，波動関数，流速などがどう時間発展するかを
+表示したい）ということがあるかもしれません．
+説明を書いている時間がないので，とりあえずここに，
+サンプルプログラム
+(<a href=plt_anime_1d.py>1次元</a>,
+<a href=plt_anime_2d.py>2次元, 色</a>)
+を書きました．
+これを見ればできるかもしれませんが，
+やりたい人は聞いて下さい．
+
+<ul>
+<li>
+<pre>
+#!/usr/bin/python
+# -*- encoding: utf-8 -*-
+
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+import math,time
+
+# 復習: アニメなしで y = sin(x)
+def static_1d():
+    x = np.linspace(0.0, math.pi, 100)
+    y = np.sin(x)
+    plt.plot(x, y)
+    plt.show()
+
+# アニメあり y = sin(kx) を k を色々変えながら表示
+def anime_1d():
+    x = np.linspace(0.0, 2.0 * math.pi, 100)
+    # 一度だけプロットして曲線を得る
+    <font color=blue>[line] = </font>plt.plot(x, np.sin(x))
+    for k in range(10):
+        # plotする代わりにデータをセットする
+        y = np.sin(k * x)
+        <font color=blue>line.set_data</font>(x, y)
+        # 再描画して欲しいところで yield 変更された曲線のリスト
+        <font color=blue>yield [line]</font>
+
+# <font color=red>おまじない(コピペして下さい)</font>
+def go_animation(iterator, **kwargs):
+    def anime_fun(*args):
+        try:
+            return iterator.next()
+        except StopIteration:
+            return []
+    ani = animation.FuncAnimation(plt.gcf(), anime_fun, **kwargs)
+    plt.show()
+
+# sin(kx) のグラフが徐々に変わっていく
+<font color=blue>go_animation(anime_1d(), interval=100)</font>
+</pre>
+</li>
+
+<li>
+<pre>
+#!/usr/bin/python
+# -*- encoding: utf-8 -*-
+
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+import math,time
+
+# 復習
+def static_2d():
+    x = np.linspace(0.0, 1.0, 100)
+    y = np.linspace(0.0, 1.0, 100)
+    x,y = np.meshgrid(x, y)
+    z = x * x + y * y
+    plt.pcolor(x, y, z)
+    plt.show()
+    
+def shrink(z):
+    m,n = z.shape
+    return z[:m-1,:n-1].reshape((m - 1) * (n - 1))
+
+# アニメあり
+def anime_2d():
+    x = np.linspace(0.0, 1.0, 100)
+    y = np.linspace(0.0, 1.0, 100)
+    x,y = np.meshgrid(x, y)
+    z = x * x + y * y
+    <font color=blue>field = </font>plt.pcolor(x, y, z)
+    for k in np.linspace(0.0, 1.0, 100):
+        # plotする代わりにデータをセットする
+        z = (x - k) * (x - k) + (y - k) * (y - k)
+        <font color=blue>field.set_array(shrink(z))</font>
+        # 再描画して欲しいところで yield 変更された曲線のリスト
+        <font color=blue>yield [field]</font>
+
+# <font color=red>おまじない(コピペして下さい)</font>
+def go_animation(iterator, **kwargs):
+    def anime_fun(*args):
+        try:
+            return iterator.next()
+        except StopIteration:
+            return []
+    ani = animation.FuncAnimation(plt.gcf(), anime_fun, **kwargs)
+    plt.show()
+
+# 2次元の色の場が徐々に変わっていく
+<font color=blue>go_animation(anime_2d(), interval=100)</font>
+</pre>
+</li>
+</ul>
+
+</div>
+
+
+</body>
+</html>

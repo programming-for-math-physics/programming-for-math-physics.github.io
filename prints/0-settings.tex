@@ -1,0 +1,78 @@
+演習環境のURLを受け取るためのダミーの課題です 
+ * 提出不要
+ * 課題のフィードバックを受け取ってください
+
+ \documentclass[12pt,dvipdfmx]{article}
+\setlength{\oddsidemargin}{-1.3truecm}
+\setlength{\evensidemargin}{-1.3truecm}
+\setlength{\textwidth}{18.5truecm}
+\setlength{\headsep}{1truecm}
+\setlength{\topmargin}{-2truecm}
+\setlength{\textheight}{23truecm}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf}
+\DeclareGraphicsExtensions{.eps}
+\graphicspath{{out/}{out/tex/}{out/pdf/}{out/eps/}{out/tex/gpl/}{out/tex/svg/}{out/pdf/dot/}{out/pdf/gpl/}{out/pdf/img/}{out/pdf/odg/}{out/pdf/svg/}{out/eps/dot/}{out/eps/gpl/}{out/eps/img/}{out/eps/odg/}{out/eps/svg/}}
+\usepackage{listings}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{color}
+
+\title{環境設定 (授業HPにたどりつくまで)}
+\author{田浦}
+\date{}
+
+\pagestyle{empty}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{enumerate}
+\item ITC-LMS $\leftrightarrow$ 授業ホームページ \url{https://pmp.eidos.ic.i.u-tokyo.ac.jp/}
+  
+\item 講義資料などは授業ホームページから
+\item 外部に漏れてはいけない情報はITC-LMSとGoogle spreadsheet
+\item オンライン授業は gather.town (今日試す)
+  
+\item PCのラベル(GCLxxx)をチェック
+\item PC起動
+\item ユーザ user2 (山崎クラス), user3 (田浦クラス)でログイン. 
+初期パスワードはその場で教える
+\item パスワードを必ず変更(他の人のPCとの取り違え防止)! 
+  「ユーザアカウント」を開く (Ubuntu ボタン $\rightarrow$ user);
+  ロック解除 
+  $\rightarrow$ パスワードを変更
+\item 一旦ログアウト (右上の電源ボタン)
+\item 設定したパスワードでログインしなおし
+\item Wifi wpa.c に接続されていることを確認.
+  デスクトップ右上にIPアドレス (10.249.x.x みたいな数字) 
+  が表示されていることを確認.
+\item ブラウザ(左パネルのオレンジの firefox ボタン)を起動.
+  ネットにつながっているかをチェック
+\end{enumerate}
+
+以下は毎回の手順
+
+\begin{enumerate}
+\item ゼミホームページ \url{http://pmp.eidos.ic.i.u-tokyo.ac.jp/} にアクセス.
+\item 「演習環境」リンクからシートにアクセス.
+\item IPアドレス記入 (毎回記入. ネットにつながったことの確認 + こちらで画面を共有するため)
+\item 自分用の「演習環境URL」リンクをつついて演習環境に入る
+\end{enumerate}
+
+{\huge{\bf 次回以降わからなくならないように記入しておくこと}}
+
+\begin{center}
+  {\Large
+\begin{tabular}{|l|l|}\hline
+  PC番号 &  \\\hline
+  PCに設定したパスワード & \\\hline
+  Jupyter環境 & {\tt https://taulec.zapto.org:\underline{191\phantom{0000}}/} \\\hline
+  Jupyter環境パスワード & \\\hline
+\end{tabular}}
+\end{center}
+
+Jupyter環境は自宅からでもアクセスできます!
+
+
+\end{document}

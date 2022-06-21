@@ -1,0 +1,442 @@
+﻿
+%\documentclass{jsarticle}
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx,color}
+
+%一段落目でインデントしたい
+\usepackage{indentfirst}
+
+\usepackage{comment}
+\usepackage{ascmac}
+\usepackage{otf}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{cases}
+
+\usepackage[top=20truemm, bottom=20truemm, left=20truemm, right=20truemm]{geometry}
+
+\usepackage{here}
+%\begin{figure}[H]とかやると、強制的に位置を文章の一定位置に固定する。
+
+\usepackage{caption}
+
+\usepackage{listings,multicol}
+\lstset{
+	language={C++}, 
+	basicstyle={\ttfamily\footnotesize},
+		commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+		keywordstyle={\small\bfseries \color[rgb]{0,0,1}},
+		ndkeywordstyle={\small\ttfamily  \color[rgb]{0.5,0.5,0.0}}, %特殊キーワード、かな？
+	alsoletter={\#},%無理やり#defineをキーワード化するため。
+	morekeywords={\#define},%普通のキーワード
+	morendkeywords={spawn,sync},%別の色で着色できる、特別キーワード
+	showstringspaces=false
+	identifierstyle={\small},
+	stringstyle={\small\ttfamily}, 
+	frame={tb},%singleとかで外側を線で囲む。tbで上下だけ、noneでなし
+	breaklines=true,%折り返し
+	columns=[l]{fixed},
+	numbers=none,%これは、行番号。leftとかで左に行番号がつく
+	xrightmargin=0zw,
+	xleftmargin=3zw,
+	numberstyle={\scriptsize},
+	stepnumber=1,%行番号増分
+	numbersep=1zw,
+	lineskip=-0.25ex,
+	morecomment=[l]{//},
+	escapeinside={<@}{@>},
+	tabsize=2,
+}
+
+\usepackage{subfig}
+
+\captionsetup[subfloat]{position=bottom,
+  farskip=10pt,topadjust=0pt,captionskip=10pt,
+  nearskip=10pt,margin=10pt}
+
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{}
+
+%ページ全体の行間
+\setstretch{1.0}
+%ページ全体の段落間
+\parskip=3pt plus 1pt
+
+\title{ 翼 参考資料 v1.0 }
+\author{ 岩崎 慎太郎 }
+
+\begin{document}
+
+\date{November 9, 2014}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 問題 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ある基礎方程式に基づいて、（理論的な翼を対象として）二次元翼の風洞実験をシミュレーションすることを考える。
+ジェコフスキー翼の迎え角と揚力の関係を求めたい。
+
+シミュレーションの条件は以下のように置くが、合理的な範囲で適宜条件の追加および削除をしてよい。
+また、計算に必要な定数は各自で補うこと。
+
+\begin{itemize}
+\item 対象の流体は空気であり、大気圧は標準大気圧で、気温は25度で湿度はなく、風は吹いていない
+\item 粘性流体であるが、非圧縮性流体を仮定する（飛行速度もその程度とする）
+\item 音速に比べて小さい速度で飛行する（資料と比較できる速度がよい）
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 小問題 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題1 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+以下の数式を求めなさい。
+\begin{itemize}
+\item 二次元、非圧縮性流れのナビエ-ストークス運動方程式
+\item ナビエ-ストークス運動方程式の翼面での境界条件
+\item 境界層剥離の条件
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題2 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+パラメータのステップ毎の更新式を整理しなさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題3 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+平面ポアズイユ流に対してシミュレーションを行い、理論式と比較しなさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題4 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+空気の流れを可視化しなさい。
+定性的に分かればよい。
+翼の解析が難しそうであれば、ここでマグナス効果のシミュレーションなどに切り替えても良い。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題5 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ジェコフスキー翼をプログラム中に読み込む、あるいは計算する方法を考えなさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 小問題6 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ジェコフスキー翼の迎え角と揚力の関係を示し、文献の値などと比較しなさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 応用問題例 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 応用問題例1（困難） }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+マッハ数が大きい場合の基礎方程式を求め、結果を比較しなさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 応用問題例2（とても困難） }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+非圧縮性流れを仮定して、断面積が一定の場合について二次元翼の揚抗比を大きくする翼形をシミュレーションで得なさい。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 運動方程式を立てるにあたって }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ 基本の運動方程式 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+二次元、非圧縮性流れのナビエ-ストークス運動方程式は以下のようになる。
+\begin{subnumcases}
+{}
+\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}
+= - \frac{1}{\rho} \frac{\partial p}{\partial x} + \nu \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) + f_x
+& \\
+\frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}
+= - \frac{1}{\rho} \frac{\partial p}{\partial y} + \nu \left( \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\right) + f_y
+&
+\end{subnumcases}
+ここで、直交座標$(x,y)$、速度成分$(u,v)$、$\rho$を密度、$p$を圧力、$\nu$を動粘性係数で、$f_x$および$f_y$は体積当たりの外力である。
+今回解く際は、つり合いなどを考えないので外力は$0$である。
+
+シミュレーションにおける翼面での境界条件は、翼面に沿う方向を$z$として、流体のz方向の速度が0になることである。すなわち
+\begin{equation}
+\vec{z} \cdot (u, v) = 0
+\end{equation}
+が翼面での境界条件になる。
+
+境界層剥離は、逆圧力勾配の発生によって生じる。翼面に沿う方向を$z$として、
+\begin{equation}
+\frac{d p}{d z} < 0 
+\end{equation}
+となる時、逆圧力勾配が生じて（多かれ少なかれ）境界層剥離が生じる。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ シミュレーションに応用できる式形 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+基礎方程式となるナビエ-ストークス方程式は
+\begin{subnumcases}
+{}
+\label{refeq1}
+\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v \frac{\partial u}{\partial y}
+= - \frac{1}{\rho} \frac{\partial p}{\partial x} + \nu \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) + f_x
+& \\
+\label{refeq2}
+\frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v \frac{\partial v}{\partial y}
+= - \frac{1}{\rho} \frac{\partial p}{\partial y} + \nu \left( \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\right) + f_y
+&
+\end{subnumcases}
+であった。
+
+今回の未知変数は、速度$(u, v)$および圧力$p$であり、ナビエ-ストークス方程式だけでは解けない。実際には連続の式、
+\begin{equation}
+D = \nabla \cdot \vec{v} = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
+\end{equation}
+と連立することで、未知数3つに対して方程式3つで、全ての未知数が求まる。
+
+ただし、これだと$p$を時間発展的に求めるのが困難であるため、変形する。
+
+式(\ref{refeq1})を$x$で微分したものと、(\ref{refeq2})を$y$で微分したものの和を取り整理して
+\begin{equation}
+\frac{1}{\rho} \left(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} \right) p 
+= 
+- \frac{\partial D}{\partial t}
+- \frac{\partial}{\partial x} \left( \frac{\partial u^2}{\partial x} + \frac{\partial (u v)}{\partial y} \right)
+- \frac{\partial}{\partial y} \left( \frac{\partial (u v)}{\partial x} + \frac{\partial v^2}{\partial y} \right)
++ \nu \left( \frac{\partial^2 D}{\partial x^2} + \frac{\partial^2 D}{\partial y^2} \right)
+\end{equation}
+を導く。$D$は理論的には常に0である。
+
+ここで$i$をシミュレーションのステップ数とし、
+$\frac{\partial D}{\partial t}$
+を
+$\frac{D_{i+1} - D_i}{\Delta t}$
+として
+$u_i$、$v_i$から$p_{i+1}$を求める式に差分近似すると、
+\begin{equation}
+\label{refeq3}
+\frac{1}{\rho} \left(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} \right) p_{i+1}
+= 
+- \frac{D_{i+1} - D_i}{\Delta t}
+- \frac{\partial}{\partial x} \left( \frac{\partial u_i^2}{\partial x} + \frac{\partial (u v)_i}{\partial y} \right)
+- \frac{\partial}{\partial y} \left( \frac{\partial (u v)_i}{\partial x} + \frac{\partial v_i^2}{\partial y} \right)
++ \nu \left( \frac{\partial^2 D_i}{\partial x^2} + \frac{\partial^2 D_i}{\partial y^2} \right)
+\end{equation}
+になる。
+この時、$D_{i+1}=0$を置くと、次の時間ステップで連続の式$D=0$が満たされるような圧力になる式形になる
+各$(x,y)$点の$p_{i+1}$が未知数となっているため、その他の点での右辺の値が求められ、連立方程式を解くことで
+各点の$p_{i+1}$が求まる。
+
+速度については、式(\ref{refeq1})、(\ref{refeq2})の時間微分項をそのまま用いて
+\begin{subnumcases}
+{}
+u_{i+1} = u_i + \Delta t \left(  - u_i \frac{\partial u_i}{\partial x} - v_i \frac{\partial u_i}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i+1}}{\partial x} + \nu \left( \frac{\partial^2 u_i}{\partial x^2} + \frac{\partial^2 u_i}{\partial y^2}\right) \right)
+& \\
+v_{i+1} = v_i + \Delta t \left(  - u_i \frac{\partial v_i}{\partial x} - v_i \frac{\partial v_i}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i+1}}{\partial y} + \nu \left( \frac{\partial^2 v_i}{\partial x^2} + \frac{\partial^2 v_i}{\partial y^2}\right) \right)
+&
+\end{subnumcases}
+として求められる。
+が、誤差の関係上連続の式を加えて変形した
+\begin{subnumcases}
+{}
+u_{i+1} = u_i + \Delta t \left(  - \frac{\partial u_i ^2}{\partial x} - \frac{\partial (u v)_i}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i+1}}{\partial x} + \nu \left( \frac{\partial^2 u_i}{\partial x^2} + \frac{\partial^2 u_i}{\partial y^2}\right) \right)
+& \\
+v_{i+1} = v_i + \Delta t \left(  - \frac{\partial (u v)_i}{\partial x} - v_i \frac{\partial v_i ^2}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i+1}}{\partial y} + \nu \left( \frac{\partial^2 v_i}{\partial x^2} + \frac{\partial^2 v_i}{\partial y^2}\right) \right)
+&
+\end{subnumcases}
+の方がよいらしい（参考資料[1]より）。
+
+ここで止めるとMAC法になるが、このままやってみると式(\ref{refeq3})をプログラムに落とすのが非常に手間なので（だったので）、
+素直にSMAC法を使った方がよい。
+すなわちまず、予測段として以下を計算する。圧力項の添え字が$i+1$でなく$i$であることに注意
+\begin{subnumcases}
+{}
+u_{i'} = u_i + \Delta t \left(  - \frac{\partial u_i ^2}{\partial x} - \frac{\partial (u v)_i}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i}}{\partial x} + \nu \left( \frac{\partial^2 u_i}{\partial x^2} + \frac{\partial^2 u_i}{\partial y^2}\right) \right)
+& \\
+v_{i'} = v_i + \Delta t \left(  - \frac{\partial (u v)_i}{\partial x} - v_i \frac{\partial v_i ^2}{\partial y} - \frac{1}{\rho} \frac{\partial p_{i}}{\partial y} + \nu \left( \frac{\partial^2 v_i}{\partial x^2} + \frac{\partial^2 v_i}{\partial y^2}\right) \right)
+&
+\end{subnumcases}
+この$i'$段階の$D$を用いて、補正圧力（この変形では、圧力と同じ次元ではないが...）$\Phi$を以下の式で（連立方程式を解いて）求める。
+\begin{equation}
+\left( \frac{\partial ^2}{\partial x^2} + \frac{\partial ^2}{\partial y^2} \right) \Phi = \frac{D_{i'}}{\Delta t}
+\end{equation}
+この式形（典型的なポアソンの式）は今後の変形の上で見通しが良い。
+
+すると、以下の式で$i+1$ステップ時の$u$、$v$および$p$が求まる。
+\begin{subnumcases}
+{}
+u_{i+1} = u_{i'} - \Delta t \frac{\partial \Phi}{\partial x}
+& \\
+v_{i+1} = v_{i'} - \Delta t \frac{\partial \Phi}{\partial y}
+& \\
+p_{i+1} = p_{i'} + \frac{\Phi}{\rho}
+&
+\end{subnumcases}
+
+これで、プログラムを書くための準備が整う。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ プログラムへの落とし込み }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+参考資料[1]に基づいて、スタッガード格子を用いる。
+整数格子点に$p$を置き、$u$はx方向に$\frac{1}{2}$、$v$はy方向に$\frac{1}{2}$ずれたところに配置する。
+
+各値を中心差分を用いて求める。
+変形の基本は、偏微分のパラメータ（$x$や$y$）方向にのみ差分を取ることと、
+格子点で表現できない場合は以下のように、
+\begin{equation}
+k_{(i,j)} = \frac{k_{(i+\frac{1}{2},j)} + k_{(i-\frac{1}{2},j)}}{2}
+\end{equation}
+と変形することである。以下、計算すると、
+
+\begin{equation}
+\begin{split}
+\left[ \frac{\partial u^2}{\partial x} + \frac{\partial (u v)}{\partial y} \right]_{(i+\frac{1}{2},j)}
+&= \frac{(u^2)_{(i+1,j)} - (u^2)_{(i,j)}}{\Delta x} + \frac{(u v)_{(i+\frac{1}{2},j+\frac{1}{2})} - (u v)_{(i+\frac{1}{2},j-\frac{1}{2})}}{\Delta y}
+\\
+&= \frac{1}{\Delta x}\left( \left( \frac{u_{(i+\frac{3}{2},j)} + u_{(i+\frac{1}{2},j)}}{2} \right)^2 - \left( \frac{u_{(i+\frac{1}{2},j)} + u_{(i-\frac{1}{2},j)}}{2} \right)^2 \right)
+\\
+&~~+\frac{1}{\Delta y}\left(
+  \left( \frac{u_{(i+\frac{1}{2},j+1)} + u_{(i+\frac{1}{2},j)}}{2} \right) \left( \frac{u_{(i+1,j+\frac{1}{2})} + u_{(i,j+\frac{1}{2})}}{2} \right)
+  \right.
+\\
+&~~-\left.
+  \left( \frac{u_{(i+\frac{1}{2},j-1)} + u_{(i+\frac{1}{2},j)}}{2} \right) \left( \frac{u_{(i+1,j-\frac{1}{2})} + u_{(i,j-\frac{1}{2})}}{2} \right)
+  \right)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\left[ \frac{\partial (u v)}{\partial x} + \frac{\partial v^2}{\partial y} \right]_{(i,j+\frac{1}{2})}
+&= \frac{(u v)_{(i+\frac{1}{2},j+\frac{1}{2})} - (u v)_{(i-\frac{1}{2},j+\frac{1}{2})}}{\Delta x}
+ + \frac{(v^2)_{(i,j+1)} - (v^2)_{(i,j)}}{\Delta y}
+\\
+&= \frac{1}{\Delta y}\left( \left( \frac{v_{(i,j+\frac{3}{2})} + v_{(i,j+\frac{1}{2})}}{2} \right)^2 - \left( \frac{v_{(i,j+\frac{1}{2})} + v_{(i,j-\frac{1}{2})}}{2} \right)^2 \right)
+\\
+&~~+\frac{1}{\Delta x}\left(
+  \left( \frac{u_{(i+\frac{1}{2},j+1)} + u_{(i+\frac{1}{2},j)}}{2} \right) \left( \frac{u_{(i+1,j+\frac{1}{2})} + u_{(i,j+\frac{1}{2})}}{2} \right)
+  \right.
+\\
+&~~-\left.
+  \left( \frac{u_{(i-\frac{1}{2},j-1)} + u_{(i-\frac{1}{2},j)}}{2} \right) \left( \frac{u_{(i-1,j+\frac{1}{2})} + u_{(i,j+\frac{1}{2})}}{2} \right)
+  \right)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\left[ \frac{\partial u}{\partial x^2} + \frac{\partial u}{\partial y^2} \right]_{(i+\frac{1}{2},j)}
+= \frac{u_{(i-\frac{1}{2},j)} - 2 u_{(i+\frac{1}{2},j)} + u_{(i+\frac{3}{2},j)}}{\Delta x^2}
++ \frac{u_{(i+\frac{1}{2},j-1)} - 2 u_{(i+\frac{1}{2},j)} + u_{(i+\frac{1}{2},j+1)}}{\Delta y^2}
+\end{equation}
+
+\begin{equation}
+\left[ \frac{\partial v}{\partial x^2} + \frac{\partial v}{\partial y^2} \right]_{(i,j+\frac{1}{2})}
+= \frac{v_{(i-1,j+\frac{1}{2})} - 2 v_{(i,j+\frac{1}{2})} + v_{(i+1,j+\frac{1}{2})}}{\Delta x^2}
++ \frac{v_{(i,j-\frac{1}{2})} - 2 v_{(i,j+\frac{1}{2})} + v_{(i,j+\frac{3}{2})}}{\Delta y^2}
+\end{equation}
+である。
+
+よって、予測段の$u'$、$v'$は
+\begin{subnumcases}
+{}
+u'_{(i+\frac{1}{2},j)} =
+u_{(i+\frac{1}{2},j)}
++\Delta t
+\left(
+- \frac{p_{(i+1,j)} - p_{(i,j)}}{\rho \Delta x}
+- \left[ \frac{\partial u^2}{\partial x} + \frac{\partial (u v)}{\partial y} \right]_{(i+\frac{1}{2},j)}
++ \nu \left[ \frac{\partial u}{\partial x^2} + \frac{\partial u}{\partial y^2} \right]_{(i+\frac{1}{2},j)}
+\right)
+& \\
+v'_{(i,j+\frac{1}{2})} =
+v_{(i,j+\frac{1}{2})}
++\Delta t
+\left(
+- \frac{p_{(i,j+1)} - p_{(i,j)}}{\rho \Delta y}
+- \left[ \frac{\partial (u v)}{\partial x} + \frac{\partial v^2}{\partial y} \right]_{(i,j+\frac{1}{2})}
++ \nu \left[ \frac{\partial v}{\partial x^2} + \frac{\partial v}{\partial y^2} \right]_{(i,j+\frac{1}{2})}
+\right)
+&
+\end{subnumcases}
+と求まる。
+
+予測段での連続の式の誤差項$D'$は、
+\begin{equation}
+D'_{(i,j)} = \frac{\partial u'}{\partial x} +  \frac{\partial v'}{\partial y} = \frac{u'_{i+\frac{1}{2},j} - u'_{i-\frac{1}{2},j}}{\Delta x} + \frac{v'_{i,j+\frac{1}{2}} - v'_{i,j-\frac{1}{2}}}{\Delta y}
+\end{equation}
+である。
+
+ポアソンの式を開いて、
+\begin{equation}
+\frac{\Phi_{(i-1,j)} - 2 \Phi{(i,j)} + \Phi{(i+1,j)}}{\Delta x^2}
++ \frac{\Phi_{(i,j-1)} - 2 \Phi{(i,j)} + \Phi{(i,j+1)}}{\Delta y^2}
+= \frac{D'_{(i,j)}}{\Delta t}
+\end{equation}
+が$\Phi$を求める連立方程式になる。
+
+この$\Phi$を用いて、
+\begin{subnumcases}
+{}
+u_{(i+\frac{1}{2},j)}\leftarrow u'_{(i+\frac{1}{2},j)} - \Delta t \frac{\Phi{(i+1, j)} - \Phi_{(i,j)}}{\Delta x}
+& \\
+v_{(i,j+\frac{1}{2})}\leftarrow v'_{(i,j+\frac{1}{2})} - \Delta t \frac{\Phi{(i, j+1)} - \Phi_{(i,j)}}{\Delta y}
+& \\
+p_{(i,j)} \leftarrow  p_{i,j} + \frac{\Phi_{i,j}}{\rho}
+&
+\end{subnumcases}
+と更新すれば、次のステップでのパラメータが求まる。
+
+空間の境界は、十分大きな風洞を用いて$u_{boundary} = V$、$v_{boundary} = 0$、$p_{boundary} = P_{st.}$などと置く。
+翼の境界は例えば更新後に、
+\begin{equation}
+\vec{z} \cdot (u, v) = 0
+\end{equation}
+を満たすように変形すればよい。$\vec{z}$が正規化されたベクトルであれば、
+\begin{equation}
+(u, v) \leftarrow (u, v) - \left( (u, v) \cdot \vec{z} \right) \vec{z}
+\end{equation}
+などで変形できる。
+
+揚力は、翼の境界の圧力と、そのブロックに属する翼の境界の面積ベクトル
+（長さが翼の境界長で、向きは境界に垂直なベクトル）の積を足し合わせたものになる。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{ もっと詳しいモデル }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+非圧縮性流体に近似できる範囲に限定している、3次元でないなど、改良点はたくさんある。
+また、揚力は圧力だけで検討できるが、
+抗力については圧力差だけで説明するのは困難であり、別の式を導入する必要がある。
+また、超音速であったり超高空であったりすると立てるべき式が異なるので、
+興味があれば専門書を読んでください（私の理解は遠く及びませんでした...）。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 参考となるWebページ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+\item[1.] 牛島達夫「流体力学基礎講座　第5回」\\ \url{http://fluid.web.nitech.ac.jp/Gotoh_Home_page/Edu/Public_course/Text/Text_5th.pdf}
+       \\ 大変参考になると思います。答えが載っているような気がしますが、これとこの資料だけでシミュレーション
+	      を書くことは不可能でしょう。しかし、この資料よりも詳しく、とても有用です。
+\end{itemize}
+
+
+\end{document}

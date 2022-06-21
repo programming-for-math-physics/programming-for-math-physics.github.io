@@ -1,0 +1,78 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'roadmap.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{917.23685083bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.61316887)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{roadmap.pdf}}%
+    \put(0.5438451,0.0252567){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}変数，関数，etc.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{roadmap.pdf}}%
+    \put(0.55038649,0.2051448){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}繰り返し (再帰呼び出し)\\一つの文で一杯/n回計算\end{tabular}}}}%
+    \put(0.55038649,0.37195014){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}リスト，配列，オブジェクト...\\一つの名前で一杯/n個のデータ\end{tabular}}}}%
+    \put(0.34433284,0.23978322){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l} \end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{roadmap.pdf}}%
+    \put(0.09248949,0.23785173){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Σ，積分，常微分方程式，...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{roadmap.pdf}}%
+    \put(0.09248949,0.33597252){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}少数物体のアニメーション\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{roadmap.pdf}}%
+    \put(0.01072217,0.43736399){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}ベクトル, 行列, 場, 偏微分方程式\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{roadmap.pdf}}%
+    \put(0.23967067,0.55183824){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}グラフのプロット\end{tabular}}}}%
+    \put(0.04516398,0.38566407){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}visual python\end{tabular}}}}%
+    \put(0.04516398,0.28754328){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}python\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{roadmap.pdf}}%
+    \put(0.01245705,0.48378486){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}python\end{tabular}}}}%
+    \put(0.22505209,0.59825911){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}matplotlib\end{tabular}}}}%
+    \put(0.68294908,0.45107794){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}numpy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{roadmap.pdf}}%
+  \end{picture}%
+\endgroup%

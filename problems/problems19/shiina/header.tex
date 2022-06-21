@@ -1,0 +1,180 @@
+\documentclass[unicode,12pt]{beamer}
+\usepackage[no-math]{luatexja-fontspec}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{xifthen}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{bm}
+
+% Looks
+\setbeamertemplate{navigation symbols}{}
+\renewcommand{\baselinestretch}{1.25}
+\setbeamersize{text margin left=15pt,text margin right=15pt}
+
+% Fonts
+\setsansfont[
+    BoldFont=OpenSans-Bold,
+    FontFace={sb}{n}{Font=OpenSans-Semibold},
+]{OpenSans-Regular}
+\setmainjfont[
+    BoldFont=Gen Shin Gothic P Bold,
+    YokoFeatures={JFM=prop},
+    FontFace={sb}{n}{Font=Gen Shin Gothic P Medium},
+]{Gen Shin Gothic P Normal}
+\setmonofont{inconsolata}
+\usepackage{newtxmath}
+\usefonttheme{professionalfonts}
+\setbeamerfont{structure}{series=\fontseries{sb}}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\fontseries{sb}}
+\setbeamerfont{author}{size=\normalsize,series=\fontseries{sb}}
+\setbeamerfont{institute}{size=\small}
+
+% Color
+\definecolor{WhiteBlue}{HTML}{f9fdff}
+\definecolor{LightBlue}{HTML}{dbf2ff}
+\definecolor{Blue}{HTML}{2d5ae0}
+\definecolor{DarkBlue}{HTML}{143447}
+
+\definecolor{WhiteOrange}{HTML}{fffcf9}
+\definecolor{LightOrange}{HTML}{ffeee0}
+\definecolor{Orange}{HTML}{e33900}
+\definecolor{DarkOrange}{HTML}{4f2604}
+
+\definecolor{Purple}{HTML}{9400d3}
+\definecolor{WhitePurple}{HTML}{faf0ff}
+\definecolor{DarkPurple}{HTML}{441c58}
+
+\definecolor{Green}{HTML}{009e73}
+\definecolor{WhiteGreen}{HTML}{eefffa}
+\definecolor{DarkGreen}{HTML}{144437}
+
+\setbeamercolor{normal text}{fg=DarkGreen}
+\setbeamercolor{structure}{fg=Green}
+\setbeamercolor{alerted text}{fg=Purple}
+\setbeamercolor{example text}{fg=Green}
+\setbeamercolor{boxdefault}{fg=WhiteGreen,bg=Green}
+\setbeamercolor{boxalerted}{fg=WhiteOrange,bg=Purple}
+\setbeamercolor{section in toc shaded}{fg=DarkGreen}
+
+% Footer
+\setbeamertemplate{footline}[frame number]
+\setbeamerfont{footline}{size=\normalsize}
+
+% Framed Block
+\defbeamertemplateparent{blocks}[framed]{block begin,block end}[1][]
+{[#1]}
+\defbeamertemplate{block begin}{framed}[1][]{
+    \begin{tcolorbox}[
+        colback=WhiteGreen,
+        colframe=Green,
+        colbacktitle=Green,
+        coltitle=WhiteGreen,
+        coltext=DarkGreen,
+        sharp corners,
+        boxrule=0.7pt,
+        title=\fontseries{sb}\selectfont\insertblocktitle
+    ]
+    \usebeamerfont{block body}
+}
+\defbeamertemplate{block end}{framed}[1][]{\end{tcolorbox}}
+\setbeamertemplate{blocks}[framed]
+\defbeamertemplateparent{blocks alerted}[framed]{block alerted begin,block alerted end}[1][]
+{[#1]}
+\defbeamertemplate{block alerted begin}{framed}[1][]{
+    \begin{tcolorbox}[
+        colback=WhitePurple,
+        colframe=Purple,
+        colbacktitle=Purple,
+        coltitle=WhitePurple,
+        coltext=DarkPurple,
+        sharp corners,
+        boxrule=0.7pt,
+        title=\bfseries\insertblocktitle
+    ]
+    \usebeamerfont{block alerted body}
+}
+\defbeamertemplate{block alerted end}{framed}[1][]{\end{tcolorbox}}
+\setbeamertemplate{blocks alerted}[framed]
+
+% Title Frame
+\setbeamertemplate{frametitle}{
+    \vspace{-1mm}
+    \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par
+    \vspace{-4.5mm}\hspace{-3mm}
+    \begin{tikzpicture}
+        \draw (0,0) -- (10,0);
+    \end{tikzpicture}
+}
+
+% Title
+\setbeamertemplate{title page}{
+    \begin{flushright}
+        {
+            \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle
+            \vspace{-4mm}
+            \begin{tikzpicture}
+                \draw (0,0) -- (10,0);
+            \end{tikzpicture}
+        } \\
+        \vspace{-4mm}
+        {
+            \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}
+            \ifthenelse{\isempty{\subtitle}}{}{\vspace{2mm}\insertsubtitle}
+        } \\
+        \vspace{8mm}
+        {
+            \usebeamerfont{author}\usebeamercolor[fg]{author}
+            \ifthenelse{\isempty{\author}}{}{\insertauthor}
+        } \\
+        {
+            \usebeamerfont{institute}\usebeamercolor[fg]{institute}
+            \ifthenelse{\isempty{\institute}}{}{\vspace{1mm}\insertinstitute}
+        } \\
+        \vspace{8mm}
+        {
+            \usebeamerfont{date}\usebeamercolor[fg]{date}
+            \ifthenelse{\isempty{\date}}{}{\insertdate}
+        }
+    \end{flushright}
+}
+
+% Listings
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\bfseries\color{Green},
+    stringstyle=\color{DarkOrange},
+    commentstyle=\color{Purple},
+    showstringspaces=false,
+    breaklines=true,
+    columns=[l]{fullflexible},
+    lineskip=2pt,
+}
+
+% Itemize
+\let\OLDitemize\itemize
+\renewcommand{\itemize}{\OLDitemize\setlength{\itemindent}{-5pt}}
+\let\OLDdescription\description
+\renewcommand{\description}{\OLDdescription\setlength{\itemindent}{-20pt}}
+\setbeamertemplate{itemize items}[circle]
+
+% Biblatex
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{reference.bib}
+\AtEveryCitekey{\iffootnote{\scriptsize}{}}
+\setbeamertemplate{bibliography item}[text]
+
+% Caption
+\setbeamerfont{caption}{size=\footnotesize}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{}
+\setlength\abovecaptionskip{-5pt}
+\renewcommand{\figurename}{Fig.}
+
+% misc
+\newtheorem{thm}{定理}
+\newtheorem{lem}{補題}

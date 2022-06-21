@@ -1,0 +1,931 @@
+\documentclass[landscape,7pt,dvipdfmx]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% titlesec
+%%%% change spacing and font size
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% enumitem
+%%%% change natural indent
+\usepackage{enumitem}
+\setlist[itemize]{topsep=10pt,itemsep=0pt,partopsep=0pt,parsep=0pt,leftmargin=0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% change various lengths
+\setlength{\topmargin}{5mm}
+\addtolength{\topmargin}{-1.3in}
+\setlength{\textheight}{190mm}
+\setlength{\oddsidemargin}{10mm}
+\addtolength{\oddsidemargin}{-1in}
+\setlength{\evensidemargin}{10mm}
+\addtolength{\evensidemargin}{-1in}
+\setlength{\textwidth}{260mm}
+\setlength{\columnsep}{1cm}
+
+\setlength{\parindent}{0pt}     %インデントなし
+
+\newcommand{\aka}[1]{{\color{red}{#1}}}
+\newcommand{\ao}[1]{{\color{blue}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% listing
+\usepackage{listings,jlisting}
+\lstset{language = python,
+%numbers = left,
+%numberstyle = {\tiny \emph},
+%numbersep = 10pt,
+breaklines = true,
+breakindent = 40pt,
+%frame = tlRB,
+frame = tlrb,
+frameround = tttt,
+framesep = 3pt,
+rulesep = 1pt,
+rulecolor = {\color{black}},
+rulesepcolor = {\color{black}},
+flexiblecolumns = true,
+keepspaces = true,
+basicstyle = {\ttfamily \tiny},
+identifierstyle = ,
+commentstyle = {\sl \tiny},
+stringstyle = ,
+showstringspaces = false,
+tabsize = 4,
+escapechar=\@
+}
+
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\begin{document}
+\begin{center}
+Python Cheat Sheet
+\end{center}
+
+%{\tiny
+
+\ao{青}: このゼミで重要; \aka{赤}: 間違えやすい注意が必要; $\ast$: マスターの必要性はないが, わかっとく必要あり; $\dagger$: 飛ばして良い
+
+\begin{multicols*}{3}
+
+\iffalse
+\section{実行方法}
+\subsection{対話}
+\begin{lstlisting}
+$ python
+>>> 1 + 1
+2
+\end{lstlisting} %$
+\subsection{ファイルに書いて実行}
+(hello.py に以下を書き)
+\begin{lstlisting}
+x = 1 + 1
+print("hello")
+\end{lstlisting}
+\begin{lstlisting}
+$ python hello.py
+hello
+$
+\end{lstlisting} %$
+\subsection{ファイル実行$+$対話}
+\begin{lstlisting}
+$ python -i hello.py
+hello
+>>> x
+2
+\end{lstlisting} %$
+\subsection{Emacs内で実行}
+\begin{itemize}
+\item hello.pyファイルを編集しているバッファで，
+  \aka{C-c C-z}
+\item Pythonが別のバッファで開く
+\item hello.pyファイルを編集しているバッファで，C-c C-c $\Rightarrow$ ファイルの中身を送り込む
+\end{itemize}
+\fi
+
+\section{Jupyter環境}
+\subsection{実行}
+セル上でShift + Enter
+\subsection{既存セルの編集}
+セルをマウスクリックもしくはEnter
+\subsection{作業の保存}
+Ctrl-s または保存ボタン
+\subsection{ファイル名の変更}
+画面上部のファイル名(初期状態は Untitled)部をクリック
+\subsection{その他の操作}
+Help $\rightarrow$ Keyboard Shortcutsを参照
+
+\section{式}
+\subsection{数リテラル}
+\begin{lstlisting}
+3
+3.45
+1.0e-5
+\end{lstlisting}
+\subsection{文字列リテラル}
+\begin{lstlisting}
+"hello"
+'hello'
+'he said "hi" and I said "bye"'
+"y = f'(x)"
+"""string with
+multiple lines"""
+'''another string with
+multiple lines'''
+\end{lstlisting}
+\subsection{リスト$\ast$}
+\begin{lstlisting}
+[]
+[1]
+[ 1, 2, 3]
+["one", "two", 'three']
+[ 1, 2, "san!" ]
+[ [ 1, 2 ], [ 2, 1 ] ]
+\end{lstlisting}
+\subsection{タプル$\ast$}
+\begin{lstlisting}
+()
+(1,)     # (1) ではない
+(1,2)
+(1,2,)   # (1,2) と同じ
+(1,2,3)
+("one", "two", 'three')
+(1, [2,3], (4,5,6))
+\end{lstlisting}
+
+\subsection{辞書$\dagger$}
+\begin{lstlisting}
+{}
+{ "one" : 1, "two" : 2, "three" : 3 }
+\end{lstlisting}
+
+%\subsubsection{オブジェクト}
+
+\subsection{\ao{変数参照}}
+変数代入(\ref{subsec:assign}節)も参照.
+({\tt x = 10}とする)
+\begin{lstlisting}
+x        # @$\Rightarrow$@ 10
+x + 3    # @$\Rightarrow$@ 13
+\end{lstlisting}
+代入されてない変数の参照(エラー)
+\begin{lstlisting}
+y
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'y' is not defined
+\end{lstlisting}
+
+\subsection{演算}
+\subsubsection{数の演算}
+({\tt x = 2, y = 100}とする)
+\begin{lstlisting}
+1 + 2 * 3   # @$\Rightarrow$@ 7
+4 / 5       # @$\Rightarrow$@ @\aka{0.8 (上との違いに注意!)}@
+40 // 7     # @$\Rightarrow$@ @\aka{5 (商を整数とする割り算)}@
+2 ** 100    # @$\Rightarrow$@ 1267650600228229401496703205376
+x + y / 3   # @$\Rightarrow$@ 35.333333333333336
+x ** y      # @$\Rightarrow$@ 1267650600228229401496703205376
+\end{lstlisting}
+
+\subsubsection{文字列の演算}
+({\tt x = 2}, {\tt y = 100})とする
+\begin{lstlisting}
+"hello" + " and good bye"  # @$\Rightarrow$@ 'hello and good bye'
+"超" * 5 + "かわいい"      # @$\Rightarrow$@ '超超超超超かわいい'
+@\ao{\tt "x = \%s" \% x}@              # @$\Rightarrow$@ @\ao{\sl 'x = 5'}@
+@\ao{\tt "x = \%s, y = \%s" \% (x, y)}@   # @$\Rightarrow$@ @\ao{\sl 'x = 2, y = 100'}@
+s = "abcdefghijklmnopqrstuvwxyz"
+len(s)                     # @$\Rightarrow$@ 26
+s[0]                       # @$\Rightarrow$@ 'a'
+s[3:7]                     # @$\Rightarrow$@ 'defg'
+s[:7]                      # @$\Rightarrow$@ 'abcdefg'
+s[3:]                      # @$\Rightarrow$@ 'defghijklmnopqrstuvwxyz'
+for c in s:                # @$\Rightarrow$@ c = 'd', 'e', 'f', ...
+    ...
+\end{lstlisting}
+
+\subsubsection{タプルの演算$\ast$}
+\begin{lstlisting}
+t = ("abc", "def", "ghi", "jkl")
+len(t)
+t[0]            # @$\Rightarrow$@ 26
+t[1:3]          # @$\Rightarrow$@ ('def', 'ghi')
+t[:3]           # @$\Rightarrow$@ ('abc', 'def', 'ghi')
+t[1:]           # @$\Rightarrow$@ ('def', 'ghi', 'jkl')
+t + t           # @$\Rightarrow$@ ("abc", "def", "ghi", "jkl", "abc", "def", "ghi", "jkl")
+t * 3           # @$\Rightarrow$@ ("abc", "def", "ghi", "jkl", "abc", "def", "ghi", "jkl", "abc", "def", "ghi", "jkl")
+for s in t:     # @$\Rightarrow$@ s = 'abc', 'def', 'ghi', 'jkl'
+    ...
+\end{lstlisting}
+
+\subsubsection{\ao{リストの演算}}
+\begin{lstlisting}
+L = [ 1, 4, 9, 16 ]
+M = [ "a", "b", "c", "d" ]
+len(L)         # @$\Rightarrow$@ 4
+L[0]           # @$\Rightarrow$@ 1
+L[1:3]         # @$\Rightarrow$@ [ 4, 9 ]
+L[:3]          # @$\Rightarrow$@ [ 1, 4, 9 ]
+L[1:]          # @$\Rightarrow$@ [ 4, 9, 16 ]
+L + L          # @$\Rightarrow$@ [ 1, 4, 9, 16, 1, 4, 9, 16 ]
+L * 3          # @$\Rightarrow$@ [ 1, 4, 9, 16, 1, 4, 9, 16, 1, 4, 9, 16 ]
+L[1] = 10      
+L              # @$\Rightarrow$@ [ 1, 10, 9, 16 ]
+L.append(25)   
+L              # @$\Rightarrow$@ [ 1, 10, 9, 16, 25 ]
+del L[2]
+L              # @$\Rightarrow$@ [ 1, 10, 16, 25 ]
+for x in L:    # @$\Rightarrow$@ x = 1, 10, 16, 25
+    ...
+@\ao{\tt enumerate}@(L)   # @$\Rightarrow$@ [ (0,1), (1,4), (2,9), (3,16) ]
+@\ao{\tt zip}@(L, M)      # @$\Rightarrow$@ [ (1,"a"), (4,"b"), (9,"c"), (16,"d") ]
+\end{lstlisting}
+
+\subsubsection{辞書の演算$\dagger$}
+\begin{lstlisting}
+D = { "one" : 1, "two" : 2, "three" : 3, (0,1) : "zero one" }
+len(D)                # @$\Rightarrow$@ 3
+D["one"]              # @$\Rightarrow$@ 1
+D[0,1]                # @$\Rightarrow$@ 'zero one'
+D[2,3] = 10    
+D                     # @$\Rightarrow$@ { "one" : 1, "two" : 2, "three" : 3, (0,1) : "zero one", (2,3) : 10 }
+del D[0,1]
+D                     # @$\Rightarrow$@ { "one" : 1, "two" : 2, "three" : 3, (2,3) : 10 }
+for k,v in D.items(): # @$\Rightarrow$@ (k,v) = ("one",1), ("two",2), ("three",3), ((2,3), 10)
+    ...
+\end{lstlisting}
+
+\subsection{関数呼び出し}
+{\tt x = -7.29}とする
+\begin{lstlisting}
+abs(x)         # 7.29
+min(3, 4, 8)   # 3
+max(3, 4)      # 4
+3 / float(4)   # 0.75
+2 + int(7.9)   # 9
+...
+\end{lstlisting}
+% @\ao{\tt range(0,7)}@     # [0,1,2,3,4,5,6]
+
+
+%\subsubsection{キーワード引数}
+
+\section{文}
+\subsection{\ao{print関数}}
+{\tt x = -7.29}, {\tt y = 9.18}とする.
+\begin{lstlisting}
+print(x)                   # 7.29
+print(x, y)                # -7.29 9.18
+print("x=", x, " y=", y)   # x=7.29 y=9.18
+print("x=%s y=%s" % (x,y)) # x=7.29 y=9.18
+\end{lstlisting}
+
+\subsection{\ao{代入文}}\label{subsec:assign}
+\begin{lstlisting}
+x = -7.29
+y,z = (9.18, -x)          # y=9.18, z=7.29
+t = (9.18, -x)
+p,q = t                   # p=9.18, q=7.29
+\end{lstlisting}
+
+\subsection{\ao{関数定義}}
+文法:
+\begin{lstlisting}
+def 名前(名前, 名前, ...):
+    文
+    文
+    ...
+\end{lstlisting}
+例:
+\begin{lstlisting}
+def f(x):
+    print("x = %s" % x)
+    print("x * x = %s" % (x * x))
+
+f(3) # x = 3
+     # x * x = 9
+\end{lstlisting}
+\aka{以下は, 関数にローカルな変数と言い, 
+関数呼び出しごとに別々に記憶される.}
+\begin{itemize}
+\item 関数の入力変数(引数)
+\item 関数内で代入される変数
+\end{itemize}
+例:
+\begin{lstlisting}
+# @\aka{gのx, yとfのx, yは別物}@
+def g(x):
+    y = x + 1
+    return y
+
+def f(x):
+    y = x + 2
+    z = g(x + 3)
+    return x + y + z
+
+f(0)  # @$\Rightarrow$ 6 (0 + 2 + 4)@ 
+\end{lstlisting}
+例:
+\begin{lstlisting}
+def f(x):
+    y = x + 1
+    z = y * y
+    return z
+
+f(3)
+# @\aka{fのxと外側のxは別物}@
+x       # @$\Rightarrow$@ 10
+# @\aka{f内のy, zはf終了後には存在しない}@
+y       # @$\Rightarrow$@ error
+\end{lstlisting}
+
+\subsection{\ao{return文}}
+文法:
+\begin{lstlisting}
+return 式
+\end{lstlisting}
+\begin{itemize}
+\item 式を計算$\rightarrow R$
+\item 現在の関数実行を終了してその関数呼び出しの値を$R$とする
+\item (関数実行中でなかったらエラー)
+\end{itemize}
+例:
+\begin{lstlisting}
+def f(x):
+    print("x = %s" % x)
+    return x * x
+
+f(3)  # x = 3
+      # @$\Rightarrow$@ 9
+\end{lstlisting}
+
+\subsection{\ao{import}}
+文法:
+\begin{lstlisting}
+import モジュール名
+import モジュール名 as 名前
+from モジュール名 import 名前,名前,...
+from モジュール名 import *
+\end{lstlisting}
+\begin{itemize}
+\item 指定された「モジュール」の機能(名前)を使えるようにする
+\item 通常ファイルの先頭にまとめて書く
+\end{itemize}
+例:
+\begin{lstlisting}
+import random
+x = random.random()
+\end{lstlisting}
+
+\begin{lstlisting}
+from vpython import *
+sphere()
+\end{lstlisting}
+
+\begin{lstlisting}
+from math import pi,cos
+cos(pi)    # @$\Rightarrow$@ -1.0
+\end{lstlisting}
+
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+plt.plot(range(0,100), range(3,303,3))
+plt.show()
+\end{lstlisting}
+
+\subsection{\ao{if}}
+文法
+
+\begin{lstlisting}
+if 式:
+    文
+    ...
+elif 式:
+    文
+    ...
+...
+else:
+    文
+    ...
+\end{lstlisting}
+\begin{itemize}
+\item elifは0個以上
+\item elseは最後にひとつ(か無し)
+\end{itemize}
+
+\subsection{\ao{for}}
+文法:
+\begin{lstlisting}
+for 名前,名前,... in 式:
+    文
+    文
+    ...
+\end{lstlisting}
+
+\subsection{\ao{while}}
+文法:
+\begin{lstlisting}
+while 式:
+    文
+    文
+    ...
+\end{lstlisting}
+
+\subsection{\ao{break}}
+文法:
+\begin{lstlisting}
+break
+\end{lstlisting}
+\begin{itemize}
+\item 現在実行中のループ(for, whille)の実行を即座に終了する
+\item ループ実行中でなければエラー
+\end{itemize}
+
+\subsection{\ao{continue}}
+文法:
+\begin{lstlisting}
+continue
+\end{lstlisting}
+\begin{itemize}
+\item 現在実行中のループ(for, whille)の, 「現在の繰り返し」
+の実行を即座に終了する(次の繰り返しのための条件判定に直ちに移行)
+\item ループ実行中でなければエラー
+\end{itemize}
+
+\section{\ao{リスト内包表記}}
+必須ではないが色々なものを「一撃で」書くのにマスターする価値あり
+
+文法:
+\begin{lstlisting}
+[ 式 for 名前,名前,... in 式 ]
+[ 式 for 名前,名前,... in 式 if 式 ]
+\end{lstlisting}
+
+\begin{itemize}
+\item {\tt [ $E$ for $x$ in $L$ ]}
+は，$L$中の各$x$に対して$E$を計算したものを要素とするリスト
+\item 
+{\tt [ $E$ for $x$ in $L$ if $C$ ]}
+はその中から$C$を満たすものだけを残したリスト
+\end{itemize}
+
+\begin{lstlisting}
+[ x * x for x in range(5) ]               # [0,1,4,9,16]
+[ x * x for x in range(5) if x % 2 == 0 ] # [0,4,16]
+sum([ x * x for x in range(5) ])          # 30
+n = 10000
+X = [ i / float(n) for i in range(n) ]    # 0.0001,0.0002,...
+sum([ x * x / n for x in X ])             # 0.33328333... 
+\end{lstlisting}
+
+\section{クラス定義$\dagger$}
+文法:
+\begin{lstlisting}
+class 名前:
+    関数定義
+
+    関数定義
+
+    ...
+\end{lstlisting}
+例:
+\begin{lstlisting}
+class point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def dist2(self):
+        return self.x ** 2 + self.y ** 2
+    def move(self, dx, dy):
+        self.x = self.x + dx
+        self.y = self.y + dy
+
+p = point(3, 4)
+p.dist2()
+p.move(1, 2)
+p.x
+p.y
+\end{lstlisting}
+例:
+\begin{lstlisting}
+from vpython import *
+s = sphere()
+s.radius = 5
+s.pos = (1,2,3)
+\end{lstlisting}
+
+\section{dir}
+オブジェクトやモジュールの属性を調べる
+\begin{lstlisting}
+import math
+dir(math)
+from vpython import *
+s = sphere()
+dir(s)
+\end{lstlisting}
+
+\section{文法上の諸注意}
+\subsection{\ao{字下げ}}
+Pythonにおいて字下げの位置は重要で，def, for, while, if
+などにおいてその本体がどこまでかを明示するのに字下げが使われる
+\begin{lstlisting}
+for x in range(0,10):
+    print(x)       # for文の中
+    print(x * x)   # for文の中
+print x           # 外
+\end{lstlisting}
+
+\subsection{コメント}
+\begin{lstlisting}
+# から行末までがコメント
+\end{lstlisting}
+
+\subsection{日本語}
+\begin{itemize}
+\item コメントや文字列の中に日本語が使える
+\item 使いたい場合以下をファイルの冒頭に入れる
+\end{itemize}
+\begin{lstlisting}
+#! -*- coding: utf-8 -*-
+\end{lstlisting}
+
+\section{Visual Python}
+\url{https://vpython.org/}
+\subsection{import}
+\begin{lstlisting}
+from vpython import *  
+\end{lstlisting}
+
+\subsection{描画の例}
+\begin{lstlisting}
+from vpython import *  
+s = sphere()
+s.pos = vector(1,2,3)
+s.color = color.yellow
+\end{lstlisting}
+
+\begin{itemize}
+\item オブジェクト: arrow (矢印), box (箱), cone (円錐), 
+  curve (線), cylinder (柱), 
+  ellipsoid (楕円体), faces (多面体), helix (らせん), 
+  label (文字) , points (点をいっぱい), pyramid (四角錐), 
+  ring (輪), sphere (球), text (立体文字), \ldots
+\item 一覧: \url{http://vpython.org/contents/docs/primitives.html}
+\item 属性: pos, color, axis, radius, make\_trail, \ldots
+\end{itemize}
+
+\subsection{色}
+\begin{lstlisting}
+from vpython import *
+s = sphere(color=color.white)
+b = box(color=color.gray(0.3))
+r = ring(color=color.red, opacity=0.8)
+c = cone(color=(0.4, 0.2, 0.8)) # RGB
+\end{lstlisting}
+
+\begin{itemize}
+\item 他の色(color.xxx): red, yellow, black, green, orange, white, blue, cyan, magenta
+\item color.hsv\_to\_rgb, color.rgb\_to\_hsv
+\end{itemize}
+
+\subsection{アニメーション}
+\begin{lstlisting}
+for i in range(n):
+    rate(30) # 30フレーム/秒
+    ...
+    s.pos = @{\em new position}@
+\end{lstlisting}
+
+\subsection{カメラアングルなど}
+自動追従の抑止
+\begin{lstlisting}
+scene.autocenter = 0
+scene.autoscale = 0
+\end{lstlisting}
+\url{http://vpython.org/contents/docs/options.html}
+
+\subsection{軌跡を残す}
+\begin{lstlisting}
+from vpython import *
+trail = curve()
+for i in range(n):
+    rate(30)
+    pos = ...
+    trail.append(pos)
+\end{lstlisting}
+\url{http://vpython.org/contents/docs/trail.html}
+にある例は\aka{うまくいかない}
+
+\subsection{vector}
+\begin{lstlisting}
+from vpython import *
+u = vector(1,2,3)
+v = vector(9,8,7)
+u + v, u - v, 3 * u
+u.dot(v), u.cross(v)
+u.mag, u.mag2
+\end{lstlisting}
+\url{http://vpython.org/contents/docs/vector.html}
+
+\section{Matplotlib}
+\url{http://matplotlib.org/}
+\subsection{import}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+\end{lstlisting}
+
+\subsection{グラフ描画(1変数)}
+$x$, $y$座標それぞれをリストまたはnumpy配列で与える
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+plt.plot([0,1,2,3], [0,1,4,9]) # (0,0),(1,1),(2,4),(3,9)
+plt.show()
+\end{lstlisting}
+
+\subsection{データの作り方様々}
+リスト:
+\begin{lstlisting}
+import math
+import matplotlib.pyplot as plt
+X = range(100) # リスト [0,1,..,99]
+# リスト内包表記 [ @$\sqrt{0}, \sqrt{1}, \ldots , \sqrt{99}$@ ]
+Y = [ math.sqrt(x) for x in X ] 
+plt.plot(X, Y)
+plt.show()
+\end{lstlisting}
+numpy:
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np 
+X = np.arange(0, 7, 0.01) # numpy配列 0,0.01,0.02,...,6.99
+Y = np.sin(X)             # numpy universal関数
+plt.plot(X, Y)
+plt.show()
+\end{lstlisting}
+
+\subsection{複数グラフ描画}
+\begin{itemize}
+\item 本当はこちらだけを覚えれば良い
+\item 注: 以下の3D表示時も必須
+\end{itemize}
+
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np 
+X = np.arange(0, 7, 0.01) # numpy配列 0,0.01,0.02,...,6.99
+# ウィンドウ全体
+fig = plt.figure()
+# 2x3 のタイルに二つのグラフ領域
+ax0 = fig.add_subplot(2,3,1)
+ax1 = fig.add_subplot(2,3,6)
+# 描画
+ax0.plot(X, np.sin(X))
+ax1.bar(X, np.cos(X))
+fig.show()
+\end{lstlisting}
+
+\subsection{2変数データの描画}
+基本: $x, y, z$座標それぞれを, 形の同じ2次元numpy配列で与える
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np 
+# [0,2]x[0,3]
+X = np.array([[0,0,0,0],[1,1,1,1],[2,2,2,2]])
+Y = np.array([[0,1,2,3],[0,1,2,3],[0,1,2,3]])
+Z = X ** 2 - Y ** 2 # array([[0,-1,-4,-9],[1,0,-3,-8]])
+plt.pcolor(X, Y, Z)
+plt.show()
+\end{lstlisting}
+格子点を生成するには{\tt np.meshgrid}が有用
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np 
+X = np.linspace(0,1,11) # array([0,0.1,0.2,...,1.0])
+Y = np.linspace(0,1,11)
+X,Y = np.meshgrid(X, Y)
+Z = X ** 2 - Y ** 2 # array([[0,-1,-4,-9],[1,0,-3,-8]])
+plt.pcolor(X, Y, Z)
+plt.show()
+\end{lstlisting}
+
+\subsection{3D描画}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np 
+@\ao{\tt import mpl\_toolkits.mplot3d.axes3d}@
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1, @\ao{\tt projection='3d'}@)
+X = np.linspace(0,1,11) # array([0,0.1,0.2,...,1.0])
+Y = np.linspace(0,1,11)
+X,Y = np.meshgrid(X, Y)
+Z = X ** 2 - Y ** 2 # array([[0,-1,-4,-9],[1,0,-3,-8]])
+ax.plot_surface(X, Y, Z)
+fig.show()
+\end{lstlisting}
+
+
+\subsection{ギャラリー}
+\url{https://matplotlib.org/gallery/index.html}
+
+\section{Numpy}
+\subsection{import}
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+\subsection{配列 (array)}
+\begin{lstlisting}
+import numpy as np
+np.array([2,0,1,4])
+np.array([[1,2,3],[4,5,6]])
+\end{lstlisting}
+
+\subsection{配列の作り方様々}
+\begin{lstlisting}
+import numpy as np
+np.arange(3.0,4.0,0.2) # array([ 3., 3.2,  3.4, 3.6,  3.8])
+np.linspace(3.0,4.0,5) # array([ 3., 3.25, 3.5, 3.75, 4. ])
+np.eye(50)             # 50x50の単位行列(I)
+np.zeros((50,100))     # 50x100の0
+np.ones((50,100))      # 50x100の1
+np.random.random((50,100)) # 50x100のランダムな行列
+# 汎用的・地道な作り方(1)
+a = np.zeros((50,100))
+for i in range(50):
+  for j in range(100):
+    a[i,j] = i + j
+# 汎用的・地道な作り方(2)
+def aij(i, j): return i + j
+np.fromfunction(aij, (50,100))
+np.fromfunction(lambda i,j: i + j, (50,100))
+np.array(range(6)).reshape((2,3)) # array([[0,1,2],[3,4,5]])
+np.linspace(0.0,1.0,6).reshape((2,3)) # array([[0., 0.2, 0.4],[0.6, 0.8, 1.]])
+\end{lstlisting}
+
+\subsection{配列のアクセス}
+\begin{lstlisting}
+a = np.array(range(6)).reshape((2,3))
+a[0,0]   # 0
+a[0]     # array([0, 1, 2])
+a[0,:]   # array([0, 1, 2])
+a[:,1]   # array([1, 4])
+a[0,1:3] # array([1, 2])
+a[:,1:3] # array([[1, 2],[4, 5]])
+a[:,1:3] = np.array([[10,20],[40,50]])
+a        # array([[0,10,20],[3,40,50]])
+\end{lstlisting}
+
+\subsection{配列の演算}
+\begin{lstlisting}
+import numpy as np
+x = np.array([2,0,1,4])
+y = np.array([5,6,7,8])
+x + y    # array([ 7,  6,  8, 12])
+x * y    # array([10,  0,  7, 32])
+x.dot(y) # 49
+\end{lstlisting}
+
+\subsection{配列を行列として使う}
+\begin{lstlisting}
+import numpy as np
+a = np.array([[1,2,3],[0,4,5],[0,0,6]])
+a.T # 転置
+x = np.array([100,200,300])
+@\aka{\tt a * x}@ # 行列 x ベクトル積じゃない!
+a.dot(x) # array([1400, 2300, 1800])  
+\end{lstlisting}
+
+\subsection{matrix}
+\begin{lstlisting}
+import numpy as np
+a = np.matrix([[1,2,3],[0,4,5],[0,0,6]])
+x = np.array([[100],[200],[300]])  # 縦ベクトルは，n x 1の行列
+a * x 
+\end{lstlisting}
+
+\subsection{線形代数の計算}
+\begin{lstlisting}
+import numpy as np
+a = np.array([[1,2,3],[0,4,5],[0,0,6]])
+x = np.array([100,200,300])
+np.linalg.solve(a, x) # Ax = b
+np.linalg.eig(a)      # 固有値と固有ベクトル
+np.linalg.inv(a)      # 逆行列
+m = np.matrix(a)
+x / m 
+\end{lstlisting}
+
+\subsection{Universal関数}
+多くの実数に対する演算が, 自動的に配列に対する演算に拡張される
+\begin{lstlisting}
+import numpy as np
+X = np.linspace(0,4,5) # @$\Rightarrow$@ array([0, 1, 2, 3, 4])
+X + 3                  # @$\Rightarrow$@ array([3, 4, 5, 6, 7])
+4 * X ** 2             # @$\Rightarrow$@ array([0, 4, 16, 36, 64])
+np.sin(X)              # @$\Rightarrow$@ array([0., 0.84147098, 0.90929743, 0.14112001, -0.7568025 ])
+\end{lstlisting}
+
+\appendix
+
+\section{Emacsの操作$\dagger$}
+{\footnotesize
+\subsection{キー操作の記法}
+\begin{itemize}
+\item C- は Ctrlキーを押しながら
+\item M- は Meta (Alt)キーを押しながら
+\end{itemize}
+例:
+\begin{itemize}
+\item C-x C-f $\Rightarrow$「Ctrlキーを押したままx, fと連打」
+\item C-x 1 $\Rightarrow$「Ctrlキーを押してx, Ctrlキーを離してから1」
+\end{itemize}
+
+\subsection{ファイル操作}
+メニュー(Files)もある
+
+\begin{tabular}{|l|l|}\hline
+操作 & キー          \\\hline
+開く & C-x C-f       \\
+保存 & C-x C-s       \\\hline
+ファイル一覧 & C-x d \\\hline
+\end{tabular}
+
+\subsection{コマンドを途中で抜ける}
+\begin{tabular}{|l|l|l|}\hline
+操作 & キー & 備考 \\\hline
+コマンドを途中で抜ける & C-g & \\\hline
+\end{tabular}
+
+\subsection{カーソル移動}
+
+\begin{tabular}{|l|l|l|}\hline
+操作 & キー & 備考 \\\hline
+1ページスクロール & C-v &  \\
+1ページ逆スクロール & M-v &  \\
+カーソル移動 右 &C-f &forward \\
+カーソル移動 左 &C-b &backward \\
+カーソル移動 下 &C-n &next \\
+カーソル移動 上 &C-p &previous \\
+カーソル移動 行頭 &C-a & \\
+カーソル移動 行末 &C-e & \\\hline
+\end{tabular}
+
+\subsection{コピペ}
+\begin{tabular}{|l|l|l|}\hline
+操作 & キー \\\hline
+行末までカット & C-k \\
+1行全部カット & C-a C-k C-k \\
+ペースト & C-y \\
+広い範囲をカット & C-space; カーソル移動; C-w  \\
+広い範囲をコピー & C-space; カーソル移動; M-w \\\hline
+\end{tabular}
+
+\begin{itemize}
+\item 範囲選択はマウスでも可能
+\item C-space ではなく，C-@ の場合も有る
+\end{itemize}
+
+
+
+\subsection{検索}
+\begin{tabular}{|l|l|l|}\hline
+操作 & キー & 備考 \\\hline
+検索(前向き) & C-s & \\
+検索(後ろ向き) & C-r & \\\hline
+\end{tabular}
+
+\subsection{バッファ(窓)切り替え}
+メニュー(Buffers)もある
+
+\begin{tabular}{|l|l|}\hline
+操作 & キー \\\hline
+今いるバッファを見えなくする & C-x 0 \\
+今いるバッファだけにする & C-x 1 \\
+今いるバッファを閉じる & C-x k \\
+他のバッファを表示する & C-x b \\\hline
+\end{tabular}
+}
+
+
+\end{multicols*}
+
+\end{document}
+

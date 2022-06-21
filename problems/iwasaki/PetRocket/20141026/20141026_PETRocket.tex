@@ -1,0 +1,216 @@
+﻿
+%\documentclass{jsarticle}
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx,color}
+
+%一段落目でインデントしたい
+\usepackage{indentfirst}
+
+\usepackage{comment}
+\usepackage{ascmac}
+\usepackage{otf}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage{wrapfig}
+
+\usepackage[top=20truemm, bottom=20truemm, left=20truemm, right=20truemm]{geometry}
+
+\usepackage{here}
+%\begin{figure}[H]とかやると、強制的に位置を文章の一定位置に固定する。
+
+\usepackage{caption}
+
+\usepackage{listings,multicol}
+\lstset{
+	language={C++}, 
+	basicstyle={\ttfamily\footnotesize},
+		commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+		keywordstyle={\small\bfseries \color[rgb]{0,0,1}},
+		ndkeywordstyle={\small\ttfamily  \color[rgb]{0.5,0.5,0.0}}, %特殊キーワード、かな？
+	alsoletter={\#},%無理やり#defineをキーワード化するため。
+	morekeywords={\#define},%普通のキーワード
+	morendkeywords={spawn,sync},%別の色で着色できる、特別キーワード
+	showstringspaces=false
+	identifierstyle={\small},
+	stringstyle={\small\ttfamily}, 
+	frame={tb},%singleとかで外側を線で囲む。tbで上下だけ、noneでなし
+	breaklines=true,%折り返し
+	columns=[l]{fixed},
+	numbers=none,%これは、行番号。leftとかで左に行番号がつく
+	xrightmargin=0zw,
+	xleftmargin=3zw,
+	numberstyle={\scriptsize},
+	stepnumber=1,%行番号増分
+	numbersep=1zw,
+	lineskip=-0.25ex,
+	morecomment=[l]{//},
+	escapeinside={<@}{@>},
+	tabsize=2,
+}
+
+\usepackage{subfig}
+
+\captionsetup[subfloat]{position=bottom,
+  farskip=10pt,topadjust=0pt,captionskip=10pt,
+  nearskip=10pt,margin=10pt}
+
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{}
+
+%ページ全体の行間
+\setstretch{1.0}
+%ページ全体の段落間
+\parskip=3pt plus 1pt
+
+\title{ ペットボトルロケット 参考資料 v0.1 }
+\author{ 岩崎 慎太郎 }
+
+\begin{document}
+
+\date{October 26, 2014}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 基本の運動方程式 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+運動方程式が基本の式となる。
+\begin{equation}
+m \frac{d \vec{v}}{d t} = \vec{F} - \vec{R_{air}} - m \vec{g}
+\end{equation}
+
+水の噴出量（単位時間当たりの質量）を$\beta$とすると、
+\begin{equation}
+\frac{d m}{d t} = -\beta
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 水の推力 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+断面積$A$の口から速度$v_{water}$で水を噴出する時、
+\begin{equation}
+\beta_{water} = \rho_{water} A v_{water}
+\end{equation}
+
+これの反作用で得られる力は、以下のように与えられる。
+\begin{equation}
+F = \beta_{water} * v_{water}
+\end{equation}
+
+ここで、$A$は小さく、定常流れが生じるとして、非粘性・圧縮性流体のベルヌーイの定理を用いると、流線上で
+\begin{equation}
+\frac{1}{2} v_{water}^2 + \frac{p}{\rho_{water}} - g h = const.
+\end{equation}
+となる。ただし$g h$はその位置で受ける重力加速度の大きさを示す。
+
+ペットボトル内の水面は、表面での流速を$v_{water}'$とし、ペットボトル内の圧力を$P$とすると、ベルヌーイの定理から以下のようにに書ける。
+\begin{equation}
+\frac{1}{2} v_{water}'^2 + \frac{P}{\rho_{water}} = const.
+\end{equation}
+
+ペットボトルの噴出口では、ロケットの傾きを$\theta$とし、大気圧を$P_0$とすると、ベルヌーイの定理から同様に
+\begin{equation}
+\frac{1}{2} v_{water}^2 + \frac{P_0}{\rho_{water}} - g h cos \theta = const.
+\end{equation}
+となる。
+
+これが流線上で等しいので、
+\begin{equation}
+\frac{1}{2} v_{water}'^2 + \frac{P}{\rho_{water}} = \frac{1}{2} v_{water}^2 + \frac{P_0}{\rho_{water}} - g h cos \theta
+\end{equation}
+が成り立つ。ここで、ペットボトル自体の断面積を$A_0$として、水面と噴出口での連続の式、
+\begin{equation}
+A_0 v_{water}' = A v_{water}
+\end{equation}
+を連立することで、水が中にある時の$F$を求めることができる（ここで、Pの変化はほぼ断熱変化として計算してよい）。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 空気の推力 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+水を全て出し切ると、速やかに空気の噴出に変わる。
+
+断面積$A$の口から速度$v_{air}$で空気を噴出する時、以下の式が成り立つ。
+\begin{equation}
+\beta_{air} = \rho_{air} A v_{air}
+\end{equation}
+この反作用で得られる力は、
+\begin{equation}
+F_1 = \beta_{air} * v_{air}
+\end{equation}
+であるが、さらに、ペットボトル内外の圧力差（噴出部$P_0'$、大気圧$P_0$と置いている）から、
+\begin{equation}
+F_2 = A \left( P_0' - P_0 \right)
+\end{equation}
+が圧力推力として得られる。この2つの和、
+\begin{equation}
+F = F_1 + F_2
+\end{equation}
+が得られる推力になる。
+
+さて、空気の粘性を無視し、$A$が十分小さく、系は外部と熱のやり取りがないとして、
+定常流れを仮定すると、容器内部（圧力$P$）と噴出部（$P_0'$）でベルヌーイの定理を立てると以下のようになる。
+\begin{equation}
+\frac{1}{2} v_{air}^2 + \left( \frac{\gamma}{\gamma - 1} \right)\frac{P_0'}{\rho_{air0}} =  \left( \frac{\gamma}{\gamma - 1} \right)\frac{P}{\rho_{air}}
+\end{equation}
+ただし、$\gamma$は空気の比熱比${C_p}/{C_v}$である。また、$\rho_{air0}$は噴出部密度、$\rho_{air}$は容器内密度とした。
+
+さらに断熱過程であることから、空気が理想気体であるとして以下の式を得る。
+\begin{equation}
+\frac{P_0'}{\rho_{air0}^\gamma} = \frac{P}{\rho_{air}^\gamma}
+\end{equation}
+
+これを解いて、噴出速度$V$が得られる。
+
+ただし、流速はその流体の音速$v_{airmax}$を超えず、この時噴出部の圧力は大気圧$P_0$にならない。音速は、
+\begin{equation}
+v_{airmax} = \sqrt{\frac{\gamma R T_0}{M}}
+\end{equation}
+である。ただし、$T_0$は噴出部の温度である。噴出部についての理想気体の状態方程式を代入することで、
+噴出部の圧力が一定以上にならないことが分かる。噴出部の圧力は、$v_{air} < v_{airmax}$の範囲で$P_0'=P_0$に従うが、
+そうでない時は、$P_0'$は$v_{air} = v_{airmax}$を満たす値になる。
+
+$P_0'$が小さくなり、$P_0$と変わらなくなった時点で、推進力がなくなり、ペットボトルロケットは慣性で飛び始めるようになる。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 抗力 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+運動中全体を通して、抗力は進行方向の逆向きに働く。ここでは空気抵抗を考える。空気の密度を$\rho_{air}$とし、
+ペットボトルロケットの速度を$v$、ペットボトルの断面積を$A_0$、抗力係数を$C_D$とすると、
+\begin{equation}
+R = \frac{1}{2}\rho_{air}v^2 S C_D
+\end{equation}
+となる。抗力係数はペットボトルロケットの先端として適当なものを選べばよい。また、このロケットには羽などの余計な付属部品はないものとする。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 解くために }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+大気圧、空気の密度（および比熱比）、ペットボトルロケットのノズル断面積、およびペットボトルの断面積、
+さらに、ペットボトルの容量と耐圧を与えることで、以上の式を解いてシミュレーションが可能である。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ もっと詳しいモデル }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+実際は水のみの噴出から、気液二相流（チェーン流と考えられる）を経て、空気のみの噴出になるという（立式可能なのか不明）。
+また断熱変化を仮定としていたが、実際は放熱も含むため、ポリトロープ過程を考えることでより正確に導くことができると考えられる（定数をどう計算するのかは知らない）。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ 参考となるWebページ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+\item[1.] 金子望「ペットボトルロケットの教材化」\\ \url{http://www.asahi-net.or.jp/~hy9n-knk/petindex.htm}
+       \\ 大変参考になると思います。答えが載っているような気がしますが、そのまま写すと計算の雰囲気を見失う可能性があるため、
+	      一度自分で導出することをお勧めします。
+\item[2.] 板倉嘉哉, 本田祐基「身近な遊具等の工学的解析（その１：ペットボトルロケットの推力特性）」 \\ \url{http://mitizane.ll.chiba-u.jp/metadb/up/AA11868267/13482084_58_365.pdf}
+       \\ 実験値と理論値との比較に際して、とても参考になると思います。
+	      ペットボトルロケットの特性の測定を行った論文で、理論値との比較にとても役立つと思います。
+\end{itemize}
+
+
+\end{document}

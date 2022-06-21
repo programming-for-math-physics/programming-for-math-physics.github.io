@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Emacs操作メモ</title>
+
+<style>
+h1 {
+  font-size   : 24pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #DDDDEE;
+}
+
+h2 {
+  font-size   : 20pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt ;
+   
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+h3 {
+  font-size   : 18pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-style     : solid;
+  border-width     : 1pt 1pt 0pt 15pt;
+  border-color     : #99A1AA;
+  background-color : #EEEEFF;
+}
+
+div {
+  font-size   : 16pt;
+  xfont-family : serif;
+  margin      : 10pt;
+  padding     : 3pt 20pt;
+  border-color     : #99A1AA;
+}
+
+p {
+  font-size   : 16pt;
+  xfont-family : serif;
+  border-color     : #99A1AA;
+}
+
+pre {
+  background-color:#efe;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Emacs操作メモ</h1>
+<div>
+<font size=-1>(the page is encoded in UTF-8)</font>
+<br>
+<a href=../>
+ホーム</a>
+</div>
+
+<h2>最初はメニューで</h2>
+<div>
+他のエディタ同様, メニュー<br>
+<br>
+<img src=img/emacs-menu.png width=800>
+<br>
+<br>
+でひとしきりは行える.
+
+<ul>
+<li> ファイルの新規作成
+<li> 既存ファイルを開く
+<li> 編集中ファイル保存
+<li> カット(コピー)&ペースト
+<li> Undo
+</ul>
+などが行える. 基本的な編集操作は,
+<ul>
+<li> カーソルは普通の矢印キー
+<li> Backspaceで一文字前を消去
+</ul>
+
+</div>
+
+<h2>Emacsとのうまい付き合い方</h2>
+<div>
+<ul>
+<li><font color=red>Emacsは立ち上げっぱなしが基本.</font>
+ファイルを編集する度にEmacsを立ち上げ, 少し編集してまた閉じる,
+ということは<font color=red>普通はしない</font>.  
+Emacsを立ち上げっぱなしにしておいて, 
+別の窓で別のコマンドを実行すれば良い.
+
+<li>
+Emacsは複数ファイルを同時に開いて編集することが可能.
+Emacs上部のbuffersというメニューでファイルを切り替えられる.
+ここで, 画面で見えていないファイルもEmacsの内部には存在し続けている
+ことに注意. 
+再びそれを画面に表示すれば一々ファイルを開きなおす必要もない.
+
+<li>
+いわゆるドラッグ&ドロップでファイルを開くことも可能.
+ファイルブラウザを(デスクトップ上部メニューの「場所」から)開き,
+そこからファイルアイコンをEmacsのウィンドウ部分に引きずる.
+</ul>
+
+</div>
+
+<a name=keyboard>
+<h2>キーボード操作</h2>
+<div>
+よく使う操作はキーボード操作をマスターすると良い. 以下で,
+<ul>
+<li><font color=red>C-</font>はctrlキーを表す. 
+「C-x」はctrlキーを押しながらxを押すという意味.
+<li><font color=red>M-</font>はAltキーを表す. 
+「M-x」はAltキーを押しながらxを押すという意味. 
+別のやり方として,
+<ul>
+<li> ESC キーを押した後 x を押す
+<li> C-[ を押した後 x を押す
+</ul>
+でも同じ意味になる.
+</ul>
+Emacsはctrlキーを多用する. 
+</div>
+
+
+<a name=edit>
+<h2>編集操作</h2>
+<div>
+<table border=1>
+<tr><td>操作</td> <td>キー</td> <td>備考</td> </tr>
+<tr><td>保存</td> <td>C-x C-s</td> <td>使用頻度が高いので</td> </tr>
+<tr><td>1ページスクロール</td> <td> C-v </td><td><br></td> </tr>
+<tr><td>1ページ逆スクロール</td> <td> M-v </td><td><br></td></tr>
+<tr><td>カーソル移動 右</td> <td>C-f</td> <td>forward</td> </tr>
+<tr><td>カーソル移動 左</td> <td>C-b</td> <td>backward</td> </tr>
+<tr><td>カーソル移動 下</td> <td>C-n</td> <td>next</td> </tr>
+<tr><td>カーソル移動 上</td> <td>C-p</td> <td>previous</td> </tr>
+<tr><td>カーソル移動 行頭</td> <td>C-a</td> <td>慣れるための第一歩</td> </tr>
+<tr><td>カーソル移動 行末</td> <td>C-e</td> <td>慣れるための第一歩</td> </tr>
+<tr><td>行末までカット</td> <td>C-k</td> <td>改行文字はカットしない</td> </tr>
+<tr><td>ペースト</td> <td>C-y</td> <td></td> </tr>
+<tr><td>広い範囲をカット</td> <td>C-space; カーソル移動; C-w </td> <td></td> </tr>
+<tr><td>コピー</td> <td>C-space; カーソル移動; M-w</td> <td></td> </tr>
+<tr><td>検索(前向き)</td> <td>C-s</td> <td></td> </tr>
+<tr><td>検索(後ろ向き)</td> <td>C-r</td> <td></td> </tr>
+<tr><td>コマンドを途中で抜ける</td> <td>C-g </td> <td></td> </tr>
+</table>
+</div>
+
+<a name=python>
+<h2>Pythonとの連携</h2>
+<div>
+<table border=1>
+<tr><td>操作</td><td>キー</td><td>備考</td></tr>
+<tr><td>Pythonを起動</td><td>C-c C-z</td><td> .pyを編集しているバッファで行う</td></tr>
+<tr><td>バッファ内のプログラムを実行</td><td>C-c C-c </td><td>.pyを編集しているバッファで行う</td></tr>
+</table>
+</div>
+
+<a name=python>
+<h2>バッファ切り替え関連</h2>
+<div>
+<table border=1>
+<tr><td>操作</td><td>キー</td><td>備考
+<tr><td>今いるバッファを見えなくする</td><td>C-x 0</td><td></td></tr>
+<tr><td>今いるバッファだけにする</td><td>C-x 1</td><td></td></tr>
+<tr><td>今いるバッファを閉じる</td><td>C-x k</td><td></td></tr>
+<tr><td>他のバッファを表示する</td><td>C-x b</td><td>メニューのBuffersでもOK</td></tr>
+</table>
+
+</div>
+
+

@@ -1,0 +1,2223 @@
+\documentclass[10pt,dvipdfmx]{beamer}
+\usepackage{pgfpages}
+\usepackage{graphicx}
+\usepackage{listings,jlisting}
+\usepackage{fancybox}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% themes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{Rochester}
+%% no navigation bar
+% default boxes Bergen Boadilla Madrid Pittsburgh Rochester
+%% tree-like navigation bar
+% Antibes JuanLesPins Montpellier
+%% toc sidebar
+% Berkeley PaloAlto Goettingen Marburg Hannover Berlin Ilmenau Dresden Darmstadt Frankfurt Singapore Szeged
+%% Section and Subsection Tables
+% Copenhagen Luebeck Malmoe Warsaw
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% innerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \useinnertheme{circles}	% default circles rectangles rounded inmargin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% outerthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% outertheme
+% \useoutertheme{default}	% default infolines miniframes smoothbars sidebar sprit shadow tree smoothtree
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% colorthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usecolortheme{seahorse}
+%% special purpose
+% default structure sidebartab 
+%% complete 
+% albatross beetle crane dove fly seagull 
+%% inner
+% lily orchid rose
+%% outer
+% whale seahorse dolphin
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% fontthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usefonttheme{serif}  
+% default professionalfonts serif structurebold structureitalicserif structuresmallcapsserif
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% generally useful beamer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
+% do not show navigation
+\setbeamertemplate{navigation symbols}{}
+% show page numbers
+\setbeamertemplate{footline}[frame number]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% define some colors for convenience
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mido}[1]{{\color{green}#1}}
+\newcommand{\mura}[1]{{\color{purple}#1}}
+\newcommand{\ore}[1]{{\color{orange}#1}}
+\newcommand{\ao}[1]{{\color{blue}#1}}
+\newcommand{\aka}[1]{{\color{red}#1}}
+
+\setbeamercolor{syntax}{bg=cyan!20!white}
+\setbeamercolor{example}{bg=yellow!20!white}
+\setbeamercolor{output}{bg=white}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% how to typset code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{language = python,
+numbers = left,
+numberstyle = {\tiny \emph},
+numbersep = 10pt,
+breaklines = true,
+breakindent = 40pt,
+frame = tlRB,
+frameround = ffft,
+framesep = 3pt,
+rulesep = 1pt,
+rulecolor = {\color{blue}},
+rulesepcolor = {\color{blue}},
+flexiblecolumns = true,
+keepspaces = true,
+basicstyle = \ttfamily\small,
+identifierstyle = ,
+commentstyle = ,
+stringstyle = ,
+showstringspaces = false,
+tabsize = 4,
+escapechar=\@,
+xrightmargin=3zw,
+}
+
+\title{Python \\ Speed Learning}
+\institute{東京大学}
+\author{田浦健次朗 \\ 電子情報工学科}
+\date{}
+
+\AtBeginSubsection[] % Do nothing for \section*
+{
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \begin{frame}
+% \frametitle{Contents}
+% \tableofcontents
+% \end{frame}
+
+%%%%%%%%%%%%%%%%% 
+% \begin{frame}[fragile]
+% \frametitle{以下のスライド}
+% 以下のスライドで,
+% \begin{beamercolorbox}{syntax}
+% 青地で囲まれているのは, 文法規則の説明
+% \end{beamercolorbox}
+
+% \begin{beamercolorbox}{example}
+% 緑地で囲まれているのは, プログラム例
+% \end{beamercolorbox}
+
+% \begin{beamercolorbox}{output}
+% 黄地で囲まれているのは, プログラムを実行した際の出力
+% \end{beamercolorbox}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{2つの実行方式}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Pythonの2つの実行方式}
+\begin{itemize}
+\item ファイルに書いてファイルを実行
+\begin{lstlisting}
+$ @{\bf python ファイル名}@
+\end{lstlisting} % $
+
+\item 対話的に実行
+\begin{lstlisting}
+>>> 1 + 2
+3
+\end{lstlisting}
+
+
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{print文}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{print文}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+print @{\bf 式}@
+\end{lstlisting}
+\item 意味:
+  \begin{itemize}
+  \item 「式」を計算(評価)した値を表示する
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{print文}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+print 1
+print 'hello'
+print 1+2
+print 7/3
+print abs(-5*4)
+\end{lstlisting}
+\item<2> 出力:
+\begin{lstlisting}
+1
+hello
+3
+2
+20
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{確認}
+\begin{itemize}
+\item プログラムをファイルに保存して実行すると, 
+基本は, \ao{ファイルに並んだ文を上から実行}していく
+
+\item 割り算 (/) の意味に注意
+  \begin{itemize}
+  \item {\tt 7 / 3} $\Rightarrow$ \aka{\tt 2}
+  \item {\tt 7 / 3.0} $\Rightarrow$ \aka{2.3333333333333335}
+  \item {\tt 7 / float(3)} $\Rightarrow$ \aka{2.3333333333333335}
+  \item 整数同士の割り算は余りを切り捨てる
+  \item どちらかを小数付きにすることで回避
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{代入文}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{変数への代入文}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+@{\bf 名前}@ = @{\bf 式}@
+\end{lstlisting}
+\item 効果: 
+  \begin{itemize}
+  \item 「式」の計算結果がその名前(変数; variable)で記憶される
+  \item それ以降, 式中にその名前が現れたらその値はその計算結果になる
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{確認: 出力は?}
+\begin{itemize}
+\item 以下をファイルに書いて, pythonで実行するとどんな出力になるか?
+\begin{lstlisting}
+a = 1 + 2
+print a
+b = a + 3
+print b
+a = a + 4
+print a
+print b
+\end{lstlisting}
+\item<2> 出力:
+\begin{lstlisting}
+3
+6
+7
+6
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{代入されていない変数を使うと\ldots}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+a = 1 + 2
+print a
+print b
+\end{lstlisting}
+\item<2> 出力:
+\begin{lstlisting}
+3
+Traceback (most recent call last):
+  File @\aka{\tt "a.py", line 3}@, in <module>
+    print b
+@\aka{\tt NameError: name 'b' is not defined}@
+\end{lstlisting}
+\item<2> エラーメッセージをちゃんと見る事も重要
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{変数への代入文: 確認事項および補足}
+\begin{itemize}
+\item 同じ変数に何度代入しても良い. 変数の値はその都度変わる
+\item 変数の「名前」に使って良い文字は, 
+\ao{アルファベット, 数字, アンダスコア({\tt \_})}.
+ただし, 1文字目が数字はダメ.
+\begin{itemize}
+\item $\bigcirc$: {\tt x, y, tanaka, Kouji\_Uehara, World\_Cup\_2013}
+\item $\times$: {\tt J-League, hungry?, 4WD}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{関数}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{関数定義文}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+def @{\bf 名前}@(@{\bf 名前}@, @{\bf 名前}@, ...):
+    @{\bf 文}@
+    @{\bf 文}@
+    ...
+\end{lstlisting}
+\item 効果: 関数を「定義」する
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{関数定義文}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+# 関数の定義
+def f(x, y):
+    a = x + y
+    return a * a
+
+# 定義した関数の使用 (呼び出し)
+print f(10, 20) + 30
+\end{lstlisting}
+\item<2> 出力:
+\begin{lstlisting}
+930
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{確認}
+以下の中身のファイルをpythonで実行すると,
+\begin{lstlisting}
+def f(x, y):
+    a = x + y
+    return a * a
+print f(10, 20) + 30
+\end{lstlisting}
+  
+\begin{enumerate}
+\item まずfが\ao{定義}される\aka{(ここで中身が実行されるんぢゃないヨ)}
+\item {\tt print}文が実行される. 
+  \begin{enumerate}
+  \item そのために, {\tt f(10, 20) + 30}を計算. 
+  \item そのために, {\tt f(10, 20)}を計算 
+    $\Rightarrow$ {\tt x=10, y=20}として{\tt f}の中身を実行する
+  \end{enumerate}
+
+\item 関数実行中にreturn文:
+\begin{lstlisting}
+return 式    
+\end{lstlisting}
+に遭遇したら, 「式」の結果がその関数呼び出しの結果となり,
+関数の実行はそこで終了する
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{{\tiny 意地悪}クイズ: 出力は?}
+\begin{itemize}
+\item 以下をファイルに書いて, pythonで実行するとどんな出力になるか?
+\begin{lstlisting}
+def f(x, y):
+    print 1
+    print 'hello'
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+\end{lstlisting}
+
+\item<2> 関数を「定義」しただけで中身が実行されるわけではない!
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クイズ: 出力は?}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def f(x, y):
+    print x
+    print y
+    return x + y
+
+print f(10, 20) + f(30, 40)
+\end{lstlisting}
+
+\item<2-> 出力
+\begin{lstlisting}
+10
+20
+30
+40
+100
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クイズ: 出力は?}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+\begin{itemize}
+\item 入力:
+\begin{lstlisting}
+def f(x, y):
+    print x
+    print y
+    x + y
+
+print f(10, 20)
+\end{lstlisting}
+\item<2-> 出力:
+\begin{lstlisting}
+10
+20
+@\aka{\tt None}@
+\end{lstlisting}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\only<3>{
+やりがちなミス(returnの書き忘れ). 関数の中は以下のどちらかで終了する
+\begin{itemize}
+\item return文を実行した時
+\item \ao{上から順に文を実行し終え, 次に実行すべき文がなくなった時}
+\end{itemize}
+\aka{後者の場合, その関数を呼び出した時の値は, None}という特別な値となる}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クイズ: 出力は?}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+\begin{itemize}
+\item 入力:
+\begin{lstlisting}
+def f(x, y):
+    print x
+    print y
+    x + y
+
+print f(10, 20) + 30
+\end{lstlisting}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\only<3>{None という値と, 30 を足し算しようとしたが, 
+そんなことはできないというエラー}
+\end{column}
+\end{columns}
+
+\begin{itemize}
+\item<2-> 出力:
+\begin{lstlisting}
+10
+20
+Traceback (most recent call last):
+  File @\aka{\tt "a.py", line 6}@, in <module>
+@\aka{\tt TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'}@
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{字下げ}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{関数定義の中身が「どこまでか」は字下げで決まる}
+
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def f(x, y):
+    print 'hello'
+    print 'bye'
+print 10
+f(30, 40)
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+10
+hello
+bye
+\end{lstlisting}
+
+\item<2> 関数定義の「中身」は\verb+print 'hello', print 'bye'+
+  \begin{itemize}
+  \item まずfが定義される(中身は実行されない)
+  \item \verb+print 10+は関数fの定義の「外」 $\rightarrow$ 実行される
+  \item \verb+f(30,40)+が実行され, 中身の\verb+print 'hello', print 'bye'+が実行される
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Pythonでは字下げは文法の一部}
+\begin{itemize}
+\item 気まぐれで字下げしてはいけない
+\begin{lstlisting}
+def f(x):
+    print x
+      @\aka{\tt print x+1}@
+\end{lstlisting}
+\item 
+\begin{lstlisting}
+  File @\aka{\tt "a.py", line 3}@
+    print x+1
+    ^
+@\aka{IndentationError: unexpected indent}@
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Pythonでは字下げは文法の一部}
+\begin{itemize}
+\item 字下げをやめるときはちゃんと「元に」戻る
+\begin{lstlisting}
+print 10
+def f(x):
+    print x
+
+ @\aka{\tt print 20}@
+\end{lstlisting}
+\item 
+\begin{lstlisting}
+  File @\aka{"a.py", line 5}@
+    print 20
+           ^
+@\aka{IndentationError: unindent does not match any outer indentation level}@
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{字下げはEmacsにおまかせ}
+\begin{itemize}
+\item EmacsはPythonのプログラム(xxx.py)を編集中, 
+\ao{Tabキー (または C-i)を押すと, 適切な字下げ}をしてくれる
+\item Tabキーを何度も押すと, 
+「その場所で正当な字下げ」を次々に提案してくれる
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{関数がまた関数を呼べる}
+
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def f(x):
+    print x
+    y = x + 1
+    return y * y
+def g(x):
+    y = f(x + 1)
+    print x
+    return x + y
+print g(10)
+\end{lstlisting}
+\item<2> 出力
+\begin{lstlisting}
+11
+10
+154
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{キーワード引数}
+\begin{itemize}
+\item 関数を呼び出す際は, 普通は渡したい値を括弧内に並べる. 例:
+\begin{lstlisting}
+def f(x, y):
+  return x - y
+
+print f(2, 3) # x=2, y=3
+\end{lstlisting}
+
+\item 別の使い方として, x, yを明示的に渡すこともできる
+\begin{lstlisting}
+print @\aka{\tt f(y=10, x=20)}@
+\end{lstlisting}
+
+\item 関数に値を渡す際, 順番をいちいち気にしなくていい
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{キーワード引数}
+\begin{itemize}
+\item 一方, 関数定義時には,
+\aka{「渡されなかった場合の値(デフォルト値)」}
+を指定することができる
+\begin{lstlisting}
+def g(x, @\aka{\tt y=1}@):
+  return x - y
+
+print g(2)   # x=2, y=1
+print g(x=2) # x=2, y=1
+print g(2, 3) # x=2, y=3
+print g(x=2, y=3) # x=2, y=3
+print g(y=3) # NG xは必須
+\end{lstlisting}
+
+\item Visual Python, numpyなどでは入力変数が多い高機能な関数が多く,
+\aka{多用される}
+  
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{局所変数の概念}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{関数呼び出しが異なれば同じ名前であっても「別の変数」}
+\begin{itemize}
+\item 先の例:
+\begin{lstlisting}
+def f(x):
+    print x
+    y = x + 1
+    return y * y
+def g(x):
+    y = f(x + 1)
+    print x
+    return x + y
+print g(10)
+\end{lstlisting}
+において, 
+\begin{itemize}
+\item {\tt f}内の{\tt x} ({\tt y})と{\tt g}内の{\tt x}
+  ({\tt y})は名前が同じでも, 「別の変数」
+\end{itemize}
+
+\item ややこしい? むしろ逆.
+  \begin{itemize}
+  \item 関数実行中に代入された変数は「その」関数実行中だけのもの
+    \aka{(局所変数)}
+  \item 他の関数のことは考えなくて良い
+  \item 関数の入力変数(引数)も同様
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{局所変数}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def f(x):
+    y = x + 1
+f(10)
+print y    
+\end{lstlisting}
+\item 出力:
+\begin{lstlisting}
+Traceback (most recent call last):
+  File "a.py", line 5, in <module>
+    print y    
+@\aka{\tt NameError: name 'y' is not defined}@
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{局所変数と大域変数}
+\begin{itemize}
+\item ファイルのトップレベル(関数定義の外)で代入された変数は
+「大域変数」で, どの関数からでも参照できる
+\begin{lstlisting}
+z = 10
+def f(x):
+    return x + z
+print f(20)
+z = 30
+print f(20)
+\end{lstlisting}
+\item<2-> 出力:
+\begin{lstlisting}
+30
+50
+\end{lstlisting}
+\item<2-> だが, 大域変数(とくに大域変数の書き換え)はむやみに使わないのが基本
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{import文}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+import @{\bf モジュール名}@ 
+\end{lstlisting}
+\item 効果:
+  \begin{itemize}
+  \item {\bf モジュール名}という名前の
+「モジュール」で提供されている拡張機能が使えるようになる
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の例}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+print cos(0.1)
+\end{lstlisting}
+\item 出力 ({\tt cos}は「ただでは」使えない):
+\begin{lstlisting}
+Traceback (most recent call last):
+  File "a.py", line 1, in <module>
+    print cos(0.1)
+@\aka{\tt NameError: name 'cos' is not defined}@
+\end{lstlisting}
+\item 例:
+\begin{lstlisting}
+import @\aka{math}@ # mathモジュールをimport
+print math.cos(0.1) # mathモジュール内のcosを使う
+\end{lstlisting}
+\item 出力:
+\begin{lstlisting}
+0.995004165278
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{モジュールをどう見つける?}
+\begin{itemize}
+\item Pythonには無数のモジュールが提供されている
+\item visual, matplotlib, numpy, scipy などもすべて「モジュール」
+\item そもそもどんなモジュールがあるか? 万能な方法なし
+  \begin{itemize}
+  \item 組込みライブラリのマニュアル
+    \url{http://docs.python.jp/2.7/library/index.html}
+  \item 組込みでないものはGoogleなどで\ldots
+  \end{itemize}
+\item モジュールがどんな機能(関数や変数)を提供しているか?
+  \begin{itemize}
+  \item モジュールのマニュアル
+  \item 一旦importできたら, python中で, \ao{\tt dir(モジュール名)}
+  \item 
+\begin{lstlisting}
+>>> import visual
+>>> dir(visual)
+['ALLOW_THREADS', 'BUFSIZE', ...
+   ... 'sphere', ... ]
+\end{lstlisting}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\iffalse
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{モジュールの探し方}
+\begin{itemize}
+\item そもそも何と言うモジュールにどんな機能があるかをどうやって見つけるのか?
+\item 万能検索エンジンみたいなものはありません
+\item Pythonにもともと備わっているものは, 
+  一度マニュアル「Python標準ライブラリ」
+  \url{http://docs.python.jp/2.7/library/index.html} を眺めてみて
+\item それ以外にも追加インストールして使えるモジュール
+  (visual, matplotlib, numpy, scipyもその例)
+  は無数にあるので, 
+  やはり「これだけ覚えれば良い」という解はない
+\item 大事なことは「モジュールとその中の機能(関数とか)」
+  を発見したらそれが使えるようになること
+\begin{lstlisting}
+import math
+math.cos(1.0)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+\fi
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の変形(1)}
+\begin{itemize}
+\item 変種1: モジュールを自分の好きな(より短い)名前で使える
+\begin{lstlisting}
+@\ao{\tt import モジュール名 as 勝手な名前}@
+\end{lstlisting}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+@\ao{\tt import matplotlib.pyplot as plt}@
+plt.plot([1,2,3], [4,5,6])
+plt.show()
+\end{lstlisting}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の変形(2)}
+\begin{itemize}
+\item 変種2: 効果: \ao{モジュール名.} が不要になる
+\begin{lstlisting}
+@\ao{\tt from モジュール名 import *}@
+\end{lstlisting}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+@\ao{\tt from math import *}@
+cos(1.0)
+\end{lstlisting}
+\end{itemize}
+
+\item 変種3: 指定した名前に対してだけ, \ao{モジュール名.} が不要になる
+\begin{lstlisting}
+@\ao{\tt from モジュール名 import 名前,名前,...}@
+\end{lstlisting}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+@\ao{\tt from math import cos,sin}@
+cos(1.0) + sin(1.0)
+\end{lstlisting}
+\end{itemize}
+\item 注意: これらは, 複数のモジュールが同じ名前を定義していると, 
+予期せぬ関数を呼ぶ可能性があり, 「危ない方法」とされる
+\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の例}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+from visual import *
+sphere()
+\end{lstlisting}
+\item 出力:
+  \begin{center}
+\includegraphics[width=0.2\textwidth]{out/pdf/img/sphere.pdf}
+  \end{center}
+\end{itemize}
+\end{frame}
+
+
+
+
+\iffalse
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+from @{\bf 名前}@ import *
+\end{lstlisting}
+\item 効果:
+  \begin{itemize}
+  \item {\bf 名前}という名前の「モジュール」で提供されている拡張機能
+    が使えるようになる
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の例}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+print cos(0.1)
+\end{lstlisting}
+\item 出力:
+\begin{lstlisting}
+Traceback (most recent call last):
+  File "a.py", line 1, in <module>
+    print cos(0.1)
+@\aka{\tt NameError: name 'cos' is not defined}@
+\end{lstlisting}
+\item 例:
+\begin{lstlisting}
+from @\aka{math}@ import *  # mathモジュールをimport
+print cos(0.1)
+\end{lstlisting}
+\item 出力:
+\begin{lstlisting}
+0.995004165278
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{import文の変形}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+import @{\bf 名前}@
+\end{lstlisting}
+\item 効果:
+  \begin{itemize}
+  \item {\tt from} {\bf 名前} {\tt import *} と似ているが,
+    個々の提供される名前は, 「モジュール名{\tt .}名前」で提供される
+  \end{itemize}
+\item 
+\begin{lstlisting}
+import visual
+visual.sphere()
+\end{lstlisting}
+\item こちらの方が面倒だが, 複数のモジュールが同じ名前を
+定義していてもOKなので, 「行儀の良い方法」とされる
+\end{itemize}
+\end{frame}
+
+\fi
+
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{ここまでのまとめ}
+\begin{itemize}
+\item print文 ({\tt print} {\bf 式})
+\item 代入文  ({\bf 名前} {\tt =} {\bf 式})
+\item 関数定義文 ({\tt def} ...)
+\item return文 ({\tt return} {\bf 式})
+\item import文 ({\tt import} {\bf 名前}, {\tt import} {\bf 名前} as {\bf 名前}, \ldots)
+\item 局所変数の概念
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{以降}
+より様々な,
+\begin{itemize}
+\item 文
+\item データの型(数以外のデータ)
+\end{itemize}
+に触れる
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{for文で繰り返し (1)}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(1)}
+\begin{itemize}
+\item 文法 (後に一般化):
+\begin{lstlisting}
+for @{\bf 名前}@ in range(@{\bf 式}@, @{\bf 式}@):
+    @{\bf 文}@
+    @{\bf 文}@
+    ...
+\end{lstlisting}
+\item 効果:
+\begin{lstlisting}
+for @$i$@ in range(@$a$@, @$b$@):
+    ...
+    ...
+\end{lstlisting}
+は, $i = a, a+1, \ldots , b-1$に対して, 順に \ldots を実行
+
+\item 補足: {\tt range(式)} は {\tt range(0, 式)} の略記
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(1) : 例1}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+for x in range(3, 7):
+    print x * x
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+9
+16
+25
+36
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(1) : 例2}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def hatena(n):
+    a = 1
+    for i in range(0, n):
+        a = 2 * a + 1
+    return a
+print hatena(5)
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+63
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(1) : 例3}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+def hatena(n):
+    s = 0
+    for i in range(0, n):
+        s = s + i * i
+    return s
+print hatena(8)
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+140
+\end{lstlisting}
+
+\item 
+{\scriptsize $0^2 + 1^2 + \cdots + (n-1)^2$を求めよと言われて，
+\[ s = s + i * i \]
+などという不気味な式を書けるようになることが，
+プログラミングに慣れる第一歩なのかも\ldots}
+
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{if文で場合分け}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+if @{\bf 式1}@:
+    @{\bf 文}@
+    ...
+elif: @{\bf 式2}@:
+    @{\bf 文}@
+    ...
+...
+else:
+    @{\bf 文}@
+    ...
+\end{lstlisting}
+\item elif 以降は省略可. elif は好きな数だけ, else: は最後にひとつ(または無し)
+\item 効果:
+  \begin{itemize}
+  \item まず{\bf 式1}を計算
+  \item 結果が偽(0)でなければ最初の選択肢({\bf 文1} ...)を実行
+  \item 偽だったら{\bf 式2}を計算
+  \item 結果が偽(0)でなければ2番目のの選択肢({\bf 文2} ...)を実行
+  \item ...
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{if文で場合分け 例(1)}
+\begin{itemize}
+\item<1->
+\begin{lstlisting}
+def one_two_many(x):
+    if x == 1:
+        return ``ikko''
+    elif x == 2:
+        return ``niko''
+    else:
+        return ``takusan''
+print one_two_many(2)
+print one_two_many(3)
+\end{lstlisting}
+
+\item<2> 出力
+\begin{lstlisting}
+niko
+takusan
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{if文で場合分け 例(2)}
+\begin{itemize}
+\item<1->
+\begin{lstlisting}
+def nabetsune():
+    for i in range(1, 41):
+        if i % 3 == 0 or i % 10 == 3 or 30 < i < 40:
+            print i, "!!!!!"
+        else:
+            print i
+
+nabetsune()
+\end{lstlisting}
+\item<2>  出力
+\begin{lstlisting}
+1
+2
+3 !!!
+...
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{ここまでとここから}
+
+\begin{center}
+\includegraphics[height=0.9\textheight]{out/pdf/svg/roadmap.pdf}
+\end{center}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{より複雑なデータ}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{より複雑なデータ}
+\begin{itemize}
+\item これまで, 式の結果として得られる値は基本的には,
+ひとつの数値だけだったが
+\item 実用的なプログラム(e.g., ベクトル, 行列, 四角, 丸, 果物,
+自動車 \ldots)のためには, より複雑な値, 
+特に「複数の値を組み合わせた値」が必要
+\end{itemize}
+
+\begin{itemize}
+\item リスト
+\item タプル
+\item 文字列
+\item 辞書(説明せず)
+\item オブジェクト
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{リスト}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リスト}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+[ 式, 式, @\ldots@, 式 ]
+\end{lstlisting}
+
+\item 意味: 各式を計算した結果を一本に束ねた値(リスト)
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リスト : 例}
+\begin{itemize}
+\item 例
+\begin{lstlisting}
+from math import *
+x = 20
+a = @\aka{\tt [ 1, 1+2, cos(0.0), x ]}@
+print a
+print @\aka{len}@(a)    # 要素数
+print a@\aka{\tt [}@2@\aka{\tt ]}@      # 特定の要素
+b = a @\aka{\tt +}@ [ 1.2, 3.4 ] # 2つのリストつなぐ
+print b
+c = [ a, a, a ] # リストのリスト
+print c[1][2]   # cの1番目の要素(リスト)の2番目の要素
+\end{lstlisting}
+
+\item 出力
+\begin{lstlisting}
+[1, 3, 1.0, 20]
+4
+1.0
+[1, 3, 1.0, 20, 1.2, 3.4]
+1.0
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リスト : 確認事項}
+\begin{itemize}
+\item リストも数値と同様, 「値」の一種に過ぎない
+\item 数値と同様, 変数に代入したり, 他の関数へ渡したりできる
+\item リストを受け取る関数, リストを返す関数, も書ける
+\item \ao{「値の種類」が増えたこと以外, 新しいことはない}
+\begin{lstlisting}
+def f(l):
+  return l[0]
+
+print f([1,2,3]) 
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リストの書き換え}
+リストには, 値を追加・削除したり, 書き換えたりすることができる
+\begin{itemize}
+\item 
+\begin{lstlisting}
+a = [ 2, 3, 5 ]
+a@\aka{\tt .append}@(7) # 末尾に追加
+a[2] = 50
+@\aka{\tt del}@ a[1]    # a[1]を削除. 以降の要素は前にずれる
+b = [ a, a, a ]
+print b
+a[2] = 30   # 注目
+print b
+\end{lstlisting}
+\item 
+\begin{lstlisting}
+[[2, 50, 7], [2, 50, 7], [2, 50, 7]]
+[[2, 30, 7], [2, 30, 7], [2, 30, 7]]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リスト内包表記}
+\begin{itemize}
+\item for文で計算した結果を「一発で」リストにする強力な記法
+\item 覚えなくても問題ないが，覚えると賢くなった気がする
+\item 文法:
+\begin{lstlisting}
+[ @\ao{式}@ for 名前 in range(式, 式) ]
+\end{lstlisting}
+\item この式も, for文同様本当はもっと一般的な文法(後述)．
+
+\item 意味: (あたかも「for 名前 in 式」を実行するように
+実行し，\ao{式}を計算した結果をリストにする)
+
+\item 例を見たほうが早い
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{リスト内包表記 : 例}
+\begin{itemize}
+\item 
+\begin{lstlisting}
+>>> [ x * x for x in range(0, 5) ]
+ -> [0, 1, 4, 9, 16]
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+>>> sum([ x * x for x in range(0, 5) ])
+ -> 30
+\end{lstlisting}
+
+% \item 
+% \begin{lstlisting}
+% >>> X = [ a + (b - a) * i / float(n) for i in range(0, 100000) ]
+% >>> sum([ f(x) * (b - a) / float(n) for x in X ]
+% \end{lstlisting}
+\end{itemize}
+
+それぞれ以下のようにしても同じことだがずっと簡潔
+\begin{itemize}
+\item 
+\begin{lstlisting}
+s = []
+for x in range(0, 5):
+  s.append(x * x)
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+s = []
+for x in range(0, 5):
+  s += x * x
+\end{lstlisting}
+(注: {\tt s += $E$} は {\tt s = s + $E$}と同じ意味)
+
+% \item 
+% \begin{lstlisting}
+% >>> X = [ a + (b - a) * i / float(n) for i in range(0, 100000) ]
+% >>> sum([ f(x) * (b - a) / float(n) for x in X ]
+% \end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{タプル (組)}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{タプル}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+式, 式, @\ldots@, 式
+\end{lstlisting}
+混乱しないよう, 習慣として括弧をつける
+\begin{lstlisting}
+(式, 式, @\ldots@, 式)
+\end{lstlisting}
+
+\item 意味: 各式を計算した結果を一本に束ねた値
+\item リストとほとんど同じ! 実際, 以下はリストと同様に使える
+  \begin{itemize}
+  \item {\tt len(\ldots)} (要素数)
+  \item {\tt \ldots[\ldots]} (指定要素)
+  \item {\tt \ldots\ + \ldots} (連結)
+  \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{タプルとリストの違い}
+\begin{itemize}
+\item タプルは, 一度作ったら要素の追加, 削除, 変更などはできない
+\item 
+\begin{lstlisting}
+a = (1.1, 2.2, 3.3)
+a.append(4.4) # @\aka{\tt NG}@
+del a[1]      # @\aka{\tt NG}@
+a[1] = 22     # @\aka{\tt NG}@
+a = (4.4, 5.5) # OK
+a = a + (6.6, 7.7) # OK
+\end{lstlisting}
+\item 最後の2つは, 変数を書き換えているのであってタプルを書き換えている
+  のではない
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{タプルの典型的使用場面}
+\begin{itemize}
+\item 二つ以上の値を一度に返す関数を手軽に書ける
+\begin{lstlisting}
+def polar(x, y):
+    r = sqrt(x * x + y * y)
+    theta = atan2(y, x)
+    return (r,theta)
+\end{lstlisting}
+\item 注: {\small 
+「二つの値を返す」という言い方はあまり正しくない.
+\ao{二つの値を組にした一つの値($=$タプル)}が作れる}
+
+\item 変数に結果を受け取るときもこんなふうに書ける
+\begin{lstlisting}
+r,theta = polor(3, 4)
+\end{lstlisting}
+
+\item 実はこれでも「なぜリストだけじゃダメ?」の答えにはなっていないが
+  \begin{itemize}
+  \item ちなみにこれもOK
+\begin{lstlisting}
+[a0,a1,a2] = range(3,6)  # a0=3, a1=4, a2=5
+\end{lstlisting}
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{文字列}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{文字列}
+\begin{itemize}
+\item 文法:
+\begin{lstlisting}
+"文字文字 @\ldots@ 文字"
+'文字文字 @\ldots@ 文字'
+"""文字文字 @\ldots@ 文字"""
+'''文字文字 @\ldots@ 文字'''
+\end{lstlisting}
+
+\item どれもほとんど同じ意味. なぜ色々ある?
+  \begin{itemize}
+  \item 文字列中に{\tt "}を含めたければ, {\tt '}が便利. 逆もまた然り
+    \begin{itemize}
+    \item {\tt a = 'he greeted, "hi"'}
+    \item {\tt b = "Obama's lecture"}
+    \end{itemize}
+  \item 3連打({\tt """}, {\tt '''})は, 改行を含んでも良い
+  \end{itemize}
+
+\item そして, できる操作はまたしてもリストやタプルとそっくり
+  \begin{itemize}
+  \item {\tt len(\ldots)}
+  \item {\tt \ldots[\ldots]}
+  \item {\tt \ldots\ + \ldots}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{文字列特有の操作: 値の埋め込み}
+\begin{itemize}
+\item (例えば)ある変数xの値を表示したい場合,
+\begin{lstlisting}
+print x    
+\end{lstlisting}
+\item でもよいが, すぐに何がどこで表示されたのかわからなくなる．
+もっとわかりやすく,
+\begin{lstlisting}
+print "x = %s" % x
+\end{lstlisting}
+のようにする
+
+\item 例
+\begin{lstlisting}
+from math import *
+y = cos(3.14)
+print "cos(3.14) = %s" % y
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{文字列への値の埋め込み : 2つ以上の値}
+\begin{itemize}
+\item 2つ以上の値を埋め込みたければ, {\tt \%}の右にタプルを書く
+\item 例
+\begin{lstlisting}
+from math import *
+x = 2.3
+print "cos(%s) = %s" % (x, exp(x))
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{文字列への値の埋め込み : 規則}
+
+\begin{itemize}
+\item 一般に,
+\begin{lstlisting}
+式1 % 式2
+\end{lstlisting}
+において, 式1の結果が文字列だったら, 
+上記の結果は式1中の左から$i$番目の{\tt \%s}を, 
+式2の結果の第$i$番目の要素で置き換えた文字列
+
+\item {\tt \%s}以外に, 表示したいデータの種類により,
+色々あるがとりあえず{\tt \%s}は汎用的なのでこれを覚えれば良い
+\item 一応\ldots
+  \begin{itemize}
+  \item {\tt \%d} : 整数
+  \item {\tt \%9d} : 整数. ただし9文字以下は9文字分の幅になるよう右揃え
+  \item {\tt \%f} : 浮動小数点数
+  \item {\tt \%.3f} : 浮動小数点数. ただし, 小数点以下3桁まで
+  \item など
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{このゼミでのリスト・タプル・文字列の重要性 (1)}
+\begin{itemize}
+\item Python一般ににおいてはかなり重要な機能
+\item ベクトルや行列をつくろうと思ったら,
+  普通はこれらを使いこなすことになる
+\item が, このゼミではベクトルや行列は, 
+  もっとすごいの(visualのvector, 
+  numpyの多次元配列)を使うことを主眼にしているので,
+  あまり深入りせずに先へ進む
+\end{itemize}
+
+より詳しい説明は
+\hyperlink{http://docs.python.jp/2/tutorial/index.html}
+{Pythonチュートリアル}5章「データ構造」を参照
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{このゼミでのリスト・タプル・文字列の重要性 (2)}
+\begin{itemize}
+\item Pythonでは, \ao{実は異なるものが表面上同じ書き方で書け,}
+  実際それが貫かれている, 
+  という設計思想(オブジェクト指向, 多態性)に馴染むことも重要
+  \begin{itemize}
+  \item リスト, タプル, 文字列どれにも, 
+    {\tt +, len, [\ldots]}などが適用可能
+  \item numpyの多次元配列やVisual Pythonのvectorもそれらと似ている
+  \end{itemize}
+\item 全く同じではないところが時に混乱の元となる
+\item 「色々あるのだがそれらが似た表記で使えるように,
+  縁の下で頑張っている」という点を理解しておく
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(2)}
+\begin{itemize}
+\item これまでfor文は以下の形であると言ってきた
+\begin{lstlisting}
+for @{\bf 名前}@ in @{\tt range(\aka{\bf 式, 式})}@:
+    @{\bf 文}@
+    @{\bf 文}@
+    ...
+\end{lstlisting}
+\item 実はより一般的:
+\begin{lstlisting}
+for @{\bf 名前}@ in @\aka{\bf 式}@:
+    @{\bf 文}@
+    @{\bf 文}@
+    ...
+\end{lstlisting}
+\item ここで, \aka{\bf 式}には, 
+  {\tt range($a$, $b$)}だけでなく,
+  リスト, タプル, 文字列など,
+  色々なものが来れる
+\item 実は, 
+  {\tt range($a$, $b$)}は{\tt [ $a$, $a+1$, \ldots $b-1$ ]}
+  というリストを作る関数に過ぎなかった
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(2)}
+\begin{itemize}
+\item 例:
+\begin{lstlisting}
+for x in [ 2, 3, 5 ]:
+    print x
+for x in "hello":
+    print x
+\end{lstlisting}
+\item 
+\begin{lstlisting}
+2
+3
+5
+h
+e
+l
+l
+o
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(2)}
+\begin{itemize}
+\item リストの各要素がタプルの場合はこんな書き方も許される
+\begin{lstlisting}
+A = [ (0,1), (2,3), (4, 5) ]
+for @\aka{\tt x,y}@ in A:
+    print x + y
+\end{lstlisting}
+
+\item 出力
+\begin{lstlisting}
+1
+5
+9
+\end{lstlisting}
+
+\item 以下のような文が許されることの拡張と思えば自然
+\begin{lstlisting}
+x,y = タプル
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(2) : zip}
+\begin{itemize}
+\item \ao{\tt zip($X$, $Y$)}という関数で二つの同じ長さのリストを，タプルのリストにできる
+\item 二つのリストからひとつずつ要素を取り出すような処理をfor文で書くのに重宝する
+\begin{lstlisting}
+X = [ 1, 2, 3 ]
+Y = [ 1, 4, 9 ]
+print zip(X, Y)
+for @\aka{\tt x,y}@ in zip(X, Y):
+    print x + y
+\end{lstlisting}
+
+\item 出力
+\begin{lstlisting}
+[ (1,1), (2,4), (3,9) ]
+2
+6
+12
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{for文で繰り返し(2) : enumerate}
+\begin{itemize}
+\item \ao{\tt enumerate($L$)} という関数で，リストの各要素を，
+そのインデクス(リスト内での位置; 0, 1, 2, \ldots)とともに処理できる
+\item リスト内の出現位置を返したい場合や，出現位置が計算結果に意味を持つ場合に有用
+\begin{lstlisting}
+def find_space():
+  for @\aka{\tt i,c}@ in enumerate("hello world"):
+    if c == ' ':
+      return i
+  return -1
+\end{lstlisting}
+
+\item 出力
+\begin{lstlisting}
+5
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{その他の制御構文}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+\begin{frame}
+\frametitle{その他の構文}
+
+\begin{itemize}
+%\item \aka{if文} : 条件によって異なる文を実行
+\item \aka{while文} : 条件が成り立つ限り繰り返し(for文より一般的な繰り返し)
+\item \aka{break文} : for, whileを好きな時点で強制終了
+\item \aka{continue文} : for, whileの「一回の繰り返し」を終了
+  (次の繰り返しへ進む)
+\end{itemize}
+
+グダグダ説明するのを省略して, 
+\hyperlink{http://docs.python.jp/2/tutorial/index.html}
+{Pythonチュートリアル}第4章 「その他の制御フルーツール」を参照
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{クラスとオブジェクト}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{オブジェクト}
+\begin{itemize}
+\item オブジェクト : 言葉通り「もの」
+\item Pythonにおいては, \ao{色々な属性をひとまとめにした値}
+\item たとえば, 
+  \begin{itemize}
+  \item 「球」は「中心」と「半径」
+  \item 「複素数」は「実部」と「虚部」
+  \item 「野球チーム」は「監督」と「選手のリスト」
+  \item etc.
+  \end{itemize}
+\item 新しい種類(class)のオブジェクトを自分で定義することもできるが，
+ここでは説明しない
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{オブジェクトについて知っておくべき最低限の事(1)}
+
+\begin{itemize}
+\item みんなみんな実はオブジェクト
+  \begin{itemize}
+  \item Visual Pythonのvector, sphere, arrow, \ldots
+  \item (これから出る) numpyの「配列」
+  \item 実はリストやタプルもオブジェクト
+  \end{itemize}
+\item オブジェクトに対してできること
+  \begin{enumerate}
+  \item メソッド($\approx$関数を呼び出す) 
+\begin{lstlisting}
+a.append(x)
+\end{lstlisting}
+  \item 属性(フィールド)に値をセット 
+\begin{lstlisting}
+c.pos = vector(1,2,3)
+\end{lstlisting}
+  \item 属性を参照 c.x
+\begin{lstlisting}
+print c.x
+\end{lstlisting}
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+\begin{frame}[fragile]
+\frametitle{クラスとオブジェクト: 本当に最小の例}
+\begin{itemize}
+\item 仕組みについて詳細に知る必要はない
+\item vector, sphere, なども「どこかで」
+  こんな風に定義されている，とだけ心に留めとけばよし
+\item []
+\begin{lstlisting}
+class nothing:
+    pass  # 何もしない
+# nothingクラスのオブジェクトを作る
+m = nothing()
+# 属性値へ代入(@$\approx$@変数への代入)
+m.x = 10
+m.y = 20
+# 属性値を参照
+print m.x + m.y
+# もちろんオブジェクトを入力に取る関数も書ける
+def take_nothing(n):
+    n.x = n.x + 100
+
+take_nothing(m)
+print m.x
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}
+\frametitle{オブジェクトについて知っておくべき最低限の事(2)}
+\begin{itemize}
+\item オブジェクトには「種類(vector, リスト, タプル, ...)」
+がある $=$ ある\ao{クラス}に属している
+\item \ao{同じ名前のメソッドでも, クラスが異なれば動作(定義)が異なる}
+\item \ao{$a$ {\tt +} $b$とか，普段何気なくやっている動作も，}
+  クラスが異なれば動作が異なる
+\item これは
+  \begin{enumerate}
+  \item 便利で強力 (数学でも{\tt +}は数, ベクトル, 行列, etc.
+    で定義が異なるが名前は同じ)
+  \item 一方，ちゃんと意識しないと混乱や理解を曖昧にするもと
+  \end{enumerate}
+\item 多くの場合その名前にふさわしい「自然な」動作が定義されていると
+期待する一方で，それらが「ひとりでに」「書き手の意図を読んで」
+行われるわけでは決して無いことを理解しよう
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{同じメソッドの名前でも, classが異なれば動作が異なる}
+\begin{itemize}
+\item 例: {\tt append}
+\begin{lstlisting}
+import random
+from visual import *
+def rnd():
+    return random.random()
+l = @\ao{\tt []}@
+c = @\ao{\tt curve()}@
+for i in range(10):
+    l.append(vector(rnd(), rnd(), rnd()))
+for i in range(10):
+    c.append(vector(rnd(), rnd(), rnd()))
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{{\tt +}でさえも}
+\begin{itemize}
+\item<1-> []
+\begin{lstlisting}
+from visual import *  # vector
+import numpy as np    # array
+print 1 @\ao{\tt +}@ 2
+print [1,2,3] @\ao{\tt +}@ [4,5,6]
+print vector(1,2,3) @\ao{\tt +}@ vector(4,5,6)
+print np.array([1,2,3]) @\ao{\tt +}@ np.array([4,5,6])
+\end{lstlisting}
+
+\item<2-> []
+\begin{lstlisting}
+3
+[1,2,3,4,5,6]
+<5, 7, 9>
+[5 7 9]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{{\tt *}も}
+\begin{itemize}
+\item<1-> []
+\begin{lstlisting}
+from visual import *  # vector
+import numpy as np    # array
+print 3 @\ao{\tt *}@ 4
+print [1,2,3] @\ao{\tt *}@ 5
+print vector(1,2,3) @\ao{\tt *}@ 10
+print 100 @\ao{\tt *}@ vector(1,2,3)
+print np.array([1,2,3]) @\ao{\tt *}@ 1000
+print 10000 @\ao{\tt *}@ np.array([1,2,3])
+\end{lstlisting}
+\item<2-> []
+\begin{lstlisting}
+12
+[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
+<10, 20, 30>
+<100, 200, 300>
+[1000 2000 3000]
+[10000 20000 30000]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{もちろん{\tt **}も}
+\begin{itemize}
+\item<1-> []
+\begin{lstlisting}
+from visual import *  # vector
+import numpy as np    # array
+print 3 @\ao{\tt **}@ 4
+print [1,2,3] @\ao{\tt **}@ 20
+print vector(1,2,3) @\ao{\tt **}@ 100
+print np.array([1,2,3]) @\ao{\tt **}@ 4 
+\end{lstlisting}
+\item<2-> []
+\begin{lstlisting}
+81
+# エラー
+# エラー
+[ 1 16 81]
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\iffalse
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クラス}
+\begin{itemize}
+\item オブジェクトを生み出す「ひな形」「設計図」
+\item 文法:
+\begin{lstlisting}
+class クラス名:
+    関数定義
+    関数定義
+    ...
+\end{lstlisting}
+\item 効果:
+  \begin{itemize}
+  \item 「クラス名」で関数(コンストラクタ)が定義され, 
+    呼び出されると新しいオブジェクトが作られる
+  \item オブジェクトには属性値を代入できる
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クラスとオブジェクト: もう少しそれらしい例}
+
+\begin{itemize}
+\item \aka{\tt \_\_init\_\_}という関数で,
+コンストラクタの中身を定義できる
+\item その他好きな名前で関数(\aka{メソッド})を定義できる
+\item メソッドの第一引数は作られたオブジェクトが渡される
+  (普通\aka{\tt self}という変数名を使う)
+\item 
+\begin{lstlisting}
+class baseball_team:
+    # コンストラクタが呼び出されるとこれが呼び出される
+    def @\aka{\tt \_\_init\_\_}@(@\aka{\tt self}@, name, manager, players):
+        self.name = name
+        self.manager = manager
+        self.players = players
+    # メソッドの定義
+    def add_player(@\aka{\tt self}@, p):
+        self.players.append(p)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{クラスとオブジェクト: もう少しそれらしい例}
+\begin{itemize}
+\item<1-> 
+\begin{lstlisting}
+# オブジェクト作成 -> コンストラクタ__init__呼び出し
+r = @\aka{\tt baseball\_team}@("Nipponham", "Kuriyama", 
+                  [ "Inaba", "Saito", "Takeda" ])
+print r.players
+# メソッド呼び出し
+@\aka{\tt r.add\_player}@("Ohtani")
+print r.players
+\end{lstlisting}
+
+\item<2->
+\begin{lstlisting}
+[ "Inaba", "Saito", "Takeda" ]
+[ "Inaba", "Saito", "Takeda", "Ohtani" ]
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{このゼミと, クラス・オブジェクト}
+\begin{itemize}
+\item 大きなプログラムを作るのにクラス・オブジェクトは非常に重要
+\item このゼミでは, 
+  自らクラス・オブジェクトを作る必要はあまりない
+\item 一方, Visual Python, numpy を始め, 提供される機能は大部分が,
+  オブジェクトとして提供されるため, 「どんな風に使うか」はマスターする
+  必要あり(メソッドを呼ぶ, 属性値を参照・変更する)
+\item 以下の例でもオブジェクトをいくつも作っている
+  ({\tt vector}, {\tt sphere}, {\tt +}いずれもオブジェクトを返す)
+\begin{lstlisting}
+center = vector(2, 3, 4)
+s = sphere(pos=center)
+s.pos = center + vector(1, 1, 1)
+\end{lstlisting}
+\end{itemize}
+
+% クラス・オブジェクトのもう少し丁寧な説明は,
+% \hyperlink{http://www.physics.orst.edu/~rubin/Books/eBookWorking/index.html}{教科書SOCP}の 4.4
+% ABSTRACT DATA STRUCTURES, OBJECTS (CS) を参照
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{特別なメソッド}
+\begin{itemize}
+\item 例えば{\tt \_\_add\_\_(self, o)}
+というメソッドを定義すると, 足し算({\tt +})を定義できる
+\item {\tt x + y}は, {\tt x.\_\_add\_\_(y)}の意味
+
+\begin{lstlisting}
+class vector:
+  def @\aka{\tt \_\_init\_\_}@(self, x, y, z):
+    self.x = x
+    self.y = y
+    self.z = z
+  def @\aka{\tt \_\_add\_\_}@(self, o):
+    return vector(self.x + o.x, self.y + o.y, 
+                  self.z + o.z)
+
+u = vector(1,2,3)
+v = u + vector(4, 5, 6) # u.__add__(vector(4, 5, 6))
+print v
+\end{lstlisting}
+
+\item 他にも, {\tt \_\_sub\_\_}, {\tt \_\_mul\_\_}, {\tt \_\_div\_\_}など
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{特別なメソッド}
+
+\begin{itemize}
+\item Pythonではこうして, {\tt +}, {\tt -}, {\tt *}など,
+  \ao{馴染みの記法で, オブジェクトに相応しい動作}
+  を行わせることができる
+\item Pythonのリスト, タプル(\ao{連結}), 
+  Visual Pythonのvector (\ao{ベクトルの和}), numpyのarray, matなど
+\item それらの動作は通常, 自然なためあまり意識することは無いが,
+  決して人間のように「文脈から」「空気から」
+  判断しているわけではないので注意
+\item 例えば, vectorとリストをごっちゃにすると, 
+  {\tt +}の動作の違いであたふたすることになる
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\section{Visual Python ステップ2}
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Visual Pythonプログラム例を改めて鑑賞}
+\begin{lstlisting}
+from visual import *
+s1 = sphere(color=color.red) # キーワード引数
+s2 = sphere(pos=@\aka{\tt vector(1.0, 2.0, 3.0)}@, radius=0.1)
+# s1, s2はオブジェクト
+rate(0.3) # 約3.3秒待つ (0.3フレーム/秒)
+# 属性へ代入
+s2.color = color.green  # 色が緑に変わる
+rate(0.3) # 約3.3秒待つ (0.3フレーム/秒)
+s2.pos = s2.pos @\aka{\tt +}@ 0.5 @\aka{\tt *}@ vector(-1.0,-1.0,-1.0) # 球が「動く」
+\end{lstlisting}
+
+\begin{itemize}
+\item Visual Pythonの\ao{vectorで3次元ベクトル}を作れる
+\item \ao{{\tt +} はベクトルの足し算, {\tt *}はスカラー倍}
+  という自然な動作をする
+\end{itemize}
+\end{frame}
+
+\fi
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Visual Pythonのvector}
+\begin{itemize}
+\item [] 3次元ベクトルに特化したデータ
+\item []
+\begin{lstlisting}
+>>> from visual import *
+>>> v = vector(1,2,3)
+>>> v
+vector(1, 2, 3)
+>>> @\ao{\tt dir}@(v)  # オブジェクトのフィールドやメソッドを探る
+[ ..., 'astuple', 'clear', 'comp', 'cross', 'diff_angle', 'dot', 'mag', 'mag2', 'norm', 'proj', 'rotate', 'x', 'y', 'z']
+>>> v.x
+1
+>>> v[0]  # v.xと同じこと. お好きな方をどうぞ
+1
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Visual Pythonのvector}
+\begin{itemize}
+\item その他のありがたい機能
+\item []
+\begin{lstlisting}
+>>> v@\ao{\tt .mag}@    # |v|
+3.7416573867739413
+>>> v@\ao{\tt .mag2}@   # |v|^2
+14.0
+>>> v@\ao{\tt .dot}@(v) # v と v の内積
+14.0
+>>> v@\ao{\tt .norm}@() # 単位ベクトル化
+vector(0.267261241912424, 0.534522483824849, 0.801783725737273)
+>>> v.mag * v.norm()
+vector(1, 2, 3)
+>>> v@\ao{\tt .cross}@(vector(1,1,1)) # 外積
+vector(-1, 2, -1)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\iffalse
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{Visual Pythonプログラム例を改めて鑑賞}
+\begin{lstlisting}
+from visual import *
+s1 = sphere(color=color.red) # キーワード引数
+s2 = sphere(pos=vector(1.0, 2.0, 3.0), radius=0.1)
+# s1, s2はオブジェクト
+@\aka{\tt rate(0.3)}@ # 約3.3秒待つ (0.3フレーム/秒)
+# 属性へ代入
+s2.color = color.green  # 色が緑に変わる
+@\aka{\tt rate(0.3)}@ # 約3.3秒待つ (0.3フレーム/秒)
+s2.pos = s2.pos + 0.5 * vector(-1.0,-1.0,-1.0) # 球が「動く」
+\end{lstlisting}
+
+\begin{itemize}
+\item Visual Pythonの\ao{\tt rate($f$)}関数は, 画面の更新と,
+  $f$フレーム/秒になるような時間調節 ($\approx 1/f$秒休む)
+\item \aka{rateを呼ばないと}
+画面の更新がないまま計算が進行し, 
+最終状態だけが表示される\aka{(アニメーションにならない)}ので注意
+\end{itemize}
+\end{frame}
+
+\fi
+
+
+%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%% 
+\begin{frame}[fragile]
+\frametitle{プログラム中のコメント}
+\begin{itemize}
+\item プログラム中に注釈(コメント)を書くことは,
+実はすごく重要
+\item Pythonでは, 各行\aka{{\tt \#}以降}がコメント
+\begin{lstlisting}
+def main():
+    @\aka{\tt \# location of the pointmass}@
+    p = vector(1,2,3)
+    @\aka{\tt \# the pointmass}@
+    s = sphere(pos=p)
+    @\aka{\tt \# the spring}@
+    sp = helix(pos=p)
+    ...
+\end{lstlisting}
+
+\item 日本語で書きたい場合,
+ファイルの1行目に以下を書いておく
+\begin{lstlisting}
+@\aka{\tt \#! -*- coding: utf-8 -*-}@
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}

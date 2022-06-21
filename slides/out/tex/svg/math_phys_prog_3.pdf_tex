@@ -1,0 +1,72 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'math_phys_prog_3.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{599.18259287bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.70029193)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{math_phys_prog_3.pdf}}%
+    \put(0.74050096,0.16920991){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{def animate(y0, v0):}\\\textbf{    v = v0}\\\textbf{    y = y0}\\\textbf{    c = 15}\\\textbf{    dt = 0.01}\\\textbf{    for i in range(10000):}\\\textbf{        alpha = - 0.01 * v - 2.0 * y}\\\textbf{        v = v + alpha * dt}\\\textbf{        y = y + v * dt}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{math_phys_prog_3.pdf}}%
+    \put(0.78555502,0.20676107){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}コンピュータ\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{math_phys_prog_3.pdf}}%
+    \put(0.31011972,0.64986473){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}物理\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{math_phys_prog_3.pdf}}%
+    \put(0.11732044,0.20676107){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}数学\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{math_phys_prog_3.pdf}}%
+    \put(0.4876565,0.15919627){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}数値計算法\\(アルゴリズム)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{math_phys_prog_3.pdf}}%
+    \put(0.23981886,0.3819998){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}法則の記述\\(微分方程式)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{math_phys_prog_3.pdf}}%
+    \put(0.76553507,0.36322423){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}可視化・アニメーション\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{math_phys_prog_3.pdf}}%
+  \end{picture}%
+\endgroup%
