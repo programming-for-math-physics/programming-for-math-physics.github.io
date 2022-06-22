@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% Creator: Inkscape 1.1.2 (0a00cf5339, 2022-02-04), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'rigid_roadmap.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{1864.76606903bp}%
+    \setlength{\unitlength}{1864.75139161bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,21 +50,21 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.54331437)%
+  \begin{picture}(1,0.54331864)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{rigid_roadmap.pdf}}%
-    \put(0.75634217,0.10702977){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角速度の変化を記述する式\end{tabular}}}}%
+    \put(0.75634813,0.10703061){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角速度の変化を記述する式\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{rigid_roadmap.pdf}}%
-    \put(0.17403018,0.29428186){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角運動量の変化 = トルク\end{tabular}}}}%
+    \put(0.17403155,0.29428418){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角運動量の変化 = トルク\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{rigid_roadmap.pdf}}%
-    \put(0.01342713,0.22406218){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}重心まわりの角運動量の変化 = 重心周りのトルク\end{tabular}}}}%
+    \put(0.01342724,0.22406395){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}重心まわりの角運動量の変化 = 重心周りのトルク\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{rigid_roadmap.pdf}}%
-    \put(0.8538693,0.1606697){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(重心からみた運動量)\end{tabular}}}}%
+    \put(0.85387602,0.16067096){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(重心からみた運動量)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{rigid_roadmap.pdf}}%
-    \put(0.1565503,0.1606697){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(重心からみた位置)\end{tabular}}}}%
+    \put(0.15655154,0.16067096){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(重心からみた位置)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{rigid_roadmap.pdf}}%
-    \put(0.30273265,0.42298433){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角運動量\end{tabular}}}}%
+    \put(0.30273504,0.42298766){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}角運動量\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{rigid_roadmap.pdf}}%
   \end{picture}%
 \endgroup%

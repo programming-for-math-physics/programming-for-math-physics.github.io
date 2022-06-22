@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% Creator: Inkscape 1.1.2 (0a00cf5339, 2022-02-04), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'math_phys_prog_3.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{599.18259287bp}%
+    \setlength{\unitlength}{599.1869874bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,23 +50,23 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.70029193)%
+  \begin{picture}(1,0.70028679)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{math_phys_prog_3.pdf}}%
-    \put(0.74050096,0.16920991){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{def animate(y0, v0):}\\\textbf{    v = v0}\\\textbf{    y = y0}\\\textbf{    c = 15}\\\textbf{    dt = 0.01}\\\textbf{    for i in range(10000):}\\\textbf{        alpha = - 0.01 * v - 2.0 * y}\\\textbf{        v = v + alpha * dt}\\\textbf{        y = y + v * dt}\end{tabular}}}}%
+    \put(0.74049553,0.16920867){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{def animate(y0, v0):}\\\textbf{    v = v0}\\\textbf{    y = y0}\\\textbf{    c = 15}\\\textbf{    dt = 0.01}\\\textbf{    for i in range(10000):}\\\textbf{        alpha = - 0.01 * v - 2.0 * y}\\\textbf{        v = v + alpha * dt}\\\textbf{        y = y + v * dt}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{math_phys_prog_3.pdf}}%
-    \put(0.78555502,0.20676107){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}コンピュータ\end{tabular}}}}%
+    \put(0.78554926,0.20675955){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}コンピュータ\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{math_phys_prog_3.pdf}}%
-    \put(0.31011972,0.64986473){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}物理\end{tabular}}}}%
+    \put(0.31011744,0.64985996){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}物理\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{math_phys_prog_3.pdf}}%
-    \put(0.11732044,0.20676107){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}数学\end{tabular}}}}%
+    \put(0.11731958,0.20675955){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}数学\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{math_phys_prog_3.pdf}}%
-    \put(0.4876565,0.15919627){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}数値計算法\\(アルゴリズム)\end{tabular}}}}%
+    \put(0.48765293,0.1591951){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}数値計算法\\(アルゴリズム)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{math_phys_prog_3.pdf}}%
-    \put(0.23981886,0.3819998){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}法則の記述\\(微分方程式)\end{tabular}}}}%
+    \put(0.2398171,0.381997){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}法則の記述\\(微分方程式)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{math_phys_prog_3.pdf}}%
-    \put(0.76553507,0.36322423){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}可視化・アニメーション\end{tabular}}}}%
+    \put(0.76552946,0.36322156){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}可視化・アニメーション\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{math_phys_prog_3.pdf}}%
   \end{picture}%
 \endgroup%

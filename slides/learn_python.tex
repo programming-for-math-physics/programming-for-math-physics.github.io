@@ -1492,10 +1492,12 @@ for i in range(1, 8):
 @$|$@ @$x$@
 @$|$@ @$\langle$@式@$\rangle$@ @$\langle$@演算子@$\rangle$@ @$\langle$@式@$\rangle$@
     @$\cdots$@
-@$|$@ @\ao{\tt [ 式, 式, \ldots, 式 ]}@
+@$|$@ @\ao{\tt [ 式, 式, \ldots, 式 ]}@ # リストを作る
+@$|$@ @\ao{\tt 式[式]}@             # 要素をアクセス
 \end{lstlisting}
 
-\item 意味: 各式を計算した結果を一本に束ねた値(リスト)
+\item {\tt [ $E_0, E_1, \cdots, E_{n-1}$ ]} : $E_0, \cdots, E_{n-1}$ (それぞれを計算した結果)を一本に束ねた値(リスト)
+\item {\tt $L[i]$} : $L$ (を計算した結果のリスト) の $i$ (を計算した結果)番目の要素 (ただし最初の要素は「0番目」)
 \end{itemize}
 \end{frame}
 
@@ -1516,6 +1518,10 @@ a
 \begin{lstlisting}
 @\ao{\tt len}@(a)
 @\resa{4}@
+\end{lstlisting}
+\begin{lstlisting}
+a@\ao{\tt [1]}@
+@\resa{3}@
 \end{lstlisting}
 \begin{lstlisting}
 a @\ao{\tt +}@ [1.2, 3.4]
@@ -1628,7 +1634,6 @@ b
 \begin{lstlisting}
 @$\langle$@式@$\rangle$@ ::=
     @$\cdots$@
-@$|$@ @{\tt [ 式, 式, \ldots, 式 ]}@
 @$|$@ @\ao{\tt [ 式 for 名前 in range(式, 式) ]}@
 \end{lstlisting}
 
