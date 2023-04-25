@@ -2,7 +2,9 @@
 # compile
 #
 nb_srcs  := 
-nb_srcs  += $(wildcard nb_src/source/pmp11_*/*.py)
+nb_srcs  += $(wildcard nb_src/source/pmp??_*/*.py)
+
+aux_srcs := 
 
 users_csv := ldap_users_taulec.csv
 
