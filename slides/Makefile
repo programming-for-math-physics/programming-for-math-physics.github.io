@@ -13,7 +13,7 @@ run_bibtex_and_latex_twice:=n
 
 # tex files
 #tex := fy_guidance.tex intro.tex learn_python.tex howto.tex visual_numpy_matplotlib.tex ode_pde.tex rigid_body.tex 
-tex := $(wildcard learn*.tex)
+tex := $(wildcard intro.tex)
 # $(wildcard *.tex)
 
 # learn_python.tex intro.tex
