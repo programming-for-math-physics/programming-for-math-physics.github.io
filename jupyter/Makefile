@@ -2,7 +2,7 @@
 # compile
 #
 nb_srcs  := 
-nb_srcs  += $(wildcard nb_src/source/pmp??_*/*.py)
+nb_srcs  += $(wildcard nb_src/source/pmp00_*/*.py)
 
 aux_srcs := 
 
