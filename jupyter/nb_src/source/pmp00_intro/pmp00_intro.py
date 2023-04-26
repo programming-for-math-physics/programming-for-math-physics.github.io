@@ -115,15 +115,15 @@ print(scipy.optimize.minimize(f, (0.5, 0.5)))
 # VPython で3Dグラフィクス・アニメーションができる
 
 * 以下を実行して, 黒い空間に大きな白い球が現れたら成功
-* だが, 未だ解明できていない原因により, 何も表示されない, 黒い空間だけが表示されるなど, <font color="red">動作がとても怪しい</font>
-* うまく表示されなかったら以下をやってみてください ((詳細)[https://pmp.eidos.ic.i.u-tokyo.ac.jp/html/jupyter.html#when_something_went_wrong])
+* だが, 未だ解明できていない原因により, 何も表示されない, 黒い空間だけが表示されることがあるなど, <font color="red">動作がとても怪しい</font>
+* うまく表示されなかったら以下をやってみてください ([詳細](https://pmp.eidos.ic.i.u-tokyo.ac.jp/html/jupyter.html#when_something_went_wrong))
   * メニューの Kernel -&gt; Restart Kernel
   * メニューの File Kernel -&gt; Hub Control Panel -&gt; Restart Kernel -&gt; Stop My Server -&gt; Start My Server
 * ただしそれでもうまく行くとは限らない. その場合は今日のところは放っておいてください
 
 * 以下でsphere() の変わりに helix() とすると, バネのようなもの画表示される
 * 球はダメでなぜかバネなら表示されるなんてこともある
-* どんなものが表示できるかは (このページ)[https://www.glowscript.org/docs/VPythonDocs/index.html] の, 左のメニュー (Choose a 3D object) にあるので試してみてください
+* どんなものが表示できるかは [このページ](https://www.glowscript.org/docs/VPythonDocs/index.html) の, 左のメニュー (Choose a 3D object) にあるので試してみてください
 
 """
 
